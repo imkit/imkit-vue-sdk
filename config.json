@@ -1,0 +1,17 @@
+{
+  "domain": "https://imkit-dev.funtek.io",
+  "clientKey": "fangho_imkit_0412_2018_001_clientkey",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhvMiIsImV4cCI6MTcxMDEzMjc3NiwiaWF0IjoxNjc4NTk2Nzc2fQ.M57AQxOvzw6UqnNjeMC51MePAKHCxD9y5UErpOQ3dVM",
+  "translationApiKey": "AIzaSyB3t1p6ig_D4S6oV-WzIsLxXtT35O-3OhE",
+  "mapApiKey": "AIzaSyC1XhSZ_MVbnZAtYNV-0PwRn7rILnOcZV4",
+  "firebaseConfig": {
+    "apiKey": "AIzaSyDH6fgpRFaH7vIqAcGQi48wgvNf8BJ9q1I",
+    "authDomain": "fir-chat-server.firebaseapp.com",
+    "databaseURL": "https://fir-chat-server.firebaseio.com",
+    "projectId": "fir-chat-server",
+    "storageBucket": "fir-chat-server.appspot.com",
+    "messagingSenderId": "970263218499",
+    "appId": "1:970263218499:web:cf2db5b6ba042a9a4247f6"
+  },
+  "firebaseVapidKey": "BEcbM6I41PAJDlJbS0pAYhbjugsD4BY4E-apKrSqBcmy7WODyFGxv90PrPhoXGf1DVHIdldBUR1Onmva5grnq-g"
+}
