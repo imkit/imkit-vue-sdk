@@ -2,6 +2,23 @@
 
 This guide will walk you through the process of deploying and integrating the `imkit-vue-sdk` into your web application. You can deploy the SDK on a cloud hosting service, such as Firebase Hosting or Netlify, a local web server, or along with your frontend folder under your NGINX.
 
+## Create Chat Server
+
+Before initializing IMKit, you need to have two things ready.
+
+    1. client key
+    2. chat server url
+
+You can get these private values from our dashboard.
+
+> Dashboard: https://dashboard.imkit.io/ > ![](https://i.imgur.com/Q9J0tqG.png)
+
+(In order to continue this tutorial, please check out our dashboard if you don't have these values.)
+
+> Dashboard intro: https://hackmd.io/B2ARb__GQ2SJeLOxuL8sLg
+
+(Please check out the How to get client key tutorial)
+
 ## Configuration
 
 In the root directory, the `config.json` file should be set with the following parameters:
@@ -14,6 +31,14 @@ In the root directory, the `config.json` file should be set with the following p
 
 The `config.json` file also includes Firebase configuration parameters under `firebaseConfig` and `firebaseVapidKey`.
 
+Note: You can fetch a test token by performing a POST request to your server. Replace "your_uid" with your actual user ID in the following command:
+
+```bash
+curl -X POST 'https://imkit-dev.funtek.io/auths/sign/v2' \
+-H 'Content-Type: application/json' \
+-H 'IM-CLIENT-KEY: fangho_imkit_0412_2018_001_clientkey' \
+-d '{"id": "your_uid"}'
+```
 ## Deployment
 
 ### Firebase Hosting
