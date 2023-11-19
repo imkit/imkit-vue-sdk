@@ -21,7 +21,9 @@
     "emojiInputEnabled": true,
     "stickerInputEnabled": true,
     "sendButtonEnabled": true,
-    "roomInfoButtonEnabled": true
+    "roomInfoButtonEnabled": true,
+    "autoSelectRoomWhenLoaded": true,
+    "customRoomInfoIframeUrl": "custom.html"
   },
   "styles": {
     "incomingMessageCell": "",

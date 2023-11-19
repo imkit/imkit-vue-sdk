@@ -12,14 +12,14 @@ firebase.initializeApp({
   projectId: 'fir-chat-server',
   storageBucket: 'fir-chat-server.appspot.com',
   messagingSenderId: '970263218499',
-  appId: '1:970263218499:web:cf2db5b6ba042a9a4247f6',
+  appId: '1:970263218499:web:cf2db5b6ba042a9a4247f6'
 })
 self.addEventListener('notificationclick', (event) => {
   event.notification.close()
   event.waitUntil(
     clients
       .matchAll({
-        type: 'window',
+        type: 'window'
       })
       .then((clientList) => {
         for (const client of clientList) {
