@@ -21,9 +21,11 @@
     "emojiInputEnabled": true,
     "stickerInputEnabled": true,
     "sendButtonEnabled": true,
-    "roomInfoButtonEnabled": true,
+    "showDirectChatRoomInfoButton": true,
+    "showGroupChatRoomInfoButton": true,
     "autoSelectRoomWhenLoaded": true,
-    "customRoomInfoIframeUrl": "custom.html"
+    "customRoomInfoIframeUrl": "custom.html",
+    "showLeaveRoomButton": true
   },
   "styles": {
     "incomingMessageCell": "",
