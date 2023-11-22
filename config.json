@@ -25,10 +25,12 @@
     "showGroupChatRoomInfoButton": true,
     "autoSelectRoomWhenLoaded": true,
     "customRoomInfoIframeUrl": "custom.html",
-    "showLeaveRoomButton": true
+    "showLeaveRoomButton": true,
+    "massTextingEnabled": true
   },
   "styles": {
     "incomingMessageCell": "",
-    "outgoingMessageCell": ""
+    "outgoingMessageCell": "",
+    "roomListUnreadBadge": ""
   }
 }
