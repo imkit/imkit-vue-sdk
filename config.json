@@ -27,11 +27,16 @@
     "autoSelectRoomWhenLoaded": true,
     "customRoomInfoIframeUrl": "",
     "showLeaveRoomButton": true,
-    "massTextingEnabled": true
+    "massTextingEnabled": true,
+    "showDarkModeSwitch": true,
+    "enableReadReceipt": true
   },
   "styles": {
     "incomingMessageCell": "",
     "outgoingMessageCell": "",
-    "roomListUnreadBadge": ""
+    "roomListUnreadBadge": "",
+    "chatRoomHeader": "",
+    "sendButtonEnabled": "",
+    "sendButtonDisabled": ""
   }
 }
