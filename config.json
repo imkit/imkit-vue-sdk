@@ -29,7 +29,8 @@
     "showLeaveRoomButton": true,
     "massTextingEnabled": true,
     "showDarkModeSwitch": true,
-    "enableReadReceipt": true
+    "enableReadReceipt": true,
+    "linkPreviewEnabled": true
   },
   "styles": {
     "incomingMessageCell": "",
