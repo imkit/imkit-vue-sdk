@@ -30,7 +30,8 @@
     "massTextingEnabled": true,
     "showDarkModeSwitch": true,
     "enableReadReceipt": true,
-    "linkPreviewEnabled": true
+    "linkPreviewEnabled": true,
+    "fileUploadSizeLimit": 20000000
   },
   "styles": {
     "incomingMessageCell": "",
