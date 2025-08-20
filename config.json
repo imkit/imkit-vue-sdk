@@ -27,6 +27,7 @@
     "autoSelectRoomWhenLoaded": true,
     "customRoomInfoIframeUrl": "",
     "showLeaveRoomButton": true,
+    "showMemberActionMenu": true,
     "massTextingEnabled": true,
     "showDarkModeSwitch": true,
     "enableReadReceipt": true,
