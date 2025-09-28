@@ -25,14 +25,16 @@
     "showDirectChatRoomInfoButton": true,
     "showGroupChatRoomInfoButton": true,
     "autoSelectRoomWhenLoaded": true,
-    "customRoomInfoIframeUrl": "",
+    "customRoomInfoIframeURL": "",
     "showLeaveRoomButton": true,
     "showMemberActionMenu": true,
     "massTextingEnabled": true,
     "showDarkModeSwitch": true,
     "enableReadReceipt": true,
     "linkPreviewEnabled": true,
-    "fileUploadSizeLimit": 20000000
+    "fileUploadSizeLimit": 20000000,
+    "noRoomsImageURL": "",
+    "noRoomsText": ""
   },
   "styles": {
     "incomingMessageCell": "",
