@@ -34,7 +34,8 @@
     "linkPreviewEnabled": true,
     "fileUploadSizeLimit": 20000000,
     "noRoomsImageURL": "",
-    "noRoomsText": ""
+    "noRoomsText": "",
+    "searchRoomPlaceholder": ""
   },
   "styles": {
     "incomingMessageCell": "",
