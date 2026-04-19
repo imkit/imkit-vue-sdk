@@ -1,1 +1,0 @@
-var e={};throw Error(`Could not resolve "katex" imported by "vue-renderer-markdown". Is it installed?`);export{e as default};
