@@ -33840,7 +33840,10 @@ var eNe = {
 	},
 	async [dm.fetchRoomsInFolders]({ state: e, dispatch: t }) {
 		let n = Object.keys(e.roomIdsInFolders).length;
-		for (; e.numberOfFetchedRooms < n;) await t(dm.fetchRooms, { pageSize: 200 });
+		for (; e.numberOfFetchedRooms < n;) {
+			let n = e.numberOfFetchedRooms, r = e.numberOfTotalRooms;
+			if (await t(dm.fetchRooms, { pageSize: 200 }), e.numberOfFetchedRooms === n && e.numberOfTotalRooms === r) break;
+		}
 		let r = LMe(6), i = Object.keys(e.roomIdsInFolders).filter((t) => !e.rooms[t]).map((e) => r(() => t(dm.fetchRoom, e)));
 		await Promise.allSettled(i);
 	},
