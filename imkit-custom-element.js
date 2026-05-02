@@ -30784,24 +30784,32 @@ var NAe = {
 		if (this.isRequesting[gm.FetchRooms]) return;
 		let { numberOfFetchedRooms: t } = this, n = tm();
 		if (t === this.numberOfTotalRooms && t > 0) return;
-		let r = e === void 0 ? Math.min(Math.max(30, t), 120) : e, { data: { result: i } } = await Cm().get(gm.FetchRooms, { params: {
+		let r = this.roomTag, i = e === void 0 ? Math.min(Math.max(30, t), 120) : e, { data: { result: a } } = await Cm().get(gm.FetchRooms, { params: {
 			skip: t,
-			limit: r,
-			q: this.roomTag ? `{ "members": "${n}", "roomTags": "${this.roomTag}" }` : `{ "members": "${n}" }`,
+			limit: i,
+			q: r ? `{ "members": "${n}", "roomTags": "${r}" }` : `{ "members": "${n}" }`,
 			sort: this.sortBy,
 			sortUnreadFirst: this.sortUnreadFirst
-		} }), { data: a, totalCount: o } = i, s = {}, l = {}, u = [];
-		for (let e of a) {
+		} });
+		if (this.roomTag !== r) {
+			console.warn("[fetchRooms] roomTag changed during fetch, discarding stale result", {
+				was: r,
+				now: this.roomTag
+			});
+			return;
+		}
+		let { data: o, totalCount: s } = a, l = {}, u = {}, d = [];
+		for (let e of o) {
 			let t = new hm(e, n);
-			s[e._id] = t, u.push(t), e.members.flatMap((e) => Array.isArray(e.members) ? [...e.members, e] : [e]).forEach((e) => {
-				l[e.id] || (l[e.id] = new nm(e));
+			l[e._id] = t, d.push(t), e.members.flatMap((e) => Array.isArray(e.members) ? [...e.members, e] : [e]).forEach((e) => {
+				u[e.id] || (u[e.id] = new nm(e));
 			});
 		}
-		return Hm(this, "rooms", s), Vm(this, l), this.$patch({
-			numberOfTotalRooms: o,
-			numberOfFetchedRooms: t + r,
-			sortedRooms: [...this.sortedRooms, ...u]
-		}), await this.aggregateRoomsAndFolders(), u;
+		return Hm(this, "rooms", l), Vm(this, u), this.$patch({
+			numberOfTotalRooms: s,
+			numberOfFetchedRooms: t + i,
+			sortedRooms: [...this.sortedRooms, ...d]
+		}), await this.aggregateRoomsAndFolders(), d;
 	},
 	async fetchRoom(e) {
 		await (0, Rme.coalesceAsync)(`fetchRoom:${e}`, async () => {
@@ -30934,10 +30942,7 @@ var NAe = {
 		let { message: t, mentions: n } = e;
 		if (await TAe(this, t)) return;
 		let r = this.rooms[t.roomId];
-		if (!r) {
-			await this.fetchRoom(t.roomId);
-			return;
-		}
+		if (!r && (await this.fetchRoom(t.roomId), r = this.rooms[t.roomId], !r)) return;
 		let i = tm();
 		EAe(this, t.senderId);
 		let { id: a, numberOfUnread: o } = r, s = t.roomId === this.selectedRoomId, l = !r.lastMessage || t.createdAt >= r.lastMessage.createdAt;
@@ -31007,9 +31012,8 @@ var NAe = {
 				let n = this.folders[r.key] || new sl(r.key, r.name, []);
 				e[r.key] = n, t.push(r.key);
 			}
-			this.$patch({
-				folders: e,
-				sortedFolderIds: t
+			this.$patch((n) => {
+				n.folders = e, n.sortedFolderIds = t;
 			});
 		} else {
 			let e = this.folders[t];
@@ -194364,7 +194368,7 @@ var eIn = /* @__PURE__ */ fh(/* @__PURE__ */ er({
 			_: 1
 		}));
 	}
-}), [["__scopeId", "data-v-e5fb1ea4"]]), tIn = "1.114.0";
+}), [["__scopeId", "data-v-e5fb1ea4"]]), tIn = "1.115.0";
 //#endregion
 //#region src/components/VersionModal.vue?vue&type=script&setup=true&lang.ts
 io();
