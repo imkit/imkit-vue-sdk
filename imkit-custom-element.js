@@ -200019,13 +200019,13 @@ var gVn = async (e, t, n) => {
 	}), vVn(e, n);
 } };
 uo(), Yp();
-var J9 = "imkit-chat-room", Y9 = "imkit-room-list", bVn = "imkit-chat-room-info", xVn = "imkit-modals-container", SVn = "imkit-ce-slot-default", CVn = "token", wVn = "api-base-url", TVn = "client-key", EVn = "room-id", X9 = "room-tag", DVn = "theme", OVn = [
-	CVn,
+var J9 = "imkit-chat-room", Y9 = "imkit-room-list", bVn = "imkit-chat-room-info", xVn = "imkit-modals-container", SVn = "imkit-ce-slot-default", CVn = "imkit-ce-slot-", wVn = "token", TVn = "api-base-url", EVn = "client-key", DVn = "room-id", X9 = "room-tag", OVn = "theme", kVn = [
 	wVn,
 	TVn,
+	EVn,
 	X9,
-	DVn
-], kVn = [...OVn, EVn], AVn = () => ({
+	OVn
+], AVn = [...kVn, DVn], jVn = () => ({
 	paymentEnabled: !1,
 	linePayEnabled: !1,
 	stripeEnabled: !1,
@@ -200048,14 +200048,14 @@ var J9 = "imkit-chat-room", Y9 = "imkit-room-list", bVn = "imkit-chat-room-info"
 	showDarkModeSwitch: !1,
 	enableReadReceipt: !0,
 	linkPreviewEnabled: !0
-}), jVn = () => ({
+}), MVn = () => ({
 	incomingMessageCell: "",
 	outgoingMessageCell: "",
 	roomListUnreadBadge: "",
 	chatRoomHeader: "",
 	sendButtonEnabled: "",
 	sendButtonDisabled: ""
-}), MVn = () => ({
+}), NVn = () => ({
 	onMessageReceived: () => {},
 	onMessageSent: () => {},
 	flexMessageInputSubmitted: () => {},
@@ -200064,24 +200064,24 @@ var J9 = "imkit-chat-room", Y9 = "imkit-room-list", bVn = "imkit-chat-room-info"
 	onPaymentRequestCreated: async () => {},
 	onPaymentDetailFetched: () => Promise.reject(/* @__PURE__ */ Error("onPaymentDetailFetched not configured")),
 	onPaymentDetailUrlGenerated: () => Promise.reject(/* @__PURE__ */ Error("onPaymentDetailUrlGenerated not configured"))
-}), NVn = (e, t) => ({
-	domain: e[wVn] ?? "",
-	clientKey: e[TVn] ?? "",
-	token: e[CVn] ?? "",
+}), PVn = (e, t) => ({
+	domain: e[TVn] ?? "",
+	clientKey: e[EVn] ?? "",
+	token: e[wVn] ?? "",
 	translationApiKey: "",
 	mapApiKey: "",
 	firebaseConfig: null,
 	firebaseVapidKey: void 0,
-	settings: AVn(),
-	styles: jVn(),
-	callbacks: MVn(),
+	settings: jVn(),
+	styles: MVn(),
+	callbacks: NVn(),
 	...t
-}), Z9, PVn = !1, Q9 = 0, FVn = () => (Z9 || (Z9 = mse({})), Z9), IVn = () => {
+}), Z9, FVn = !1, Q9 = 0, IVn = () => (Z9 || (Z9 = mse({})), Z9), LVn = () => {
 	if (Q9 = Math.max(0, Q9 - 1), !(Q9 > 0 || !Z9)) {
 		try {
 			(Z9.state.imkit?.socket)?.disconnect();
 		} catch {}
-		Z9 = void 0, PVn = !1;
+		Z9 = void 0, FVn = !1;
 	}
 }, $9 = class extends HTMLElement {
 	constructor(...e) {
@@ -200100,7 +200100,7 @@ var J9 = "imkit-chat-room", Y9 = "imkit-room-list", bVn = "imkit-chat-room-info"
 		return this._imkitReady;
 	}
 	connectedCallback() {
-		this.app || (this.themeState.theme = this.getAttribute(DVn), this.mount());
+		this.app || (this.themeState.theme = this.getAttribute(OVn), this.mount());
 	}
 	disconnectedCallback() {
 		this.unmount();
@@ -200109,16 +200109,16 @@ var J9 = "imkit-chat-room", Y9 = "imkit-room-list", bVn = "imkit-chat-room-info"
 		if (t === n) return;
 		let r = this.store;
 		switch (e) {
-			case DVn:
+			case OVn:
 				this.themeState.theme = n;
 				break;
-			case EVn:
+			case DVn:
 				r && r.commit("imkit/setState", { selectedRoomId: n ?? "" });
 				break;
 			case X9:
 				r && r.commit("imkit/setRoomTag", n ?? "");
 				break;
-			case CVn:
+			case wVn:
 				if (r) {
 					if (r.state.imkit.config?.token === n) break;
 					r.commit("imkit/updateField", {
@@ -200129,28 +200129,36 @@ var J9 = "imkit-chat-room", Y9 = "imkit-room-list", bVn = "imkit-chat-room-info"
 					e && (e.disconnect(), e.connect());
 				}
 				break;
-			case wVn:
 			case TVn:
+			case EVn:
 				console.warn(`[${this.getElementLabel()}] ${e} changed at runtime; ignored. Set this attribute once before the element first connects.`);
 				break;
 		}
 	}
 	currentAttrs() {
 		let e = {};
-		for (let t of kVn) {
+		for (let t of AVn) {
 			let n = this.getAttribute(t);
 			n !== null && (e[t] = n);
 		}
 		return e;
 	}
 	mount() {
-		let e = NVn(this.currentAttrs(), this.overrides), t = FVn(), n = this.getAttribute(EVn) ?? "", r = this.getAttribute(X9) ?? "", i = this.themeState, a = this.chatStyleState, o = this.getRootComponent(), s = this.includesInlineModals(), l = this.hideRootWhenNoSelectedRoom(), u = Array.from(this.childNodes), d = /* @__PURE__ */ Jn({
+		let e = PVn(this.currentAttrs(), this.overrides), t = IVn(), n = this.getAttribute(DVn) ?? "", r = this.getAttribute(X9) ?? "", i = this.themeState, a = this.chatStyleState, o = this.getRootComponent(), s = this.includesInlineModals(), l = this.hideRootWhenNoSelectedRoom(), u = /* @__PURE__ */ new Map();
+		for (let e of Array.from(this.childNodes)) {
+			let t = "default";
+			e.nodeType === Node.ELEMENT_NODE && e.hasAttribute("slot") && (t = e.getAttribute("slot") || "default");
+			let n = u.get(t);
+			n ? n.push(e) : u.set(t, [e]);
+		}
+		let d = /* @__PURE__ */ Jn({
 			name: "IMKitElementCE",
 			setup() {
 				let e = o ? Dt(o) : null, t = Dt(yoe), n = Go(), r = W(() => e ? l ? !!n.state.imkit?.selectedRoomId : !0 : !1), d = () => {
-					if (u.length === 0) return;
-					let e = f.querySelector("." + SVn);
-					if (e) for (let t of u) t !== f && t.parentNode !== e && e.appendChild(t);
+					if (u.size !== 0) for (let [e, t] of u) {
+						let n = e === "default" ? SVn : `${CVn}${e}`, r = f.querySelector("." + n);
+						if (r) for (let e of t) e !== f && e.parentNode !== r && r.appendChild(e);
+					}
 				};
 				Ii(() => requestAnimationFrame(d)), Ri(() => requestAnimationFrame(d));
 				let p = () => {
@@ -200160,7 +200168,14 @@ var J9 = "imkit-chat-room", Y9 = "imkit-room-list", bVn = "imkit-chat-room-info"
 					let n = [];
 					if (r.value && e) {
 						let t = { onGoBack: p };
-						a.chatStyle != null && (t.chatStyle = a.chatStyle), n.push(Jr(e, t, { default: () => Jr("div", { class: `${SVn} w-full min-w-0` }) }));
+						a.chatStyle != null && (t.chatStyle = a.chatStyle);
+						let r = { default: () => Jr("div", { class: `${SVn} w-full min-w-0` }) };
+						for (let e of u.keys()) {
+							if (e === "default") continue;
+							let t = `${CVn}${e}`;
+							r[e] = () => Jr("div", { class: `${t} w-full min-w-0` });
+						}
+						n.push(Jr(e, t, r));
 					}
 					return s && n.push(Jr(t)), Jr("div", { class: ["imkit-element-ce relative h-full w-full", i.theme === "dark" ? "dark" : ""] }, n);
 				};
@@ -200170,7 +200185,7 @@ var J9 = "imkit-chat-room", Y9 = "imkit-room-list", bVn = "imkit-chat-room-info"
 		let p = lo(d);
 		p.use(t);
 		let m;
-		PVn ? (vVn(p, t), m = Promise.resolve()) : (PVn = !0, m = Promise.resolve(yVn.install(p, {
+		FVn ? (vVn(p, t), m = Promise.resolve()) : (FVn = !0, m = Promise.resolve(yVn.install(p, {
 			store: t,
 			config: e
 		}))), m.then(() => {
@@ -200186,7 +200201,7 @@ var J9 = "imkit-chat-room", Y9 = "imkit-room-list", bVn = "imkit-chat-room-info"
 		} catch (e) {
 			console.warn(`[${this.getElementLabel()}] unmount error:`, e);
 		}
-		this.mountPoint?.remove(), this.mountPoint = void 0, this.app = void 0, this.store = void 0, IVn();
+		this.mountPoint?.remove(), this.mountPoint = void 0, this.app = void 0, this.store = void 0, LVn();
 	}
 	bridgeStoreEvents(e) {
 		let t = e.state.imkit.selectedRoomId;
@@ -200225,9 +200240,9 @@ var J9 = "imkit-chat-room", Y9 = "imkit-room-list", bVn = "imkit-chat-room-info"
 	getStore() {
 		return this.store;
 	}
-}, LVn = class extends $9 {
+}, RVn = class extends $9 {
 	static get observedAttributes() {
-		return kVn;
+		return AVn;
 	}
 	getRootComponent() {
 		return dRn;
@@ -200246,9 +200261,9 @@ var J9 = "imkit-chat-room", Y9 = "imkit-room-list", bVn = "imkit-chat-room-info"
 			content: e
 		});
 	}
-}, RVn = class extends $9 {
+}, zVn = class extends $9 {
 	static get observedAttributes() {
-		return OVn;
+		return kVn;
 	}
 	getRootComponent() {
 		return $Bn;
@@ -200261,9 +200276,9 @@ var J9 = "imkit-chat-room", Y9 = "imkit-room-list", bVn = "imkit-chat-room-info"
 			console.warn(`[${Y9}] fetchRooms error:`, e);
 		});
 	}
-}, zVn = class extends $9 {
+}, BVn = class extends $9 {
 	static get observedAttributes() {
-		return kVn;
+		return AVn;
 	}
 	getRootComponent() {
 		return QRn;
@@ -200277,9 +200292,9 @@ var J9 = "imkit-chat-room", Y9 = "imkit-room-list", bVn = "imkit-chat-room-info"
 	hideRootWhenNoSelectedRoom() {
 		return !0;
 	}
-}, BVn = class extends $9 {
+}, VVn = class extends $9 {
 	static get observedAttributes() {
-		return OVn;
+		return kVn;
 	}
 	getRootComponent() {
 		return null;
@@ -200291,8 +200306,8 @@ var J9 = "imkit-chat-room", Y9 = "imkit-room-list", bVn = "imkit-chat-room-info"
 		return !0;
 	}
 };
-typeof window < "u" && typeof customElements < "u" && (customElements.get("imkit-chat-room") || customElements.define(J9, LVn), customElements.get("imkit-room-list") || customElements.define(Y9, RVn), customElements.get("imkit-chat-room-info") || customElements.define(bVn, zVn), customElements.get("imkit-modals-container") || customElements.define(xVn, BVn));
+typeof window < "u" && typeof customElements < "u" && (customElements.get("imkit-chat-room") || customElements.define(J9, RVn), customElements.get("imkit-room-list") || customElements.define(Y9, zVn), customElements.get("imkit-chat-room-info") || customElements.define(bVn, BVn), customElements.get("imkit-modals-container") || customElements.define(xVn, VVn));
 //#endregion
-export { J9 as CHAT_ROOM_ELEMENT_NAME, bVn as CHAT_ROOM_INFO_ELEMENT_NAME, LVn as ChatRoomElement, LVn as default, zVn as ChatRoomInfoElement, xVn as MODALS_CONTAINER_ELEMENT_NAME, BVn as ModalsContainerElement, Y9 as ROOM_LIST_ELEMENT_NAME, RVn as RoomListElement };
+export { J9 as CHAT_ROOM_ELEMENT_NAME, bVn as CHAT_ROOM_INFO_ELEMENT_NAME, RVn as ChatRoomElement, RVn as default, BVn as ChatRoomInfoElement, xVn as MODALS_CONTAINER_ELEMENT_NAME, VVn as ModalsContainerElement, Y9 as ROOM_LIST_ELEMENT_NAME, zVn as RoomListElement };
 
 //# sourceMappingURL=imkit-custom-element.js.map
