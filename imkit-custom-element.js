@@ -200045,7 +200045,7 @@ var J9 = "imkit-chat-room", Y9 = "imkit-room-list", xVn = "imkit-chat-room-info"
 ], jVn = [...AVn, OVn], MVn = () => {
 	try {
 		let e = new URL(import.meta.url);
-		return typeof location < "u" && e.origin === location.origin ? "" : new URL("./public/", e).href;
+		return typeof location < "u" && e.origin === location.origin ? "" : new URL("./", e).href;
 	} catch {
 		return "";
 	}
