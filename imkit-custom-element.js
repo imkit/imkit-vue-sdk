@@ -193625,6 +193625,7 @@ var VFn = {
 			customsEmbedded: !1,
 			hasComposition: !1,
 			atwho: null,
+			openPanelRequestId: 0,
 			panelJustOpened: !1
 		};
 	},
@@ -193781,27 +193782,28 @@ var VFn = {
 			}
 		},
 		closePanel() {
-			this.atwho && (this.atwho = null);
+			this.openPanelRequestId += 1, this.atwho && (this.atwho = null);
 		},
 		openPanel(e, t, n, r) {
-			let i = !this.atwho, a = () => {
-				let a = t.cloneRange();
-				a.setStart(a.endContainer, n + r.length);
-				let o = a.getClientRects()[0];
+			let i = this.openPanelRequestId += 1, a = !this.atwho, o = () => {
+				if (i !== this.openPanelRequestId) return;
+				let o = t.cloneRange();
+				o.setStart(o.endContainer, n + r.length);
+				let s = o.getClientRects()[0];
 				this.atwho = {
 					range: t,
 					offset: n,
 					list: e,
-					x: o.left,
-					y: o.top - 4,
+					x: s.left,
+					y: s.top - 4,
 					cur: 0
-				}, i && this.$nextTick(() => {
+				}, a && this.$nextTick(() => {
 					setTimeout(() => {
 						this.panelJustOpened = !1;
 					}, 50);
 				});
 			};
-			this.atwho ? a() : (this.panelJustOpened = !0, setTimeout(a, 10));
+			this.atwho ? o() : (this.panelJustOpened = !0, setTimeout(o, 10));
 		},
 		scrollToCur() {
 			let { wrap: e } = this.$refs, { cur: t } = this.atwho, n = e.querySelector(`.atwho-li[data-index="${t}"]`), r = n.parentElement.parentElement;
