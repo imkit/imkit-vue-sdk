@@ -1,9 +1,10 @@
 {
   "domain": "https://imkit-dev.funtek.io",
   "clientKey": "fangho_imkit_0412_2018_001_clientkey",
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhvMiIsImV4cCI6MTcxMDEzMjc3NiwiaWF0IjoxNjc4NTk2Nzc2fQ.M57AQxOvzw6UqnNjeMC51MePAKHCxD9y5UErpOQ3dVM",
-  "translationApiKey": "AIzaSyB3t1p6ig_D4S6oV-WzIsLxXtT35O-3OhE",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImhvMiIsImV4cCI6MTc3OTMzNTcyMiwiaWF0IjoxNzc4NzMwOTIyfQ.mI1ohJUNHFthOvVIFBrrxFAqzPmjxKeckx4SsQuByWw",
+  "translationApiKey": "",
   "mapApiKey": "AIzaSyC1XhSZ_MVbnZAtYNV-0PwRn7rILnOcZV4",
+  "mapId": "76f1148d7338b6de1626c3cd",
   "firebaseConfig": {
     "apiKey": "AIzaSyDH6fgpRFaH7vIqAcGQi48wgvNf8BJ9q1I",
     "authDomain": "fir-chat-server.firebaseapp.com",
@@ -32,10 +33,10 @@
     "showDarkModeSwitch": true,
     "enableReadReceipt": true,
     "linkPreviewEnabled": true,
-    "fileUploadSizeLimit": 20000000,
-    "noRoomsImageURL": "",
-    "noRoomsText": "",
-    "searchRoomPlaceholder": ""
+    "fileUploadSizeLimit": 100000000,
+    "searchRoomPlaceholder": "",
+    "showEndChatButton": true,
+    "scrollAnchoringEnabled": false
   },
   "styles": {
     "incomingMessageCell": "",
