@@ -1,1 +1,0 @@
-import{a as e,c as t,d as n,i as r,l as i,n as a,o,r as s,s as c,t as l,u}from"./index-BJooOkxv.js";export{l as DatetimeFormat,a as I18nD,s as I18nInjectionKey,r as I18nN,e as I18nT,o as NumberFormat,c as Translation,t as VERSION,i as createI18n,u as useI18n,n as vTDirective};
