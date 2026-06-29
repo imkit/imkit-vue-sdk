@@ -32340,6 +32340,10 @@ var oj = class extends ij {
 		let e = mj(), t = ZA();
 		return this.name ? this.name : this.memberIdsWithoutMeAndMyGroup.length === 0 ? qA.global.t("emptyChat") : this.type == "direct" ? this.extra.guestId ? e[this.extra.guestId]?.nickname ?? "" : this.memberIdsWithoutMeAndMyGroup.map((t) => e[t])[0]?.nickname ?? "" : this.isGroup ? this.memberIds.filter((e) => e !== t && e !== "BOT" && !e.endsWith("_sub")).map((t) => e[t]?.nickname ?? "").filter((e) => e.length > 0).join(", ") : "";
 	}
+	get linkName() {
+		let e = typeof this.extra.title == "string" ? this.extra.title : "", t = typeof this.extra.name == "string" ? this.extra.name : "";
+		return e || t;
+	}
 	get avatars() {
 		let e = mj(), t = ZA();
 		return this.coverUrl && this.coverUrl.length > 0 ? [{
@@ -85189,16 +85193,20 @@ var fKe = {
 }, gKe = { class: "flex w-0 min-w-0 grow flex-col text-left" }, _Ke = { class: "flex justify-between gap-2" }, vKe = { class: "flex flex-1 items-center justify-center gap-1 overflow-hidden" }, yKe = { class: "w-full overflow-hidden text-base text-ellipsis whitespace-nowrap text-gray-900 dark:text-gray-100" }, bKe = {
 	key: 0,
 	"data-testid": "room-mute-icon"
-}, xKe = { class: "flex-none text-xs whitespace-nowrap text-gray-500 dark:text-gray-300" }, SKe = { class: "overflow-hidden text-base text-ellipsis whitespace-nowrap text-gray-500 dark:text-gray-400" }, CKe = {
-	key: 1,
-	class: "text-xs text-blue-500 dark:text-blue-400"
-}, wKe = {
+}, xKe = { class: "flex-none text-xs whitespace-nowrap text-gray-500 dark:text-gray-300" }, SKe = {
+	key: 0,
+	"data-testid": "room-link-name",
+	class: "overflow-hidden text-xs text-ellipsis whitespace-nowrap text-gray-400 dark:text-gray-500"
+}, CKe = { class: "overflow-hidden text-base text-ellipsis whitespace-nowrap text-gray-500 dark:text-gray-400" }, wKe = {
 	key: 2,
-	class: "mt-1 flex flex-wrap gap-1"
+	class: "text-xs text-blue-500 dark:text-blue-400"
 }, TKe = {
 	key: 3,
+	class: "mt-1 flex flex-wrap gap-1"
+}, EKe = {
+	key: 4,
 	class: "text-gray-500 dark:text-gray-400"
-}, EKe = { class: "flex flex-col items-stretch gap-1 rounded-lg bg-white p-1.5 text-base text-gray-800 shadow-md dark:bg-zinc-800 dark:text-gray-200" }, DKe = { class: "flex cursor-pointer items-center gap-2 rounded p-2 outline-none hover:bg-gray-100 hover:dark:bg-zinc-700" }, OKe = { class: "flex cursor-pointer items-center gap-2 rounded p-2 outline-none hover:bg-gray-100 hover:dark:bg-zinc-700" }, kKe = { class: "flex cursor-pointer items-center gap-2 rounded p-2 outline-none hover:bg-gray-100 hover:dark:bg-zinc-700" }, AKe = { class: "flex cursor-pointer items-center gap-2 rounded p-2 outline-none hover:bg-gray-100 hover:dark:bg-zinc-700" }, jKe = { class: "flex cursor-pointer items-center gap-2 rounded p-2 outline-none hover:bg-gray-100 hover:dark:bg-zinc-700" }, MKe = { class: "flex cursor-pointer items-center gap-2 rounded p-2 outline-none hover:bg-gray-100 hover:dark:bg-zinc-700" }, NKe = { class: "flex cursor-pointer items-center gap-2 rounded p-2 outline-none hover:bg-gray-100 hover:dark:bg-zinc-700" }, PKe = /* @__PURE__ */ I({
+}, DKe = { class: "flex flex-col items-stretch gap-1 rounded-lg bg-white p-1.5 text-base text-gray-800 shadow-md dark:bg-zinc-800 dark:text-gray-200" }, OKe = { class: "flex cursor-pointer items-center gap-2 rounded p-2 outline-none hover:bg-gray-100 hover:dark:bg-zinc-700" }, kKe = { class: "flex cursor-pointer items-center gap-2 rounded p-2 outline-none hover:bg-gray-100 hover:dark:bg-zinc-700" }, AKe = { class: "flex cursor-pointer items-center gap-2 rounded p-2 outline-none hover:bg-gray-100 hover:dark:bg-zinc-700" }, jKe = { class: "flex cursor-pointer items-center gap-2 rounded p-2 outline-none hover:bg-gray-100 hover:dark:bg-zinc-700" }, MKe = { class: "flex cursor-pointer items-center gap-2 rounded p-2 outline-none hover:bg-gray-100 hover:dark:bg-zinc-700" }, NKe = { class: "flex cursor-pointer items-center gap-2 rounded p-2 outline-none hover:bg-gray-100 hover:dark:bg-zinc-700" }, PKe = { class: "flex cursor-pointer items-center gap-2 rounded p-2 outline-none hover:bg-gray-100 hover:dark:bg-zinc-700" }, FKe = /* @__PURE__ */ I({
 	__name: "RoomCell",
 	props: { source: {} },
 	setup(e) {
@@ -85210,29 +85218,32 @@ var fKe = {
 			if (s.searchKeyword.length > 0 && (s.searchType === _j.RoomName || s.searchType === _j.RoomMember)) return s.searchKeyword;
 		}), u = W(() => {
 			if (s.searchKeyword.length > 0 && (s.searchType === _j.Messages || s.searchType === _j.RoomMember)) return s.searchKeyword;
-		}), d = W(() => s.searchKeyword.length > 0 && s.searchType === _j.RoomMember ? c.value.memberIds.map((e) => s.users[e]).filter((e) => e).map((e) => e.nickname || e.id).join(", ") : s.searchKeyword.length > 0 && s.searchType === _j.Files ? o("foundFiles", { count: s.searchedMessageIds.get(t.source.id)?.length ?? 0 }) : c.value.lastMessage?.previewString(c.value.isGroup)), f = W(() => s.selectedRoomId === t.source.id), p = W(() => !!s.roomIdsInFolders[t.source.id]), m = W(() => s.actionMenuRoomId), h = W(() => s.actionMenuFolderId), g = W(() => s.searchKeyword), _ = W(() => c.value.pref?.sticky ?? !1), v = W(() => c.value.pref?.hidden ?? !1), y = W(() => s.sortedFolderIds), b = /* @__PURE__ */ M(""), x = W(() => {
+		}), d = W(() => s.searchKeyword.length > 0 && s.searchType === _j.RoomMember ? c.value.memberIds.map((e) => s.users[e]).filter((e) => e).map((e) => e.nickname || e.id).join(", ") : s.searchKeyword.length > 0 && s.searchType === _j.Files ? o("foundFiles", { count: s.searchedMessageIds.get(t.source.id)?.length ?? 0 }) : c.value.lastMessage?.previewString(c.value.isGroup)), f = W(() => s.selectedRoomId === t.source.id), p = W(() => !!s.roomIdsInFolders[t.source.id]), m = W(() => s.actionMenuRoomId), h = W(() => s.actionMenuFolderId), g = W(() => s.searchKeyword), _ = W(() => c.value.pref?.sticky ?? !1), v = W(() => c.value.pref?.hidden ?? !1), y = W(() => {
+			let e = c.value.linkName;
+			return e && e !== c.value.displayName ? e : "";
+		}), b = W(() => s.sortedFolderIds), x = /* @__PURE__ */ M(""), S = W(() => {
 			let e = c.value.roomTags ?? [], t = c.value.pref?.tags ?? [];
-			return [...e.filter((e) => e !== b.value), ...t];
+			return [...e.filter((e) => e !== x.value), ...t];
 		});
 		Ho(() => {
 			let e = c.value?.roomTags ?? [];
-			e.length > 0 && (b.value = e[0]);
+			e.length > 0 && (x.value = e[0]);
 		});
-		let S = () => {
+		let C = () => {
 			let { open: e } = Af({
 				component: dKe,
 				attrs: {
 					roomId: t.source.id,
-					roomTag: b.value
+					roomTag: x.value
 				}
 			});
 			e(), s.$patch({ actionMenuRoomId: "" });
-		}, C = W({
+		}, w = W({
 			get: () => m.value === t.source.id,
 			set: (e) => {
 				s.$patch({ actionMenuRoomId: e ? t.source.id : "" });
 			}
-		}), w = async () => {
+		}), T = async () => {
 			if (m.value || h.value) return;
 			s.$patch({
 				selectedRoomId: t.source.id,
@@ -85243,50 +85254,50 @@ var fKe = {
 				messageSearchKeyword: e ? s.searchKeyword : "",
 				isSearchInRoomMode: e
 			});
-		}, T = async () => {
+		}, E = async () => {
 			await s.updateRoomPrefs({
 				roomId: t.source.id,
 				prefs: { sticky: !_.value }
 			});
-		}, E = async () => {
+		}, D = async () => {
 			s.updateRoomPrefs({
 				roomId: t.source.id,
 				prefs: { hidden: !v.value }
 			});
-		}, D = async () => {
+		}, ee = async () => {
 			let { open: e } = Af({
 				component: GGe,
 				attrs: { roomId: t.source.id }
 			});
 			e();
-		}, ee = async () => {
-			await s.removeRoomFromFolder(t.source.id);
 		}, te = async () => {
+			await s.removeRoomFromFolder(t.source.id);
+		}, ne = async () => {
 			let { open: e } = Af({
 				component: BGe,
 				attrs: { roomId: t.source.id }
 			});
 			e();
-		}, ne = /* @__PURE__ */ M(null);
-		Gu(ne, () => {
-			C.value = !C.value;
+		}, re = /* @__PURE__ */ M(null);
+		Gu(re, () => {
+			w.value = !w.value;
 		}, { modifiers: { prevent: !0 } });
-		let re = W(() => s.roomsInSelectedFolder);
+		let ie = W(() => s.roomsInSelectedFolder);
 		return (n, o) => c.value ? (L(), R("div", fKe, [p.value && !g.value ? (L(), R("div", {
 			key: 0,
 			class: k(["absolute left-2 h-[120%] w-1 shrink-0 rounded-full bg-slate-500", {
-				"mt-4 h-full!": re.value[0]?.id === t.source.id,
-				"mb-4 h-full!": re.value[re.value.length - 1]?.id === t.source.id
+				"mt-4 h-full!": ie.value[0]?.id === t.source.id,
+				"mb-4 h-full!": ie.value[ie.value.length - 1]?.id === t.source.id
 			}])
 		}, null, 2)) : V("", !0), B("div", {
 			ref_key: "roomCellRef",
-			ref: ne,
+			ref: re,
 			"data-testid": `room-cell-${c.value.id}`,
 			class: k(["group relative flex min-h-[66px] grow cursor-pointer items-center gap-3 rounded-lg p-2 select-none sm:hover:bg-gray-100 sm:hover:dark:bg-zinc-700", {
 				"bg-gray-100 dark:bg-zinc-700": f.value,
 				"ml-4": p.value && !g.value
 			}]),
-			onClick: w
+			onClick: T
 		}, [
 			B("div", mKe, [c.value.avatars.length === 1 ? (L(), z(gN, {
 				key: 0,
@@ -85311,10 +85322,11 @@ var fKe = {
 					text: c.value.displayName ?? "",
 					highlight: l.value
 				}, null, 8, ["text", "highlight"])]), c.value.muted ? (L(), R("span", bKe, [U(N(QN), { class: "mt-0.5 h-3.5 w-3.5 text-gray-600 dark:text-gray-400" })])) : V("", !0)]), B("div", xKe, j(a.value), 1)]),
+				y.value ? (L(), R("div", SKe, j(y.value), 1)) : V("", !0),
 				r.value.enableReadReceipt ? (L(), R("div", {
-					key: 0,
+					key: 1,
 					class: k(["flex items-center justify-between gap-2", { "text-gray-800": c.value.numberOfUnread > 0 }])
-				}, [B("div", SKe, [U(w9, {
+				}, [B("div", CKe, [U(w9, {
 					text: d.value ?? "",
 					highlight: u.value
 				}, null, 8, ["text", "highlight"])]), c.value.numberOfUnread > 0 && !f.value ? (L(), R("div", {
@@ -85323,20 +85335,20 @@ var fKe = {
 					class: "flex h-5 min-w-5 items-center justify-center rounded-full bg-blue-400 px-1.5 text-center text-xs leading-none font-semibold text-white",
 					style: O(i.value.roomListUnreadBadge)
 				}, j(c.value.numberOfUnread > 99 ? "99+" : c.value.numberOfUnread), 5)) : V("", !0)], 2)) : V("", !0),
-				c.value.isMentioned && c.value.numberOfUnread > 0 && !f.value ? (L(), R("div", CKe, j(n.$t("youWereMentioned")), 1)) : V("", !0),
-				c.value.pref?.tags ? (L(), R("div", wKe, [(L(!0), R(H, null, mi(x.value, (e) => (L(), R("div", {
+				c.value.isMentioned && c.value.numberOfUnread > 0 && !f.value ? (L(), R("div", wKe, j(n.$t("youWereMentioned")), 1)) : V("", !0),
+				c.value.pref?.tags ? (L(), R("div", TKe, [(L(!0), R(H, null, mi(S.value, (e) => (L(), R("div", {
 					key: e,
 					class: "overflow-hidden rounded-md bg-blue-400 px-1 py-0.5 text-xs text-ellipsis whitespace-nowrap text-white",
 					style: O({ backgroundColor: (c.value.pref?.tagColors || {})[e] })
 				}, j(e), 5))), 128))])) : V("", !0),
-				g.value && N(s).searchType === N(_j).Messages ? (L(), R("div", TKe, j(n.$t("foundMessages", [N(s).searchedMessageIds.get(e.source.id)?.length ?? 0])), 1)) : V("", !0)
+				g.value && N(s).searchType === N(_j).Messages ? (L(), R("div", EKe, j(n.$t("foundMessages", [N(s).searchedMessageIds.get(e.source.id)?.length ?? 0])), 1)) : V("", !0)
 			]),
 			U(N(JZ), {
-				open: C.value,
-				"onUpdate:open": o[2] || (o[2] = (e) => C.value = e)
+				open: w.value,
+				"onUpdate:open": o[2] || (o[2] = (e) => w.value = e)
 			}, {
 				default: P(() => [U(N(YZ), {
-					class: k(["absolute right-4 hidden h-8 w-8 items-center justify-center rounded-full bg-white shadow-md hover:scale-110 hover:transform hover:transition sm:group-hover:flex dark:bg-zinc-800", { "flex!": C.value }]),
+					class: k(["absolute right-4 hidden h-8 w-8 items-center justify-center rounded-full bg-white shadow-md hover:scale-110 hover:transform hover:transition sm:group-hover:flex dark:bg-zinc-800", { "flex!": w.value }]),
 					onClick: o[0] || (o[0] = Pl(() => {}, ["stop"]))
 				}, {
 					default: P(() => [U(N(TN), { class: "h-5 w-5 text-gray-700 dark:text-gray-300" })]),
@@ -85348,19 +85360,19 @@ var fKe = {
 						side: "bottom",
 						"side-offset": 8
 					}, {
-						default: P(() => [B("div", EKe, [
+						default: P(() => [B("div", DKe, [
 							U(N(QZ), {
 								"as-child": "",
-								onSelect: S
+								onSelect: C
 							}, {
-								default: P(() => [B("div", DKe, [U(N(Dge), { class: "h-5 w-5" }), xa(" " + j(n.$t("tag")), 1)])]),
+								default: P(() => [B("div", OKe, [U(N(Dge), { class: "h-5 w-5" }), xa(" " + j(n.$t("tag")), 1)])]),
 								_: 1
 							}),
 							U(N(QZ), {
 								"as-child": "",
-								onSelect: T
+								onSelect: E
 							}, {
-								default: P(() => [B("div", OKe, [_.value ? (L(), z(N(Sge), {
+								default: P(() => [B("div", kKe, [_.value ? (L(), z(N(Sge), {
 									key: 0,
 									class: "h-5 w-5"
 								})) : (L(), z(N(BN), {
@@ -85371,38 +85383,38 @@ var fKe = {
 							}),
 							U(N(QZ), {
 								"as-child": "",
-								onSelect: E
+								onSelect: D
 							}, {
-								default: P(() => [B("div", kKe, [U(N(fge), { class: "h-5 w-5" }), xa(" " + j(v.value ? n.$t("unhide") : n.$t("hide")), 1)])]),
+								default: P(() => [B("div", AKe, [U(N(fge), { class: "h-5 w-5" }), xa(" " + j(v.value ? n.$t("unhide") : n.$t("hide")), 1)])]),
 								_: 1
 							}),
 							U(N(QZ), {
 								"as-child": "",
-								onSelect: D
+								onSelect: ee
 							}, {
-								default: P(() => [B("div", AKe, [U(N(qN), { class: "h-5 w-5" }), xa(" " + j(n.$t("delete")), 1)])]),
+								default: P(() => [B("div", jKe, [U(N(qN), { class: "h-5 w-5" }), xa(" " + j(n.$t("delete")), 1)])]),
 								_: 1
 							}),
 							p.value ? (L(), z(N(QZ), {
 								key: 0,
 								"as-child": "",
-								onSelect: ee
-							}, {
-								default: P(() => [B("div", jKe, [U(N(pge), { class: "h-5 w-5" }), xa(" " + j(n.$t("removeFromFolder")), 1)])]),
-								_: 1
-							})) : y.value.length > 0 ? (L(), z(N(QZ), {
-								key: 1,
-								"as-child": "",
 								onSelect: te
 							}, {
-								default: P(() => [B("div", MKe, [U(N(PN), { class: "h-5 w-5" }), xa(" " + j(n.$t("addToFolder")), 1)])]),
+								default: P(() => [B("div", MKe, [U(N(pge), { class: "h-5 w-5" }), xa(" " + j(n.$t("removeFromFolder")), 1)])]),
+								_: 1
+							})) : b.value.length > 0 ? (L(), z(N(QZ), {
+								key: 1,
+								"as-child": "",
+								onSelect: ne
+							}, {
+								default: P(() => [B("div", NKe, [U(N(PN), { class: "h-5 w-5" }), xa(" " + j(n.$t("addToFolder")), 1)])]),
 								_: 1
 							})) : V("", !0),
 							U(N(QZ), {
 								"as-child": "",
 								onSelect: o[1] || (o[1] = (e) => N(s).toggleNotification(t.source.id))
 							}, {
-								default: P(() => [B("div", NKe, [c.value.muted ? (L(), z(N(ZN), {
+								default: P(() => [B("div", PKe, [c.value.muted ? (L(), z(N(ZN), {
 									key: 0,
 									class: "h-5 w-5"
 								})) : (L(), z(N(QN), {
@@ -85426,11 +85438,11 @@ var fKe = {
 G();
 //#endregion
 //#region src/components/RoomListWrapperCell.vue
-var FKe = /* @__PURE__ */ I({
+var IKe = /* @__PURE__ */ I({
 	__name: "RoomListWrapperCell",
 	props: { source: {} },
 	setup(e) {
-		return (t, n) => e.source instanceof N(hj) ? (L(), z(PKe, {
+		return (t, n) => e.source instanceof N(hj) ? (L(), z(FKe, {
 			key: 0,
 			source: e.source
 		}, null, 8, ["source"])) : (L(), z(IGe, {
@@ -85442,7 +85454,7 @@ var FKe = /* @__PURE__ */ I({
 //#endregion
 //#region src/composables/useRoomSearch.ts
 G();
-function IKe({ fetchTask: e }) {
+function LKe({ fetchTask: e }) {
 	let t = TM(), n = /* @__PURE__ */ M(""), r = /* @__PURE__ */ M(), i = /* @__PURE__ */ M(!1), a = /* @__PURE__ */ M(!1), o = async () => {
 		if (n.value !== t.searchKeyword) if (n.value) {
 			a.value = !0;
@@ -85467,7 +85479,7 @@ function IKe({ fetchTask: e }) {
 //#endregion
 //#region src/composables/useRoomSort.ts
 G();
-function LKe() {
+function RKe() {
 	let e = TM(), t = /* @__PURE__ */ M("time"), n = /* @__PURE__ */ M(!1), r = /* @__PURE__ */ M(!0), i = () => "-lastMessage", a = () => +(t.value === "unread"), o = () => {
 		let t = /* @__PURE__ */ new Set();
 		e.selectedRoomId && t.add(e.selectedRoomId);
@@ -85508,10 +85520,10 @@ function LKe() {
 //#endregion
 //#region src/components/MassTextingModal.vue?vue&type=script&setup=true&lang.ts
 G();
-var RKe = { class: "mb-1 flex items-center justify-between text-xl font-medium text-gray-700 dark:text-gray-300" }, zKe = ["placeholder"], BKe = { class: "flex h-[50vh] flex-col" }, VKe = { class: "mb-2 flex h-12 items-center gap-2 rounded-lg bg-gray-100 p-3 dark:bg-zinc-700" }, HKe = { class: "grow overflow-hidden" }, UKe = ["placeholder"], WKe = {
+var zKe = { class: "mb-1 flex items-center justify-between text-xl font-medium text-gray-700 dark:text-gray-300" }, BKe = ["placeholder"], VKe = { class: "flex h-[50vh] flex-col" }, HKe = { class: "mb-2 flex h-12 items-center gap-2 rounded-lg bg-gray-100 p-3 dark:bg-zinc-700" }, UKe = { class: "grow overflow-hidden" }, WKe = ["placeholder"], GKe = {
 	key: 0,
 	class: "flex flex-col gap-1"
-}, GKe = { class: "flex items-center justify-center gap-2" }, KKe = ["disabled"], qKe = /* @__PURE__ */ pN(/* @__PURE__ */ I({
+}, KKe = { class: "flex items-center justify-center gap-2" }, qKe = ["disabled"], JKe = /* @__PURE__ */ pN(/* @__PURE__ */ I({
 	__name: "MassTextingModal",
 	setup(e) {
 		let t = Of(), n = TM(), r = /* @__PURE__ */ M(""), i = (e) => n.selectedRoomIdsForCreateFolder[e], a = (e) => {
@@ -85546,20 +85558,20 @@ var RKe = { class: "mb-1 flex items-center justify-between text-xl font-medium t
 			"overlay-transition": "vfm-fade"
 		}, {
 			default: P(() => [
-				B("div", RKe, j(e.$t("massTexting")), 1),
+				B("div", zKe, j(e.$t("massTexting")), 1),
 				wr(B("textarea", {
 					"onUpdate:modelValue": n[0] || (n[0] = (e) => r.value = e),
 					rows: "3",
 					class: "grow rounded-md bg-gray-100 p-2 placeholder-gray-400 outline-hidden dark:bg-zinc-700",
 					placeholder: e.$t("inputMessage")
-				}, null, 8, zKe), [[Dl, r.value]]),
-				B("div", BKe, [
-					B("div", VKe, [
+				}, null, 8, BKe), [[Dl, r.value]]),
+				B("div", VKe, [
+					B("div", HKe, [
 						U(N(WN), {
 							size: 24,
 							class: "h-6 w-6 cursor-pointer text-gray-600 dark:text-gray-300"
 						}),
-						B("div", HKe, [wr(B("input", {
+						B("div", UKe, [wr(B("input", {
 							ref: "searchInput",
 							"onUpdate:modelValue": n[1] || (n[1] = (e) => c.value = e),
 							class: "bg-gray-100 placeholder-gray-400 outline-hidden dark:bg-zinc-700",
@@ -85567,7 +85579,7 @@ var RKe = { class: "mb-1 flex items-center justify-between text-xl font-medium t
 							onCompositionstart: n[2] || (n[2] = (e) => l.value = !0),
 							onCompositionend: n[3] || (n[3] = (e) => l.value = !1),
 							onBlur: n[4] || (n[4] = (e) => l.value = !1)
-						}, null, 40, UKe), [[Dl, c.value]])]),
+						}, null, 40, WKe), [[Dl, c.value]])]),
 						c.value ? (L(), z(N($N), {
 							key: 0,
 							size: 20,
@@ -85577,7 +85589,7 @@ var RKe = { class: "mb-1 flex items-center justify-between text-xl font-medium t
 							})
 						})) : V("", !0)
 					]),
-					f.value ? (L(), R("div", WKe, [(L(), R(H, null, mi(10, (e) => B("div", {
+					f.value ? (L(), R("div", GKe, [(L(), R(H, null, mi(10, (e) => B("div", {
 						key: e,
 						class: "flex gap-3 p-2"
 					}, [...n[8] || (n[8] = [B("div", { class: "loading h-[34px] w-[34px] rounded-xl" }, null, -1), B("div", { class: "flex grow flex-col justify-center gap-2" }, [B("div", { class: "loading h-3 w-full rounded-md" }), B("div", { class: "loading h-3 w-4/5 rounded-md" })], -1)])])), 64))])) : V("", !0),
@@ -85591,7 +85603,7 @@ var RKe = { class: "mb-1 flex items-center justify-between text-xl font-medium t
 						_: 1
 					}, 8, ["data"])
 				]),
-				B("div", GKe, [B("button", {
+				B("div", KKe, [B("button", {
 					class: "disabled:(bg-blue-200 cursor-not-allowed) h-10 grow rounded-lg border border-gray-200 text-base dark:border-stone-400 dark:text-stone-400",
 					onClick: n[6] || (n[6] = () => {
 						N(t).closeAll();
@@ -85602,7 +85614,7 @@ var RKe = { class: "mb-1 flex items-center justify-between text-xl font-medium t
 					onClick: n[7] || (n[7] = () => {
 						p(), N(t).closeAll();
 					})
-				}, j(e.$t("confirm")), 11, KKe)])
+				}, j(e.$t("confirm")), 11, qKe)])
 			]),
 			_: 1
 		}));
@@ -85611,26 +85623,26 @@ var RKe = { class: "mb-1 flex items-center justify-between text-xl font-medium t
 //#endregion
 //#region src/components/RoomList.vue?vue&type=script&setup=true&lang.ts
 G();
-var JKe = { class: "border-b border-gray-200 p-4 dark:border-zinc-700" }, YKe = { class: "mb-4 flex items-center justify-between" }, XKe = { class: "flex items-center space-x-3" }, ZKe = { class: "flex items-center gap-2" }, QKe = { class: "flex items-center space-x-2" }, $Ke = { class: "relative flex-1" }, eqe = { class: "absolute top-1/2 left-3 flex h-4 w-4 -translate-y-1/2 transform items-center justify-center" }, tqe = ["aria-label", "placeholder"], nqe = ["aria-label"], rqe = { class: "relative" }, iqe = {
+var YKe = { class: "border-b border-gray-200 p-4 dark:border-zinc-700" }, XKe = { class: "mb-4 flex items-center justify-between" }, ZKe = { class: "flex items-center space-x-3" }, QKe = { class: "flex items-center gap-2" }, $Ke = { class: "flex items-center space-x-2" }, eqe = { class: "relative flex-1" }, tqe = { class: "absolute top-1/2 left-3 flex h-4 w-4 -translate-y-1/2 transform items-center justify-center" }, nqe = ["aria-label", "placeholder"], rqe = ["aria-label"], iqe = { class: "relative" }, aqe = {
 	key: 0,
 	class: "absolute top-12 right-0 z-50 min-w-32 overflow-hidden rounded-md border border-gray-200 bg-white p-1 shadow-lg dark:border-zinc-700 dark:bg-zinc-800"
-}, aqe = {
+}, oqe = {
 	key: 0,
 	class: "mx-2 mt-2 flex items-center gap-2 overflow-auto text-base text-gray-900 dark:text-gray-200"
-}, oqe = ["onClick"], sqe = {
+}, sqe = ["onClick"], cqe = {
 	key: 1,
 	class: "flex flex-col gap-1"
-}, cqe = {
+}, lqe = {
 	key: 2,
 	class: "flex h-[80dvh] flex-col items-center justify-center gap-6 px-6 py-12"
-}, lqe = ["src"], uqe = {
+}, uqe = ["src"], dqe = {
 	key: 1,
 	src: nGe,
 	class: "h-24 w-24 object-contain"
-}, dqe = {
+}, fqe = {
 	key: 2,
 	class: "text-center text-base text-gray-500 dark:text-gray-400"
-}, fqe = 100, pqe = /* @__PURE__ */ pN(/* @__PURE__ */ I({
+}, pqe = 100, mqe = /* @__PURE__ */ pN(/* @__PURE__ */ I({
 	__name: "RoomList",
 	setup(e) {
 		let t = TM(), n = Of(), r = yj(), i = /* @__PURE__ */ M(!1), a = /* @__PURE__ */ M(), o = /* @__PURE__ */ M(), s = /* @__PURE__ */ M(320);
@@ -85642,7 +85654,7 @@ var JKe = { class: "border-b border-gray-200 p-4 dark:border-zinc-700" }, YKe = 
 		function l() {
 			i.value || c(), i.value = !i.value;
 		}
-		let { sortType: u, showSortMenu: d, isFirstLoading: f, setSortType: p } = LKe(), m = W(() => t.sortedRooms), h = W(() => t.sortedFolderIds.map((e) => t.folders[e]).filter((e) => e)), g = W(() => t.folders[t.selectedFolderId]), _ = W(() => t.searchType), v = W(() => t.searchKeyword ? Object.values(_j).filter((e) => e in t.searchRooms) : []), y = W(() => t.roomTag), b = W(() => r.settings), x = W(() => ZA()), S = 0, C = null, w = "", T = async () => {
+		let { sortType: u, showSortMenu: d, isFirstLoading: f, setSortType: p } = RKe(), m = W(() => t.sortedRooms), h = W(() => t.sortedFolderIds.map((e) => t.folders[e]).filter((e) => e)), g = W(() => t.folders[t.selectedFolderId]), _ = W(() => t.searchType), v = W(() => t.searchKeyword ? Object.values(_j).filter((e) => e in t.searchRooms) : []), y = W(() => t.roomTag), b = W(() => r.settings), x = W(() => ZA()), S = 0, C = null, w = "", T = async () => {
 			f.value = !0;
 			try {
 				await t.fetchPrefs(), await t.fetchRooms();
@@ -85650,7 +85662,7 @@ var JKe = { class: "border-b border-gray-200 p-4 dark:border-zinc-700" }, YKe = 
 				f.value = !1;
 			}
 			await t.fetchRoomsInFolders();
-		}, { searchKeyword: E, searchInput: D, isCompositting: ee, isAPIRequesting: te, clearSearch: ne } = IKe({ fetchTask: T }), re = W(() => {
+		}, { searchKeyword: E, searchInput: D, isCompositting: ee, isAPIRequesting: te, clearSearch: ne } = LKe({ fetchTask: T }), re = W(() => {
 			if (t.searchKeyword && n.modals.length === 0) {
 				if (_.value === _j.RoomPrefFolder && g.value) {
 					let e = [...t.searchRooms[_.value] || []], n = g.value.roomIds.map((e) => t.rooms[e]).filter((e) => y.value ? e && e.roomTags.includes(y.value) : !!e), r = e.findIndex((e) => e.id === g.value.id);
@@ -85669,7 +85681,7 @@ var JKe = { class: "border-b border-gray-200 p-4 dark:border-zinc-700" }, YKe = 
 		}, ge = (e) => {
 			let t = de.value;
 			if (!t) return;
-			let n = e + t.clientHeight >= t.scrollHeight - fqe;
+			let n = e + t.clientHeight >= t.scrollHeight - pqe;
 			n && !me && he(), me = n;
 		}, _e = () => typeof window < "u" ? window.location.origin : "", ve = () => {
 			if (typeof window > "u") return;
@@ -85687,7 +85699,7 @@ var JKe = { class: "border-b border-gray-200 p-4 dark:border-zinc-700" }, YKe = 
 			let { open: e } = Af({ component: C9 });
 			e();
 		}, we = () => {
-			let { open: e } = Af({ component: qKe });
+			let { open: e } = Af({ component: JKe });
 			e();
 		};
 		F(m, (e) => {
@@ -85721,10 +85733,10 @@ var JKe = { class: "border-b border-gray-200 p-4 dark:border-zinc-700" }, YKe = 
 			ref_key: "headerEl",
 			ref: fe
 		}, [
-			B("div", JKe, [B("div", YKe, [B("div", XKe, [n[9] || (n[9] = B("span", { class: "relative flex h-7 w-7 shrink-0 overflow-hidden rounded-full" }, [B("img", {
+			B("div", YKe, [B("div", XKe, [B("div", ZKe, [n[9] || (n[9] = B("span", { class: "relative flex h-7 w-7 shrink-0 overflow-hidden rounded-full" }, [B("img", {
 				class: "aspect-square h-full w-full object-contain",
 				src: "data:image/png;base64,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"
-			})], -1)), B("div", ZKe, [n[8] || (n[8] = B("h1", { class: "font-semibold text-gray-900 dark:text-gray-100" }, " PinChat ", -1)), wr((L(), R("div", {
+			})], -1)), B("div", QKe, [n[8] || (n[8] = B("h1", { class: "font-semibold text-gray-900 dark:text-gray-100" }, " PinChat ", -1)), wr((L(), R("div", {
 				ref_key: "menuTriggerRef",
 				ref: a,
 				class: "relative"
@@ -85749,8 +85761,8 @@ var JKe = { class: "border-b border-gray-200 p-4 dark:border-zinc-700" }, YKe = 
 				_: 1
 			})])), [[N(J2), () => {
 				i.value = !1;
-			}]])])])]), B("div", QKe, [B("div", $Ke, [
-				B("div", eqe, [ie.value ? (L(), z(rP, { key: 0 })) : (L(), z(N(WN), {
+			}]])])])]), B("div", $Ke, [B("div", eqe, [
+				B("div", tqe, [ie.value ? (L(), z(rP, { key: 0 })) : (L(), z(N(WN), {
 					key: 1,
 					class: "h-4 w-4 text-gray-500"
 				}))]),
@@ -85765,21 +85777,21 @@ var JKe = { class: "border-b border-gray-200 p-4 dark:border-zinc-700" }, YKe = 
 					onCompositionstart: n[1] || (n[1] = (e) => ee.value = !0),
 					onCompositionend: n[2] || (n[2] = (e) => ee.value = !1),
 					onBlur: n[3] || (n[3] = (e) => ee.value = !1)
-				}, null, 40, tqe), [[Dl, N(E)]]),
+				}, null, 40, nqe), [[Dl, N(E)]]),
 				ae.value ? (L(), R("button", {
 					key: 0,
 					class: "absolute inset-y-0 right-3 flex items-center text-gray-400 transition-colors hover:text-gray-600 focus-visible:ring-1 focus-visible:ring-blue-400 focus-visible:outline-none dark:text-gray-100",
 					type: "button",
 					"aria-label": e.$t("clearSearch"),
 					onClick: n[4] || (n[4] = (...e) => N(ne) && N(ne)(...e))
-				}, [U(N($N), { class: "h-4 w-4" })], 8, nqe)) : V("", !0)
-			]), wr((L(), R("div", rqe, [B("button", {
+				}, [U(N($N), { class: "h-4 w-4" })], 8, rqe)) : V("", !0)
+			]), wr((L(), R("div", iqe, [B("button", {
 				class: "ring-offset-background inline-flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center gap-2 rounded-md text-base font-medium whitespace-nowrap text-gray-900 transition-colors hover:bg-gray-100 focus-visible:ring-2 focus-visible:ring-gray-400 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 dark:text-gray-100 dark:hover:bg-zinc-700",
 				type: "button",
 				"aria-label": "Sort rooms",
 				onClick: n[5] || (n[5] = (e) => d.value = !N(d))
 			}, [U(N(cge), { class: "h-4 w-4" })]), U(Yc, { name: "slide-fade" }, {
-				default: P(() => [N(d) ? (L(), R("div", iqe, [B("div", {
+				default: P(() => [N(d) ? (L(), R("div", aqe, [B("div", {
 					class: k(["relative flex cursor-pointer items-center rounded-sm px-2 py-1.5 text-base transition-colors outline-none select-none hover:bg-gray-100 dark:hover:bg-zinc-700", { "bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400": N(u) === "time" }]),
 					onClick: n[6] || (n[6] = (e) => N(p)("time"))
 				}, j(e.$t("sortByTime")), 3), B("div", {
@@ -85790,19 +85802,19 @@ var JKe = { class: "border-b border-gray-200 p-4 dark:border-zinc-700" }, YKe = 
 			})])), [[N(J2), () => {
 				d.value = !1;
 			}]])])]),
-			oe.value ? (L(), R("div", aqe, [(L(!0), R(H, null, mi(v.value, (n) => (L(), R("div", {
+			oe.value ? (L(), R("div", oqe, [(L(!0), R(H, null, mi(v.value, (n) => (L(), R("div", {
 				key: n,
 				class: k(["cursor-pointer rounded-lg p-2 whitespace-nowrap hover:bg-gray-100 hover:dark:bg-white hover:dark:text-gray-900", { "bg-gray-100 font-medium text-gray-800": n === _.value }]),
 				onClick: (e) => N(t).$patch({ searchType: n })
-			}, j(e.$t(n)), 11, oqe))), 128))])) : V("", !0),
-			A.value ? (L(), R("div", sqe, [(L(), R(H, null, mi(20, (e) => B("div", {
+			}, j(e.$t(n)), 11, sqe))), 128))])) : V("", !0),
+			A.value ? (L(), R("div", cqe, [(L(), R(H, null, mi(20, (e) => B("div", {
 				key: e,
 				class: "flex gap-3 p-2"
-			}, [...n[10] || (n[10] = [B("div", { class: "loading h-[50px] w-[50px] rounded-2xl bg-white dark:bg-zinc-800" }, null, -1), B("div", { class: "flex grow flex-col justify-center gap-2" }, [B("div", { class: "loading h-5 w-full rounded-md bg-white dark:bg-zinc-800" }), B("div", { class: "loading h-4 w-4/5 rounded-md bg-white dark:bg-zinc-800" })], -1)])])), 64))])) : se.value ? (L(), R("div", cqe, [ce.value ? (L(), R("img", {
+			}, [...n[10] || (n[10] = [B("div", { class: "loading h-[50px] w-[50px] rounded-2xl bg-white dark:bg-zinc-800" }, null, -1), B("div", { class: "flex grow flex-col justify-center gap-2" }, [B("div", { class: "loading h-5 w-full rounded-md bg-white dark:bg-zinc-800" }), B("div", { class: "loading h-4 w-4/5 rounded-md bg-white dark:bg-zinc-800" })], -1)])])), 64))])) : se.value ? (L(), R("div", lqe, [ce.value ? (L(), R("img", {
 				key: 0,
 				src: b.value.noRoomsImageURL,
 				class: "h-24 w-24 object-contain"
-			}, null, 8, lqe)) : le.value ? (L(), R("img", uqe)) : V("", !0), ue.value ? (L(), R("p", dqe, j(b.value.noRoomsText === void 0 ? e.$t("noRoomsAvailable") : b.value.noRoomsText), 1)) : V("", !0)])) : V("", !0)
+			}, null, 8, uqe)) : le.value ? (L(), R("img", dqe)) : V("", !0), ue.value ? (L(), R("p", fqe, j(b.value.noRoomsText === void 0 ? e.$t("noRoomsAvailable") : b.value.noRoomsText), 1)) : V("", !0)])) : V("", !0)
 		], 512), U(N(Jf), {
 			data: re.value,
 			"scroll-ref": de.value,
@@ -85810,7 +85822,7 @@ var JKe = { class: "border-b border-gray-200 p-4 dark:border-zinc-700" }, YKe = 
 			"item-size": 66,
 			onScroll: ge
 		}, {
-			default: P(({ item: e }) => [U(FKe, { source: e }, null, 8, ["source"])]),
+			default: P(({ item: e }) => [U(IKe, { source: e }, null, 8, ["source"])]),
 			_: 1
 		}, 8, [
 			"data",
@@ -85831,7 +85843,7 @@ function T9(e) {
 function E9(e) {
 	return e.type.indexOf("mouse") === -1 ? e.touches?.[0]?.clientY ?? 0 : e.clientY;
 }
-var mqe = { install(e, t) {
+var hqe = { install(e, t) {
 	var n = Object.assign({}, {
 		touchClass: "",
 		namespace: "touch",
@@ -86024,7 +86036,7 @@ var mqe = { install(e, t) {
 	} }), e.directive(`${n.namespace}-options`, { beforeMount: function(e, t) {
 		g(e, t.value);
 	} });
-} }, hqe = (e, t) => {
+} }, gqe = (e, t) => {
 	xme(e), XA(t), Bme(), IVe();
 };
 //#endregion
@@ -86043,7 +86055,7 @@ function D9(e) {
 	}
 }
 var O9 = null;
-function gqe() {
+function _qe() {
 	O9?.();
 	let e = DM();
 	return O9 = F(() => e.selectedRoomId, (e, t) => {
@@ -86059,8 +86071,8 @@ function gqe() {
 //#endregion
 //#region src/lib.ts
 var k9 = (e) => {
-	e.use(nne()), e.use(qA), e.use(mqe, { disableClick: !1 });
-}, _qe = { install: async (e, t) => {
+	e.use(nne()), e.use(qA), e.use(hqe, { disableClick: !1 });
+}, vqe = { install: async (e, t) => {
 	console.log("IMKIT version:", h9), "store" in t && console.warn("[imkit] options.store is no longer accepted; SDK owns its Pinia store internally.");
 	let { config: n } = t, r = e.config.globalProperties.$pinia, i = r ?? uu();
 	r || e.use(i);
@@ -86071,19 +86083,19 @@ var k9 = (e) => {
 	} catch (e) {
 		console.log(e);
 	}
-	hqe(n, a), rhe(i), gqe(), k9(e);
+	gqe(n, a), rhe(i), _qe(), k9(e);
 } };
 //#endregion
 //#region src/custom-element.ts
 G();
-var A9 = "imkit-chat-room", j9 = "imkit-room-list", M9 = "imkit-chat-room-info", N9 = "imkit-modals-container", vqe = "imkit-ce-slot-", yqe = "default", bqe = (e) => `${vqe}${e}`, P9 = "token", F9 = "api-base-url", I9 = "client-key", L9 = "room-id", R9 = "room-tag", z9 = "theme", B9 = "lang", V9 = [
+var A9 = "imkit-chat-room", j9 = "imkit-room-list", M9 = "imkit-chat-room-info", N9 = "imkit-modals-container", yqe = "imkit-ce-slot-", bqe = "default", xqe = (e) => `${yqe}${e}`, P9 = "token", F9 = "api-base-url", I9 = "client-key", L9 = "room-id", R9 = "room-tag", z9 = "theme", B9 = "lang", V9 = [
 	P9,
 	F9,
 	I9,
 	R9,
 	z9,
 	B9
-], H9 = [...V9, L9], xqe = () => ({
+], H9 = [...V9, L9], Sqe = () => ({
 	paymentEnabled: !1,
 	linePayEnabled: !1,
 	stripeEnabled: !1,
@@ -86106,14 +86118,14 @@ var A9 = "imkit-chat-room", j9 = "imkit-room-list", M9 = "imkit-chat-room-info",
 	enableReadReceipt: !0,
 	linkPreviewEnabled: !0,
 	fixedRoomEnabled: !1
-}), Sqe = () => ({
+}), Cqe = () => ({
 	incomingMessageCell: "",
 	outgoingMessageCell: "",
 	roomListUnreadBadge: "",
 	chatRoomHeader: "",
 	sendButtonEnabled: "",
 	sendButtonDisabled: ""
-}), Cqe = () => ({
+}), wqe = () => ({
 	onMessageReceived: () => {},
 	onMessageSent: () => {},
 	flexMessageInputSubmitted: () => {},
@@ -86122,7 +86134,7 @@ var A9 = "imkit-chat-room", j9 = "imkit-room-list", M9 = "imkit-chat-room-info",
 	onPaymentRequestCreated: async () => {},
 	onPaymentDetailFetched: () => Promise.reject(/* @__PURE__ */ Error("onPaymentDetailFetched not configured")),
 	onPaymentDetailUrlGenerated: () => Promise.reject(/* @__PURE__ */ Error("onPaymentDetailUrlGenerated not configured"))
-}), wqe = (e, t) => ({
+}), Tqe = (e, t) => ({
 	domain: e[F9] ?? "",
 	clientKey: e[I9] ?? "",
 	token: e[P9] ?? "",
@@ -86130,18 +86142,18 @@ var A9 = "imkit-chat-room", j9 = "imkit-room-list", M9 = "imkit-chat-room-info",
 	mapApiKey: "",
 	firebaseConfig: null,
 	firebaseVapidKey: void 0,
-	settings: xqe(),
-	styles: Sqe(),
-	callbacks: Cqe(),
+	settings: Sqe(),
+	styles: Cqe(),
+	callbacks: wqe(),
 	...t
-}), U9, W9, G9 = !1, K9 = 0, Tqe = () => (U9 || (U9 = uu()), U9), Eqe = (e) => (W9 || (W9 = TM(e)), W9), Dqe = () => {
+}), U9, W9, G9 = !1, K9 = 0, Eqe = () => (U9 || (U9 = uu()), U9), Dqe = (e) => (W9 || (W9 = TM(e)), W9), Oqe = () => {
 	if (K9 = Math.max(0, K9 - 1), !(K9 > 0 || !W9)) {
 		try {
 			t9().disconnect();
 		} catch {}
 		U9 = void 0, W9 = void 0, G9 = !1;
 	}
-}, Oqe = (e) => {
+}, kqe = (e) => {
 	try {
 		let { id: t, _id: n } = ee(e), r = t ?? n;
 		return typeof r == "string" ? r : "";
@@ -86164,8 +86176,8 @@ var A9 = "imkit-chat-room", j9 = "imkit-room-list", M9 = "imkit-chat-room-info",
 	} catch {
 		return;
 	}
-	typeof e.token == "string" && XA(Oqe(e.token));
-}, kqe = () => {
+	typeof e.token == "string" && XA(kqe(e.token));
+}, Aqe = () => {
 	try {
 		return yj().token;
 	} catch {
@@ -86176,7 +86188,7 @@ var A9 = "imkit-chat-room", j9 = "imkit-room-list", M9 = "imkit-chat-room-info",
 		let e = t9();
 		e.disconnect(), e.connect();
 	} catch {}
-}, Aqe = () => {
+}, jqe = () => {
 	let e = TM(), { open: t } = Af({ component: tGe }), n = !1, r = async () => {
 		if (n || typeof window > "u" || typeof Notification > "u") return;
 		let r = yj();
@@ -86244,7 +86256,7 @@ var A9 = "imkit-chat-room", j9 = "imkit-room-list", M9 = "imkit-chat-room-info",
 				break;
 			case P9:
 				if (r) {
-					if (kqe() === n) break;
+					if (Aqe() === n) break;
 					q9({ token: n ?? "" }), J9();
 				}
 				break;
@@ -86263,16 +86275,16 @@ var A9 = "imkit-chat-room", j9 = "imkit-room-list", M9 = "imkit-chat-room-info",
 		return e;
 	}
 	mount() {
-		let e = wqe(this.currentAttrs(), this.overrides), t = Tqe(), n = Eqe(t), r = this.getAttribute(L9) ?? "", i = this.getAttribute(R9) ?? "", a = this.themeState, o = this.chatStyleState, s = this.getRootComponent(), c = this.includesInlineModals(), l = this.hideRootWhenNoSelectedRoom(), u = this.enablesNotificationFlow(), d = {};
+		let e = Tqe(this.currentAttrs(), this.overrides), t = Eqe(), n = Dqe(t), r = this.getAttribute(L9) ?? "", i = this.getAttribute(R9) ?? "", a = this.themeState, o = this.chatStyleState, s = this.getRootComponent(), c = this.includesInlineModals(), l = this.hideRootWhenNoSelectedRoom(), u = this.enablesNotificationFlow(), d = {};
 		for (let e of Array.from(this.childNodes)) {
-			let t = e.nodeType === Node.ELEMENT_NODE && e.getAttribute("slot") || yqe;
+			let t = e.nodeType === Node.ELEMENT_NODE && e.getAttribute("slot") || bqe;
 			d[t] || (d[t] = []), d[t].push(e);
 		}
 		let f = Object.keys(d), p = /* @__PURE__ */ I({
 			name: "IMKitElementCE",
 			setup() {
 				let e = s ? Yt(s) : null, t = Yt(ine), n = TM();
-				u && Aqe();
+				u && jqe();
 				let r = W(() => e ? l ? !!n.selectedRoomId : !0 : !1), i = () => {
 					if (f.length === 0) return;
 					let e = {};
@@ -86289,7 +86301,7 @@ var A9 = "imkit-chat-room", j9 = "imkit-room-list", M9 = "imkit-chat-room-info",
 					if (r.value && e) {
 						let t = s === g9 ? { chatStyle: o.chatStyle } : null, r = {};
 						for (let e of f) r[e] = () => La("div", {
-							class: `${bqe(e)} w-full min-w-0`,
+							class: `${xqe(e)} w-full min-w-0`,
 							"data-imkit-slot": e
 						});
 						n.push(La(e, t, f.length > 0 ? r : void 0));
@@ -86302,7 +86314,7 @@ var A9 = "imkit-chat-room", j9 = "imkit-room-list", M9 = "imkit-chat-room-info",
 		let h = Hl(p);
 		h.use(t);
 		let g;
-		G9 ? (k9(h), g = Promise.resolve()) : (G9 = !0, g = Promise.resolve(_qe.install(h, { config: e }))), g.then(() => {
+		G9 ? (k9(h), g = Promise.resolve()) : (G9 = !0, g = Promise.resolve(vqe.install(h, { config: e }))), g.then(() => {
 			i && n.setRoomTag(i), r && n.$patch({ selectedRoomId: r }), this.bridgeStoreEvents(n), h.mount(m), this.onAfterMount?.(n), this._imkitReady = !0, this.dispatchEvent(new CustomEvent("imkit-ready"));
 		}).catch((e) => {
 			this.dispatchEvent(new CustomEvent("imkit-error", { detail: e })), console.error(`[${this.getElementLabel()}] failed to mount:`, e);
@@ -86315,7 +86327,7 @@ var A9 = "imkit-chat-room", j9 = "imkit-room-list", M9 = "imkit-chat-room-info",
 		} catch (e) {
 			console.warn(`[${this.getElementLabel()}] unmount error:`, e);
 		}
-		this.mountPoint?.remove(), this.mountPoint = void 0, this.app = void 0, this.store = void 0, Dqe();
+		this.mountPoint?.remove(), this.mountPoint = void 0, this.app = void 0, this.store = void 0, Oqe();
 	}
 	bridgeStoreEvents(e) {
 		let t = e.selectedRoomId;
@@ -86381,7 +86393,7 @@ var A9 = "imkit-chat-room", j9 = "imkit-room-list", M9 = "imkit-chat-room-info",
 		return V9;
 	}
 	getRootComponent() {
-		return pqe;
+		return mqe;
 	}
 	getElementLabel() {
 		return j9;
