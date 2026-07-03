@@ -32338,7 +32338,16 @@ var aj = class extends rj {
 	}
 	get displayName() {
 		let e = pj(), t = XA();
-		return this.name ? this.name : this.memberIdsWithoutMeAndMyGroup.length === 0 ? KA.global.t("emptyChat") : this.type == "direct" ? this.extra.guestId ? e[this.extra.guestId]?.nickname ?? "" : this.memberIdsWithoutMeAndMyGroup.map((t) => e[t])[0]?.nickname ?? "" : this.isGroup ? this.memberIds.filter((e) => e !== t && e !== "BOT" && !e.endsWith("_sub")).map((t) => e[t]?.nickname ?? "").filter((e) => e.length > 0).join(", ") : "";
+		if (this.name) return this.name;
+		if (this.memberIdsWithoutMeAndMyGroup.length === 0) return KA.global.t("emptyChat");
+		if (this.type == "direct") {
+			if (this.extra.guestId) {
+				let n = this.extra.guestId;
+				return t === n && this.linkName ? this.linkName : e[n]?.nickname ?? "";
+			}
+			return this.memberIdsWithoutMeAndMyGroup.map((t) => e[t])[0]?.nickname ?? "";
+		} else if (this.isGroup) return this.memberIds.filter((e) => e !== t && e !== "BOT" && !e.endsWith("_sub")).map((t) => e[t]?.nickname ?? "").filter((e) => e.length > 0).join(", ");
+		return "";
 	}
 	get linkName() {
 		let e = typeof this.extra.title == "string" ? this.extra.title : "", t = typeof this.extra.name == "string" ? this.extra.name : "";
@@ -33214,7 +33223,15 @@ var nhe = {
 		let t = new mj(e, XA()), n = this.rooms[t.id];
 		n && (e.unread === void 0 && (t.numberOfUnread = n.numberOfUnread), e.pref === void 0 && (t.pref = n.pref), e.isSuperuser === void 0 && n.isSuperuser !== void 0 && (t.isSuperuser = n.isSuperuser), e.muted === void 0 && (t.muted = n.muted), e.isMentioned === void 0 && n.isMentioned !== void 0 && (t.isMentioned = n.isMentioned), yM(t, n, e.memberProperties)), uM(this, "rooms", { [t.id]: t });
 		let r = {};
-		bM(e.members, r), CM(r, t.extra), this.mergeUsers(r), this.scheduleAggregateRoomsAndFolders();
+		if (bM(e.members, r), CM(r, t.extra), t.extra?.guestId === XA()) {
+			let e = XA();
+			for (let t in r) {
+				if (t === e) continue;
+				let n = this.users[t];
+				n?.avatarUrl && (r[t].avatarUrl = n.avatarUrl), n?.nickname && (r[t].nickname = n.nickname);
+			}
+		}
+		this.mergeUsers(r), this.scheduleAggregateRoomsAndFolders();
 	},
 	async handleLastReadFromSocket(e) {
 		await this.updateLastRead(e);
@@ -49726,7 +49743,7 @@ var fve = /* @__PURE__ */ fN(lve, [["render", dve]]);
 //#endregion
 //#region src/components/flex-messages/components/FlexMessageInputComponent.vue?vue&type=script&setup=true&lang.ts
 G();
-var pve = ["placeholder"], mve = ["disabled"], hve = {
+var pve = ["disabled", "placeholder"], mve = ["disabled"], hve = {
 	key: 1,
 	width: "20",
 	height: "20",
@@ -49740,9 +49757,11 @@ var pve = ["placeholder"], mve = ["disabled"], hve = {
 	__name: "FlexMessageInputComponent",
 	props: { content: {} },
 	setup(e) {
-		let t = e, n = /* @__PURE__ */ M("");
-		n.value = t.content.text;
-		let r = /* @__PURE__ */ M(!1), i = wM(), a = W(() => vj().callbacks), o = Dr("messageId"), s = W(() => i.messageMultiLists.get(i.selectedRoomId)?.main?.map.get(o)), c = () => {
+		let t = e, n = /* @__PURE__ */ M(""), r = /* @__PURE__ */ M(!1);
+		n.value = t.content.completed ? "" : t.content.text, F(() => t.content.completed, (e) => {
+			e && (n.value = "", r.value = !1);
+		});
+		let i = wM(), a = W(() => vj().callbacks), o = Dr("messageId"), s = W(() => i.messageMultiLists.get(i.selectedRoomId)?.main?.map.get(o)), c = () => {
 			if (s.value && !t.content.completed) {
 				if (t.content.subtype === "email") {
 					if (!/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(n.value)) {
@@ -49757,6 +49776,7 @@ var pve = ["placeholder"], mve = ["disabled"], hve = {
 		return (t, i) => (L(), R(H, null, [B("div", Ea({ class: "flex items-center gap-2 rounded bg-white p-2" }, t.$attrs), [wr(B("input", {
 			"onUpdate:modelValue": i[0] || (i[0] = (e) => n.value = e),
 			class: "w-full focus:outline-none",
+			disabled: e.content.completed,
 			placeholder: t.$t(`Request.Message.${e.content.subtype}.placeholder`),
 			onKeypress: Il(c, ["enter"])
 		}, null, 40, pve), [[Dl, n.value]]), B("button", {
