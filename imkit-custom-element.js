@@ -80400,7 +80400,7 @@ var TVe = ["title"], EVe = ["title"], DVe = ["title"], OVe = ["title"], kVe = ["
 			_: 1
 		}));
 	}
-}), [["__scopeId", "data-v-b19db3a7"]]), _9 = "1.121.0";
+}), [["__scopeId", "data-v-b19db3a7"]]), _9 = "1.121.1-1-g777b780";
 //#endregion
 //#region src/components/VersionModal.vue?vue&type=script&setup=true&lang.ts
 au();
