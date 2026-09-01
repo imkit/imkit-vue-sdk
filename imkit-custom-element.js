@@ -84989,7 +84989,7 @@ var aWe = ["aria-label"], oWe = { class: "tooltip" }, sWe = ["aria-label"], cWe 
 			_: 1
 		}));
 	}
-}), [["__scopeId", "data-v-aecf5c75"]]), e9 = "1.124.2-16-g756b0bf3";
+}), [["__scopeId", "data-v-aecf5c75"]]), e9 = "1.124.2-17-gb0fa7fec";
 //#endregion
 //#region src/components/VersionModal.vue?vue&type=script&setup=true&lang.ts
 K();
