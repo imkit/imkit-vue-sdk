@@ -50174,15 +50174,12 @@ function qJ(e) {
 	}), o = G(() => a.value.findIndex((e) => e._id === n.value)), s = G(() => a.value[o.value] ?? null), c = G(() => {
 		let n = e();
 		return !n || t.chatRoomContentMediaRoomId !== n ? a.value.length : Math.max(a.value.length, t.chatRoomContentMediaTotalCount);
-	}), l = G(() => o.value > 0), u = G(() => {
+	}), l = G(() => {
 		let n = e(), r = o.value;
 		return r < 0 ? !1 : r < a.value.length - 1 || !!n && t.chatRoomContentMediaRoomId === n && t.chatRoomContentMediaHasMore;
-	}), d = (e) => {
+	}), u = G(() => o.value > 0), d = (e) => {
 		r += 1, n.value = e?._id ?? null;
 	}, f = async () => {
-		let e = o.value;
-		e <= 0 || d(a.value[e - 1]);
-	}, p = async () => {
 		let i = e(), s = o.value;
 		if (!i || s < 0) return;
 		let c = a.value[s + 1];
@@ -50209,17 +50206,20 @@ function qJ(e) {
 		canNavigatePrevious: l,
 		canNavigateNext: u,
 		selectMedia: d,
-		previousMedia: f,
-		nextMedia: () => {
+		previousMedia: () => {
 			let t = `${e() ?? ""}:${r}`;
 			if (i?.key === t) return i.promise;
 			let n = {
 				key: t,
 				promise: Promise.resolve()
 			};
-			return n.promise = p().finally(() => {
+			return n.promise = f().finally(() => {
 				i === n && (i = null);
 			}), i = n, n.promise;
+		},
+		nextMedia: async () => {
+			let e = o.value;
+			e <= 0 || d(a.value[e - 1]);
 		}
 	};
 }
@@ -50237,17 +50237,17 @@ var Tve = (e) => {
 	}
 };
 function YJ(e) {
-	let t = FM(), n = /* @__PURE__ */ N(!1), r = /* @__PURE__ */ N(0), i = /* @__PURE__ */ N([]), a = /* @__PURE__ */ N(), o = qJ(() => a.value), s = 0, c = null, l = null, u = G(() => i.value[r.value] ?? null), d = G(() => o.selectedMedia.value ? o.mediaCount.value : i.value.length), f = G(() => o.selectedMedia.value ? o.canNavigatePrevious.value : r.value > 0), p = G(() => o.selectedMedia.value ? o.canNavigateNext.value : r.value >= 0 && r.value < i.value.length - 1), m = (e) => t.chatRoomContentMedia.find((t) => t._id === e) ?? null, h = async (e, r, i) => {
+	let t = FM(), n = /* @__PURE__ */ N(!1), r = /* @__PURE__ */ N(0), i = /* @__PURE__ */ N([]), a = /* @__PURE__ */ N(), o = qJ(() => a.value), s = 0, c = null, l = null, u = G(() => i.value[r.value] ?? null), d = G(() => o.selectedMedia.value ? o.mediaCount.value : i.value.length), f = G(() => o.selectedMedia.value ? o.canNavigatePrevious.value : r.value >= 0 && r.value < i.value.length - 1), p = G(() => o.selectedMedia.value ? o.canNavigateNext.value : r.value > 0), m = (e) => t.chatRoomContentMedia.find((t) => t._id === e) ?? null, h = async (e, r, c) => {
 		(t.chatRoomContentMediaRoomId !== e || t.chatRoomContentMediaLoading) && await t.fetchRoomContentMedia({ roomId: e });
-		let c = m(r);
-		for (; !c && n.value && i === s && t.chatRoomContentMediaRoomId === e && t.chatRoomContentMediaHasMore;) {
+		let l = m(r);
+		for (; !l && n.value && c === s && t.chatRoomContentMediaRoomId === e && t.chatRoomContentMediaHasMore;) {
 			let n = t.chatRoomContentMediaOffset;
 			if (await t.fetchRoomContentMedia({
 				roomId: e,
 				loadMore: !0
-			}), c = m(r), t.chatRoomContentMediaOffset <= n) break;
+			}), l = m(r), t.chatRoomContentMediaOffset <= n) break;
 		}
-		return !c || !n.value || i !== s || a.value !== e ? !1 : (o.selectMedia(c), !0);
+		return !l || !n.value || c !== s || a.value !== e || o.mediaCount.value < i.value.length ? !1 : (o.selectMedia(l), !0);
 	}, g = (e, t, n) => {
 		let r = h(e, t, n).catch((e) => (n === s && console.error("[MediaLightbox] failed to load room media:", e), !1));
 		return c = r, r;
@@ -50262,13 +50262,13 @@ function YJ(e) {
 		}
 		g(d.roomId, l, h);
 	}, v = (e) => {
-		let t = r.value + e;
+		let t = r.value + (e === "older" ? 1 : -1);
 		t < 0 || t >= i.value.length || (r.value = t);
 	}, y = async (e) => {
 		let r = s;
 		if (await c, !(!n.value || r !== s) && !(!o.selectedMedia.value && l && a.value && t.chatRoomContentMediaHasMore && JJ() && (await g(a.value, l, r), !n.value || r !== s))) {
 			if (o.selectedMedia.value) {
-				e === -1 ? await o.previousMedia() : await o.nextMedia();
+				e === "older" ? await o.previousMedia() : await o.nextMedia();
 				return;
 			}
 			v(e);
@@ -50286,8 +50286,8 @@ function YJ(e) {
 		canNavigatePrevious: f,
 		canNavigateNext: p,
 		openMessageMedia: _,
-		previousMedia: () => y(-1),
-		nextMedia: () => y(1),
+		previousMedia: () => y("older"),
+		nextMedia: () => y("newer"),
 		close: () => {
 			s += 1, c = null, l = null, a.value = void 0, n.value = !1, r.value = -1, o.selectMedia(null);
 		}
@@ -55029,11 +55029,11 @@ var Hwe = {
 	class: "flex-1"
 }, qwe = {
 	"data-id": "content-lightbox-dialog-content",
-	class: "relative flex min-h-0 flex-1 flex-col overflow-hidden md:rounded-b-lg"
-}, Jwe = { class: "flex h-full flex-1 items-center justify-center bg-black/95" }, Ywe = ["data-zoom-scale"], Xwe = ["src", "alt"], Zwe = ["src"], Qwe = ["data-zoom-scale"], $we = {
+	class: "relative isolate flex min-h-0 flex-1 flex-col overflow-hidden md:rounded-b-lg"
+}, Jwe = { class: "relative z-0 flex h-full flex-1 items-center justify-center bg-black/95" }, Ywe = ["data-zoom-scale"], Xwe = ["src", "alt"], Zwe = ["src"], Qwe = ["data-zoom-scale"], $we = {
 	key: 0,
 	class: "flex h-[50vh] items-center justify-center"
-}, eTe = ["src"], tTe = ["src"], nTe = { class: "pointer-events-none absolute inset-x-0 top-1/2 flex -translate-y-1/2 justify-between px-2 md:px-4" }, rTe = [
+}, eTe = ["src"], tTe = ["src"], nTe = { class: "pointer-events-none absolute inset-x-0 top-1/2 z-10 flex -translate-y-1/2 justify-between px-2 md:px-4" }, rTe = [
 	"aria-label",
 	"aria-busy",
 	"disabled"
@@ -81725,7 +81725,7 @@ var BVe = ["aria-label"], VVe = { class: "tooltip" }, HVe = ["aria-label"], UVe 
 			_: 1
 		}));
 	}
-}), [["__scopeId", "data-v-aecf5c75"]]), s9 = "1.124.1";
+}), [["__scopeId", "data-v-aecf5c75"]]), s9 = "1.124.2";
 //#endregion
 //#region src/components/VersionModal.vue?vue&type=script&setup=true&lang.ts
 K();
