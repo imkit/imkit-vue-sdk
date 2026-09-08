@@ -81727,7 +81727,7 @@ var BVe = ["aria-label"], VVe = { class: "tooltip" }, HVe = ["aria-label"], UVe 
 			_: 1
 		}));
 	}
-}), [["__scopeId", "data-v-aecf5c75"]]), s9 = "1.124.3";
+}), [["__scopeId", "data-v-aecf5c75"]]), s9 = "1.124.3-1-g688eab09";
 //#endregion
 //#region src/components/VersionModal.vue?vue&type=script&setup=true&lang.ts
 K();
