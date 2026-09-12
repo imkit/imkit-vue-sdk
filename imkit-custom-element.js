@@ -85158,7 +85158,7 @@ var DWe = ["aria-label"], OWe = { class: "tooltip" }, kWe = ["aria-label"], AWe 
 			_: 1
 		}));
 	}
-}), [["__scopeId", "data-v-aecf5c75"]]), e9 = "1.125.2-25-g927c6566";
+}), [["__scopeId", "data-v-aecf5c75"]]), e9 = "1.125.2-12-g59ba8790";
 //#endregion
 //#region src/components/VersionModal.vue?vue&type=script&setup=true&lang.ts
 G();
