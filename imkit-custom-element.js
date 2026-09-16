@@ -33752,7 +33752,10 @@ async function MM(e, { skip: t, limit: n, logLabel: r }) {
 		q: JSON.stringify(a ? {
 			members: i,
 			roomTags: a
-		} : { members: i }),
+		} : {
+			members: i,
+			roomTags: { $ne: "PINCHAT_AI" }
+		}),
 		sort: e.sortBy,
 		sortUnreadFirst: e.sortUnreadFirst
 	} });
@@ -85279,7 +85282,7 @@ var AWe = ["aria-label"], jWe = { class: "tooltip" }, MWe = ["aria-label"], NWe 
 			_: 1
 		}));
 	}
-}), [["__scopeId", "data-v-aecf5c75"]]), e9 = "1.125.2-18-g06e9cac6";
+}), [["__scopeId", "data-v-aecf5c75"]]), e9 = "1.125.3-15-g65d4d65b";
 //#endregion
 //#region src/components/VersionModal.vue?vue&type=script&setup=true&lang.ts
 G();
