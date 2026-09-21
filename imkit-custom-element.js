@@ -79140,7 +79140,22 @@ function $7() {
 //#endregion
 //#region src/components/at/At.vue
 K();
-var dVe = {
+function dVe(e, t) {
+	let n = e.endContainer;
+	if (n.nodeType === Node.TEXT_NODE) {
+		let r = Math.min(e.startOffset + t, e.endOffset);
+		e.setStart(n, r);
+		return;
+	}
+	let r = Math.max(0, t), i = (t) => {
+		if (t.nodeType === Node.TEXT_NODE) return r <= t.length ? (e.setStart(t, r), !0) : (r -= t.length, !1);
+		for (let e of t.childNodes) if (i(e)) return !0;
+		return !1;
+	}, a = Array.from(n.childNodes).slice(e.startOffset, e.endOffset);
+	for (let e of a) if (i(e)) return;
+	e.setStart(n, e.endOffset);
+}
+var fVe = {
 	name: "VueAt",
 	props: {
 		value: {
@@ -79415,7 +79430,7 @@ var dVe = {
 			let i = !this.atwho, a = () => {
 				this.openTimer = null;
 				let a = t.cloneRange();
-				a.setStart(a.endContainer, n + r.length);
+				dVe(a, n + r.length);
 				let o = a.getClientRects()[0];
 				if (!o) {
 					i && (this.panelJustOpened = !1);
@@ -79496,8 +79511,8 @@ var dVe = {
 			return e = e.trim(), t.innerHTML = e, t.content.firstChild;
 		}
 	}
-}, fVe = { class: "atwho-inner" }, pVe = { class: "atwho-view" }, mVe = { class: "atwho-ul" }, hVe = ["data-index"], gVe = ["textContent"], _Ve = { ref: "embeddedItem" };
-function vVe(e, t, n, r, i, a) {
+}, pVe = { class: "atwho-inner" }, mVe = { class: "atwho-view" }, hVe = { class: "atwho-ul" }, gVe = ["data-index"], _Ve = ["textContent"], vVe = { ref: "embeddedItem" };
+function yVe(e, t, n, r, i, a) {
 	return R(), z("div", {
 		ref: "wrap",
 		class: "atwho-wrap",
@@ -79511,19 +79526,19 @@ function vVe(e, t, n, r, i, a) {
 			key: 0,
 			class: "atwho-panel",
 			style: k(a.style)
-		}, [V("div", fVe, [V("div", pVe, [V("ul", mVe, [(R(!0), z(U, null, Wr(i.atwho.list, (n, r) => (R(), z("li", {
+		}, [V("div", pVe, [V("div", mVe, [V("ul", hVe, [(R(!0), z(U, null, Wr(i.atwho.list, (n, r) => (R(), z("li", {
 			key: r,
 			class: A(["atwho-li", a.isCur(r) && "atwho-cur"]),
 			"data-index": r,
 			onMousedown: t[0] || (t[0] = ec(() => {}, ["prevent"])),
 			onMouseenter: t[1] || (t[1] = (...e) => a.handleItemHover && a.handleItemHover(...e)),
 			onClick: t[2] || (t[2] = (...e) => a.handleItemClick && a.handleItemClick(...e))
-		}, [Gr(e.$slots, "item", { item: n }, () => [V("span", { textContent: M(a.itemName(n)) }, null, 8, gVe)])], 42, hVe))), 128))])])])], 4)) : H("", !0),
-		ur(V("span", _Ve, [Gr(e.$slots, "embeddedItem", { current: a.currentItem })], 512), [[Ds, !1]]),
+		}, [Gr(e.$slots, "item", { item: n }, () => [V("span", { textContent: M(a.itemName(n)) }, null, 8, _Ve)])], 42, gVe))), 128))])])])], 4)) : H("", !0),
+		ur(V("span", vVe, [Gr(e.$slots, "embeddedItem", { current: a.currentItem })], 512), [[Ds, !1]]),
 		Gr(e.$slots, "default")
 	], 544);
 }
-var yVe = /*#__PURE__*/ LA(dVe, [["render", vVe]]), bVe = (/* @__PURE__ */ s(((e, t) => {
+var bVe = /*#__PURE__*/ LA(fVe, [["render", yVe]]), xVe = (/* @__PURE__ */ s(((e, t) => {
 	function n(e, t) {
 		if (!e) throw "First parameter is required.";
 		t = t || { type: "video" }, t = new r(e, t);
@@ -81280,17 +81295,17 @@ var yVe = /*#__PURE__*/ LA(dVe, [["render", vVe]]), bVe = (/* @__PURE__ */ s(((e
 	n !== void 0 && (n.WebAssemblyRecorder = j);
 })))();
 K();
-var xVe = {}, SVe = {
+var SVe = {}, CVe = {
 	xmlns: "http://www.w3.org/2000/svg",
 	width: "128",
 	height: "128",
 	version: "1.0",
 	viewBox: "0 0 96 96"
 };
-function CVe(e, t) {
-	return R(), z("svg", SVe, [...t[0] || (t[0] = [V("path", { d: "M9.2 13.2C8.4 14 8 18.6 8 27.1 8 37.3 8.3 40 9.6 41c.9.9 11.2 2.3 27.5 3.9C51.3 46.3 63 47.7 63 48c0 .3-11.7 1.7-25.9 3.1-16.3 1.6-26.6 3-27.5 3.9C8.3 56 8 58.7 8 69c0 13.8.7 15.8 5.2 14.6 5.7-1.6 73.3-32.5 74.2-33.9.8-1.2.8-2.2 0-3.4-1-1.6-72.6-34.1-75.4-34.2-.9-.1-2.1.4-2.8 1.1z" }, null, -1)])]);
+function wVe(e, t) {
+	return R(), z("svg", CVe, [...t[0] || (t[0] = [V("path", { d: "M9.2 13.2C8.4 14 8 18.6 8 27.1 8 37.3 8.3 40 9.6 41c.9.9 11.2 2.3 27.5 3.9C51.3 46.3 63 47.7 63 48c0 .3-11.7 1.7-25.9 3.1-16.3 1.6-26.6 3-27.5 3.9C8.3 56 8 58.7 8 69c0 13.8.7 15.8 5.2 14.6 5.7-1.6 73.3-32.5 74.2-33.9.8-1.2.8-2.2 0-3.4-1-1.6-72.6-34.1-75.4-34.2-.9-.1-2.1.4-2.8 1.1z" }, null, -1)])]);
 }
-var wVe = /*#__PURE__*/ LA(xVe, [["render", CVe]]);
+var TVe = /*#__PURE__*/ LA(SVe, [["render", wVe]]);
 //#endregion
 //#region src/components/MessageSendButton.vue?vue&type=script&setup=true&lang.ts
 K();
@@ -81302,7 +81317,7 @@ var e9 = /* @__PURE__ */ L({
 	emits: ["click"],
 	setup(e, { emit: t }) {
 		let n = t;
-		return (t, r) => (R(), B(wVe, {
+		return (t, r) => (R(), B(TVe, {
 			"data-testid": "send-button",
 			class: A(["h-6 w-6 shrink-0", e.enabled ? "cursor-pointer fill-accent-vivid" : "cursor-not-allowed fill-content-faint"]),
 			onMousedown: r[0] || (r[0] = ec(() => {}, ["prevent"])),
@@ -81311,10 +81326,10 @@ var e9 = /* @__PURE__ */ L({
 	}
 });
 K(), cA();
-var TVe = { class: "flex grow items-center gap-1" }, EVe = { class: "relative flex h-11 w-0 min-w-0 grow items-center gap-3 rounded-xl bg-surface-muted px-3" }, DVe = {
+var EVe = { class: "flex grow items-center gap-1" }, DVe = { class: "relative flex h-11 w-0 min-w-0 grow items-center gap-3 rounded-xl bg-surface-muted px-3" }, OVe = {
 	key: 0,
 	class: "flex items-center gap-1 rounded-lg bg-surface p-2 text-xs text-content-muted transition duration-150 ease-in-out"
-}, OVe = { class: "volumes" }, kVe = { class: "ml-auto rounded-full bg-accent px-2 py-1 text-xs font-bold text-white" }, t9 = "audio/webm", AVe = 180, jVe = /*#__PURE__*/ LA(/* @__PURE__ */ L({
+}, kVe = { class: "volumes" }, AVe = { class: "ml-auto rounded-full bg-accent px-2 py-1 text-xs font-bold text-white" }, t9 = "audio/webm", jVe = 180, MVe = /*#__PURE__*/ LA(/* @__PURE__ */ L({
 	__name: "AudioInput",
 	setup(e) {
 		let { t } = Fk(), n = FM(), r = IA(), i = G(() => r.styles), a = /* @__PURE__ */ N(3), o = /* @__PURE__ */ N(), s = /* @__PURE__ */ N(), c = /* @__PURE__ */ N(), l = /* @__PURE__ */ N(), u = /* @__PURE__ */ N(0), d = /* @__PURE__ */ N(0), f = /* @__PURE__ */ N(), p = /* @__PURE__ */ N(), m = /* @__PURE__ */ Nt([]), h = /* @__PURE__ */ N(""), g = !1, _ = G(() => u.value > 1), v = () => {
@@ -81330,7 +81345,7 @@ var TVe = { class: "flex grow items-center gap-1" }, EVe = { class: "relative fl
 							v();
 							return;
 						}
-						s.value = new bVe.RecordRTCPromisesHandler(o.value, {
+						s.value = new xVe.RecordRTCPromisesHandler(o.value, {
 							type: "audio",
 							mimeType: t9
 						});
@@ -81347,7 +81362,7 @@ var TVe = { class: "flex grow items-center gap-1" }, EVe = { class: "relative fl
 							return;
 						}
 						d.value = Date.now(), f.value = window.setInterval(() => {
-							u.value = (Date.now() - d.value) / 1e3, u.value >= AVe && y();
+							u.value = (Date.now() - d.value) / 1e3, u.value >= jVe && y();
 						}, 1e3), a.value = 1;
 						break;
 					}
@@ -81382,7 +81397,7 @@ var TVe = { class: "flex grow items-center gap-1" }, EVe = { class: "relative fl
 			y();
 		}), za(() => {
 			g = !0, v();
-		}), (e, t) => (R(), z("div", TVe, [V("div", EVe, [
+		}), (e, t) => (R(), z("div", EVe, [V("div", DVe, [
 			V("div", {
 				"data-testid": "audio-record-button",
 				class: "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border",
@@ -81392,18 +81407,18 @@ var TVe = { class: "flex grow items-center gap-1" }, EVe = { class: "relative fl
 				"cursor-not-allowed bg-danger/50": h.value
 			}]) }, null, 2)]),
 			W(xs, null, {
-				default: F(() => [h.value ? (R(), z("div", DVe, [W(P(EN), {
+				default: F(() => [h.value ? (R(), z("div", OVe, [W(P(EN), {
 					size: 16,
 					class: "h-4 w-4 text-content-muted"
 				}), Pi(" " + M(h.value), 1)])) : H("", !0)]),
 				_: 1
 			}),
-			V("div", OVe, [(R(!0), z(U, null, Wr(m, (e, t) => (R(), z("div", {
+			V("div", kVe, [(R(!0), z(U, null, Wr(m, (e, t) => (R(), z("div", {
 				key: t,
 				class: "min-h-0.5! w-0.5 shrink-0 rounded-sm bg-content-faint",
 				style: k({ height: `${e * 28}px` })
 			}, null, 4))), 128))]),
-			V("div", kVe, M(Math.floor(u.value / 60)) + ":" + M(`${Math.floor(u.value % 60)}`.padStart(2, "0")), 1)
+			V("div", AVe, M(Math.floor(u.value / 60)) + ":" + M(`${Math.floor(u.value % 60)}`.padStart(2, "0")), 1)
 		]), W(e9, {
 			enabled: _.value,
 			class: "mr-1 ml-2",
@@ -81413,13 +81428,13 @@ var TVe = { class: "flex grow items-center gap-1" }, EVe = { class: "relative fl
 	}
 }), [["__scopeId", "data-v-d9f54f89"]]);
 K(), cA();
-var MVe = {
+var NVe = {
 	key: 0,
 	class: "border-b border-border bg-field px-4 py-2.5"
-}, NVe = { class: "flex items-center gap-2.5" }, PVe = { class: "min-w-0 flex-1" }, FVe = { class: "flex items-center gap-1.5 text-xs font-semibold text-accent-vivid" }, IVe = { class: "truncate" }, LVe = {
+}, PVe = { class: "flex items-center gap-2.5" }, FVe = { class: "min-w-0 flex-1" }, IVe = { class: "flex items-center gap-1.5 text-xs font-semibold text-accent-vivid" }, LVe = { class: "truncate" }, RVe = {
 	"data-testid": "edit-preview-body",
 	class: "truncate text-xs text-content-subtle"
-}, RVe = /* @__PURE__ */ L({
+}, zVe = /* @__PURE__ */ L({
 	__name: "EditMessagePreview",
 	setup(e) {
 		let t = FM(), { t: n } = Fk(), r = G(() => {
@@ -81431,10 +81446,10 @@ var MVe = {
 		}), a = () => {
 			t.$patch({ editingMessageId: "" });
 		};
-		return (e, t) => r.value ? (R(), z("div", MVe, [V("div", NVe, [V("div", PVe, [V("div", FVe, [W(P(lN), {
+		return (e, t) => r.value ? (R(), z("div", NVe, [V("div", PVe, [V("div", FVe, [V("div", IVe, [W(P(lN), {
 			size: 14,
 			class: "h-3.5 w-3.5 shrink-0"
-		}), V("span", IVe, M(P(n)("editMessage")), 1)]), V("div", LVe, M(i.value), 1)]), W(P(EN), {
+		}), V("span", LVe, M(P(n)("editMessage")), 1)]), V("div", RVe, M(i.value), 1)]), W(P(EN), {
 			"data-testid": "edit-preview-close",
 			size: 20,
 			class: "h-5 w-5 shrink-0 cursor-pointer rounded-md p-0.5 text-content-muted hover:bg-surface hover:text-content",
@@ -81447,7 +81462,7 @@ var MVe = {
 K();
 //#endregion
 //#region src/components/EndChatModal.vue
-var zVe = /* @__PURE__ */ L({
+var BVe = /* @__PURE__ */ L({
 	__name: "EndChatModal",
 	setup(e) {
 		let t = Pu(), n = IA(), r = G(() => n.callbacks), i = () => {
@@ -81481,7 +81496,7 @@ var zVe = /* @__PURE__ */ L({
 K();
 //#endregion
 //#region src/components/FileSizeLimitModal.vue
-var BVe = /* @__PURE__ */ L({
+var VVe = /* @__PURE__ */ L({
 	__name: "FileSizeLimitModal",
 	props: { fileSizeLimit: {} },
 	setup(e) {
@@ -81500,13 +81515,13 @@ var BVe = /* @__PURE__ */ L({
 //#endregion
 //#region src/components/HeaderDivider.vue?vue&type=script&setup=true&lang.ts
 K();
-var VVe = {
+var HVe = {
 	"aria-hidden": "true",
 	class: "absolute inset-x-0 bottom-0 h-px bg-border"
 }, n9 = /* @__PURE__ */ L({
 	__name: "HeaderDivider",
 	setup(e) {
-		return (e, t) => (R(), z("div", VVe));
+		return (e, t) => (R(), z("div", HVe));
 	}
 });
 //#endregion
@@ -81547,7 +81562,7 @@ var a9 = /* @__PURE__ */ function(e) {
 	get isValid() {
 		return this.address !== null;
 	}
-}, HVe = /* @__PURE__ */ L({
+}, UVe = /* @__PURE__ */ L({
 	components: {
 		GoogleMap: EQ,
 		AdvancedMarker: jQ,
@@ -81654,14 +81669,14 @@ var a9 = /* @__PURE__ */ function(e) {
 //#endregion
 //#region src/components/LocationModal.vue
 K();
-var UVe = { class: "relative flex justify-center" }, WVe = {
+var WVe = { class: "relative flex justify-center" }, GVe = {
 	key: 0,
 	class: "absolute bottom-12 left-1/2 flex max-w-[calc(100%-5rem)] -translate-x-1/2 items-center gap-1 rounded-full border border-border bg-surface p-2 text-xs text-content shadow-raised"
-}, GVe = ["disabled"], KVe = {
+}, KVe = ["disabled"], qVe = {
 	key: 0,
 	class: "flex h-10.5 w-full items-center justify-center"
-}, qVe = { class: "text-base font-semibold" }, JVe = { class: "text-xs" };
-function s9(e, t, n, r, i, a) {
+}, JVe = { class: "text-base font-semibold" }, s9 = { class: "text-xs" };
+function YVe(e, t, n, r, i, a) {
 	let o = zr("AdvancedMarker"), s = zr("google-map"), c = zr("CloseSvg"), l = zr("LocateFixed"), u = zr("X"), d = zr("vue-final-modal");
 	return R(), B(d, {
 		class: "flex items-center justify-center",
@@ -81669,7 +81684,7 @@ function s9(e, t, n, r, i, a) {
 		"content-transition": "vfm-fade",
 		"overlay-transition": "vfm-fade"
 	}, {
-		default: F(() => [V("div", UVe, [
+		default: F(() => [V("div", WVe, [
 			W(s, {
 				ref: "mapRef",
 				"api-key": e.apiKey,
@@ -81700,7 +81715,7 @@ function s9(e, t, n, r, i, a) {
 				class: A(["text-content-muted", { "animate-pulse": e.isGettingCurrentPosition }])
 			}, null, 8, ["class"])]),
 			W(xs, null, {
-				default: F(() => [e.geolocationPositionErrorMessage ? (R(), z("div", WVe, [W(u, {
+				default: F(() => [e.geolocationPositionErrorMessage ? (R(), z("div", GVe, [W(u, {
 					size: 16,
 					class: "text-danger-vivid"
 				}), Pi(" " + M(e.geolocationPositionErrorMessage), 1)])) : H("", !0)]),
@@ -81710,7 +81725,7 @@ function s9(e, t, n, r, i, a) {
 			class: "m-2 flex flex-col items-center gap-0.5 rounded-md bg-accent p-2 text-white disabled:cursor-not-allowed disabled:bg-accent-subtle disabled:text-accent-vivid",
 			disabled: e.isGettingCurrentPosition || e.isRequesting || !e.location.isValid,
 			onClick: t[3] || (t[3] = (...t) => e.send && e.send(...t))
-		}, [e.isRequesting ? (R(), z("div", KVe, [...t[4] || (t[4] = [V("svg", {
+		}, [e.isRequesting ? (R(), z("div", qVe, [...t[4] || (t[4] = [V("svg", {
 			class: "h-6 w-6 animate-spin fill-white text-surface-muted",
 			viewBox: "0 0 100 101",
 			fill: "none",
@@ -81721,26 +81736,26 @@ function s9(e, t, n, r, i, a) {
 		}), V("path", {
 			d: "M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z",
 			fill: "currentFill"
-		})], -1)])])) : (R(), z(U, { key: 1 }, [V("div", qVe, M(e.$t("sendCurrentLocation")), 1), V("div", JVe, M(e.address), 1)], 64))], 8, GVe)]),
+		})], -1)])])) : (R(), z(U, { key: 1 }, [V("div", JVe, M(e.$t("sendCurrentLocation")), 1), V("div", s9, M(e.address), 1)], 64))], 8, KVe)]),
 		_: 1
 	});
 }
-var YVe = /*#__PURE__*/ LA(HVe, [["render", s9], ["__scopeId", "data-v-81d3ce16"]]);
+var XVe = /*#__PURE__*/ LA(UVe, [["render", YVe], ["__scopeId", "data-v-81d3ce16"]]);
 K(), cA();
-var XVe = {
+var ZVe = {
 	key: 0,
 	"data-testid": "reply-quoted-bar",
 	class: "border-b border-border bg-field px-4 py-2.5"
-}, ZVe = { class: "flex items-center gap-2.5" }, QVe = { class: "min-w-0 flex-1" }, $Ve = { class: "flex items-center gap-1.5 text-xs font-semibold text-accent-vivid" }, eHe = { class: "truncate" }, tHe = {
+}, QVe = { class: "flex items-center gap-2.5" }, $Ve = { class: "min-w-0 flex-1" }, eHe = { class: "flex items-center gap-1.5 text-xs font-semibold text-accent-vivid" }, tHe = { class: "truncate" }, nHe = {
 	"data-testid": "reply-preview-body",
 	class: "truncate text-xs text-content"
-}, nHe = {
+}, rHe = {
 	key: 0,
 	class: "h-8 w-8 shrink-0 overflow-hidden rounded-md bg-surface [&>img]:h-8 [&>img]:w-8 [&>img]:object-cover"
-}, rHe = {
+}, iHe = {
 	key: 2,
 	class: "flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-surface"
-}, iHe = /* @__PURE__ */ L({
+}, aHe = /* @__PURE__ */ L({
 	__name: "ReplyMessagePreview",
 	setup(e) {
 		let t = FM(), { t: n } = Fk(), r = G(() => {
@@ -81766,19 +81781,19 @@ var XVe = {
 		}), s = G(() => r.value), c = G(() => r.value), l = () => {
 			t.$patch({ replyId: "" });
 		};
-		return (e, t) => r.value ? (R(), z("div", XVe, [V("div", ZVe, [
-			V("div", QVe, [V("div", $Ve, [W(P(hN), {
+		return (e, t) => r.value ? (R(), z("div", ZVe, [V("div", QVe, [
+			V("div", $Ve, [V("div", eHe, [W(P(hN), {
 				size: 14,
 				class: "h-3.5 w-3.5 shrink-0"
-			}), V("span", eHe, M(P(n)("reply")) + " " + M(i.value?.nickname), 1)]), V("div", tHe, M(a.value), 1)]),
-			r.value.type === P(yA).Sticker ? (R(), z("div", nHe, [W(k2, { message: s.value }, null, 8, ["message"])])) : H("", !0),
+			}), V("span", tHe, M(P(n)("reply")) + " " + M(i.value?.nickname), 1)]), V("div", nHe, M(a.value), 1)]),
+			r.value.type === P(yA).Sticker ? (R(), z("div", rHe, [W(k2, { message: s.value }, null, 8, ["message"])])) : H("", !0),
 			r.value.type === P(yA).Video ? (R(), B(mQ, {
 				key: 1,
 				url: c.value.video.thumbnailUrl,
 				kind: "video",
 				"img-class": "h-8 w-8 shrink-0 rounded-md object-cover"
 			}, null, 8, ["url"])) : H("", !0),
-			r.value.type === P(yA).File ? (R(), z("div", rHe, [W(P(rN), {
+			r.value.type === P(yA).File ? (R(), z("div", iHe, [W(P(rN), {
 				size: 18,
 				class: "text-accent-vivid"
 			})])) : H("", !0),
@@ -81800,11 +81815,11 @@ var XVe = {
 //#endregion
 //#region src/components/SearchPanel.vue?vue&type=script&setup=true&lang.ts
 K();
-var aHe = { class: "relative flex grow items-center rounded-full bg-field px-4 py-3 focus-within:ring-1 focus-within:ring-accent-vivid" }, oHe = {
+var oHe = { class: "relative flex grow items-center rounded-full bg-field px-4 py-3 focus-within:ring-1 focus-within:ring-accent-vivid" }, sHe = {
 	key: 0,
 	"data-testid": "search-loading",
 	class: "flex h-5 w-5 items-center justify-center"
-}, sHe = ["placeholder"], cHe = { class: "absolute top-1/2 right-4 flex -translate-y-1/2 items-center justify-center" }, lHe = { class: "mr-4 pb-0.5 text-base font-medium text-content-subtle" }, uHe = ["aria-label"], dHe = /* @__PURE__ */ L({
+}, cHe = ["placeholder"], lHe = { class: "absolute top-1/2 right-4 flex -translate-y-1/2 items-center justify-center" }, uHe = { class: "mr-4 pb-0.5 text-base font-medium text-content-subtle" }, dHe = ["aria-label"], fHe = /* @__PURE__ */ L({
 	__name: "SearchPanel",
 	setup(e) {
 		let t = FM(), n = IA(), r = /* @__PURE__ */ N(""), i = /* @__PURE__ */ N(0), a = /* @__PURE__ */ N([]), o = /* @__PURE__ */ N(!1), s = /* @__PURE__ */ N(!1), c = async () => {
@@ -81847,8 +81862,8 @@ var aHe = { class: "relative flex grow items-center rounded-full bg-field px-4 p
 			style: k(f.value.chatRoomHeader)
 		}, [
 			W(n9),
-			V("div", aHe, [
-				V("div", null, [s.value ? (R(), z("div", oHe, [W(RA)])) : (R(), B(P(_N), {
+			V("div", oHe, [
+				V("div", null, [s.value ? (R(), z("div", sHe, [W(RA)])) : (R(), B(P(_N), {
 					key: 1,
 					size: 20,
 					class: "h-4.5 w-4.5 cursor-pointer text-content-muted"
@@ -81861,9 +81876,9 @@ var aHe = { class: "relative flex grow items-center rounded-full bg-field px-4 p
 					placeholder: e.$t("searchInConversation"),
 					onCompositionstart: t[1] || (t[1] = (e) => o.value = !0),
 					onCompositionend: t[2] || (t[2] = (e) => o.value = !1)
-				}, null, 40, sHe), [[Zs, r.value]]),
-				V("div", cHe, [!s.value && r.value.length > 0 ? (R(), z(U, { key: 0 }, [
-					V("div", lHe, M(i.value) + "/" + M(a.value.length), 1),
+				}, null, 40, cHe), [[Zs, r.value]]),
+				V("div", lHe, [!s.value && r.value.length > 0 ? (R(), z(U, { key: 0 }, [
+					V("div", uHe, M(i.value) + "/" + M(a.value.length), 1),
 					i.value > 1 ? (R(), B(P(qM), {
 						key: 0,
 						size: 20,
@@ -81891,7 +81906,7 @@ var aHe = { class: "relative flex grow items-center rounded-full bg-field px-4 p
 					"aria-label": e.$t("clear"),
 					class: "flex h-5 w-5 cursor-pointer appearance-none items-center justify-center border-0 bg-transparent p-0 text-content-muted hover:text-content focus-visible:ring-1 focus-visible:ring-accent-vivid focus-visible:outline-none",
 					onClick: m
-				}, [W(P(bhe), { size: 20 })], 8, uHe)) : H("", !0)])
+				}, [W(P(bhe), { size: 20 })], 8, dHe)) : H("", !0)])
 			]),
 			V("button", {
 				type: "button",
@@ -81907,7 +81922,7 @@ var aHe = { class: "relative flex grow items-center rounded-full bg-field px-4 p
 //#endregion
 //#region src/components/svgs/StickerSvg.vue
 K();
-var fHe = ["width", "height"], pHe = {
+var pHe = ["width", "height"], mHe = {
 	__name: "StickerSvg",
 	props: {
 		width: {
@@ -81931,11 +81946,11 @@ var fHe = ["width", "height"], pHe = {
 			V("path", { d: "M208 176V168C208 157.391 203.786 147.217 196.284 139.716C188.783 132.214 178.609 128 168 128C157.391 128 147.217 132.214 139.716 139.716C132.214 147.217 128 157.391 128 168V176C128 180.243 129.686 184.313 132.686 187.314C135.687 190.314 139.757 192 144 192C148.243 192 152.313 190.314 155.314 187.314C158.314 184.313 160 180.243 160 176V168C160 165.878 160.843 163.843 162.343 162.343C163.843 160.843 165.878 160 168 160C170.122 160 172.157 160.843 173.657 162.343C175.157 163.843 176 165.878 176 168V176C176 180.243 177.686 184.313 180.686 187.314C183.687 190.314 187.757 192 192 192C196.243 192 200.313 190.314 203.314 187.314C206.314 184.313 208 180.243 208 176Z" }, null, -1),
 			V("path", { d: "M320 192C324.243 192 328.313 190.314 331.314 187.314C334.314 184.313 336 180.243 336 176V168C336 165.878 336.843 163.843 338.343 162.343C339.843 160.843 341.878 160 344 160C346.122 160 348.157 160.843 349.657 162.343C351.157 163.843 352 165.878 352 168V176C352 180.243 353.686 184.313 356.686 187.314C359.687 190.314 363.757 192 368 192C372.243 192 376.313 190.314 379.314 187.314C382.314 184.313 384 180.243 384 176V168C384 157.391 379.786 147.217 372.284 139.716C364.783 132.214 354.609 128 344 128C333.391 128 323.217 132.214 315.716 139.716C308.214 147.217 304 157.391 304 168V176C304 180.243 305.686 184.313 308.686 187.314C311.687 190.314 315.757 192 320 192Z" }, null, -1),
 			V("path", { d: "M328 264V240C328 235.757 326.314 231.687 323.314 228.686C320.313 225.686 316.243 224 312 224H200C195.757 224 191.687 225.686 188.686 228.686C185.686 231.687 184 235.757 184 240V264C184 283.096 191.586 301.409 205.088 314.912C218.591 328.414 236.904 336 256 336C275.096 336 293.409 328.414 306.912 314.912C320.414 301.409 328 283.096 328 264ZM216 264V256H296V264C296 274.609 291.786 284.783 284.284 292.284C276.783 299.786 266.609 304 256 304C245.391 304 235.217 299.786 227.716 292.284C220.214 284.783 216 274.609 216 264Z" }, null, -1)
-		])], 8, fHe));
+		])], 8, pHe));
 	}
 };
 K(), cA();
-var mHe = ["aria-label"], hHe = { class: "tooltip" }, gHe = ["aria-label"], _He = { class: "tooltip" }, vHe = ["aria-label"], yHe = { class: "tooltip" }, bHe = ["aria-label"], xHe = { class: "tooltip" }, SHe = ["aria-label"], CHe = { class: "tooltip" }, wHe = /*#__PURE__*/ LA(/* @__PURE__ */ L({
+var hHe = ["aria-label"], gHe = { class: "tooltip" }, _He = ["aria-label"], vHe = { class: "tooltip" }, yHe = ["aria-label"], bHe = { class: "tooltip" }, xHe = ["aria-label"], SHe = { class: "tooltip" }, CHe = ["aria-label"], wHe = { class: "tooltip" }, THe = /*#__PURE__*/ LA(/* @__PURE__ */ L({
 	__name: "TextFormatMenu",
 	props: { inputElement: {} },
 	emits: ["format-applied"],
@@ -82045,28 +82060,28 @@ var mHe = ["aria-label"], hHe = { class: "tooltip" }, gHe = ["aria-label"], _He 
 					class: "format-btn tooltip-trigger group relative flex h-8 w-8 items-center justify-center rounded-md text-content-muted transition-all duration-150 hover:bg-surface-hover hover:text-content active:scale-95",
 					"aria-label": P(i)("formatBold") + " **text**",
 					onClick: t[0] || (t[0] = (e) => v("bold"))
-				}, [W(P(yhe), { class: "h-4 w-4" }), V("span", hHe, M(P(i)("formatBold") + " **text**"), 1)], 8, mHe),
+				}, [W(P(yhe), { class: "h-4 w-4" }), V("span", gHe, M(P(i)("formatBold") + " **text**"), 1)], 8, hHe),
 				V("button", {
 					class: "format-btn tooltip-trigger group relative flex h-8 w-8 items-center justify-center rounded-md text-content-muted transition-all duration-150 hover:bg-surface-hover hover:text-content active:scale-95",
 					"aria-label": P(i)("formatItalic") + " _text_",
 					onClick: t[1] || (t[1] = (e) => v("italic"))
-				}, [W(P(Ohe), { class: "h-4 w-4" }), V("span", _He, M(P(i)("formatItalic") + " _text_"), 1)], 8, gHe),
+				}, [W(P(Ohe), { class: "h-4 w-4" }), V("span", vHe, M(P(i)("formatItalic") + " _text_"), 1)], 8, _He),
 				V("button", {
 					class: "format-btn tooltip-trigger group relative flex h-8 w-8 items-center justify-center rounded-md text-content-muted transition-all duration-150 hover:bg-surface-hover hover:text-content active:scale-95",
 					"aria-label": P(i)("formatStrike") + " ~~text~~",
 					onClick: t[2] || (t[2] = (e) => v("strike"))
-				}, [W(P(zhe), { class: "h-4 w-4" }), V("span", yHe, M(P(i)("formatStrike") + " ~~text~~"), 1)], 8, vHe),
+				}, [W(P(zhe), { class: "h-4 w-4" }), V("span", bHe, M(P(i)("formatStrike") + " ~~text~~"), 1)], 8, yHe),
 				t[6] || (t[6] = V("div", { class: "mx-0.5 h-5 w-px bg-border" }, null, -1)),
 				V("button", {
 					class: "format-btn tooltip-trigger group relative flex h-8 w-8 items-center justify-center rounded-md text-content-muted transition-all duration-150 hover:bg-surface-hover hover:text-content active:scale-95",
 					"aria-label": P(i)("formatInlineCode") + " `text`",
 					onClick: t[3] || (t[3] = (e) => v("code"))
-				}, [W(P(She), { class: "h-4 w-4" }), V("span", xHe, M(P(i)("formatInlineCode") + " `text`"), 1)], 8, bHe),
+				}, [W(P(She), { class: "h-4 w-4" }), V("span", SHe, M(P(i)("formatInlineCode") + " `text`"), 1)], 8, xHe),
 				V("button", {
 					class: "format-btn tooltip-trigger group relative flex h-8 w-8 items-center justify-center rounded-md text-content-muted transition-all duration-150 hover:bg-surface-hover hover:text-content active:scale-95",
 					"aria-label": P(i)("formatCodeBlock") + " ```text```",
 					onClick: t[4] || (t[4] = (e) => v("block"))
-				}, [W(P(Rhe), { class: "h-4 w-4" }), V("span", CHe, M(P(i)("formatCodeBlock") + " ```text```"), 1)], 8, SHe),
+				}, [W(P(Rhe), { class: "h-4 w-4" }), V("span", wHe, M(P(i)("formatCodeBlock") + " ```text```"), 1)], 8, CHe),
 				V("div", {
 					class: "absolute -bottom-1.5 h-3 w-3 -translate-x-1/2 rotate-45 border-r border-b border-border bg-surface",
 					style: k({ left: `calc(50% + ${l.value}px)` })
@@ -82075,13 +82090,13 @@ var mHe = ["aria-label"], hHe = { class: "tooltip" }, gHe = ["aria-label"], _He 
 			_: 1
 		}));
 	}
-}), [["__scopeId", "data-v-aecf5c75"]]), c9 = "1.127.0";
+}), [["__scopeId", "data-v-aecf5c75"]]), c9 = "1.127.1";
 //#endregion
 //#region src/components/VersionModal.vue?vue&type=script&setup=true&lang.ts
 K();
 //#endregion
 //#region src/components/VersionModal.vue
-var THe = /* @__PURE__ */ L({
+var EHe = /* @__PURE__ */ L({
 	__name: "VersionModal",
 	setup(e) {
 		let t = Pu(), n = () => {
@@ -82102,45 +82117,45 @@ var THe = /* @__PURE__ */ L({
 //#endregion
 //#region src/components/ChatRoom.vue?vue&type=script&setup=true&lang.ts
 K();
-var EHe = { class: "relative h-(--imkit-header-height) shrink-0" }, DHe = {
+var DHe = { class: "relative h-(--imkit-header-height) shrink-0" }, OHe = {
 	"data-testid": "chat-header-avatar",
 	class: "shrink-0 @max-sm:hidden"
-}, OHe = { class: "flex min-w-0 items-baseline gap-1" }, kHe = { class: "min-w-0 overflow-hidden text-base font-semibold text-ellipsis whitespace-nowrap text-content" }, AHe = {
+}, kHe = { class: "flex min-w-0 items-baseline gap-1" }, AHe = { class: "min-w-0 overflow-hidden text-base font-semibold text-ellipsis whitespace-nowrap text-content" }, jHe = {
 	key: 0,
 	class: "shrink-0 text-base font-semibold text-content"
-}, jHe = { class: "flex shrink-0 items-center gap-2" }, MHe = ["aria-label"], NHe = { class: "tooltip tooltip-below" }, PHe = ["aria-label"], FHe = { class: "tooltip tooltip-below" }, IHe = ["aria-label"], LHe = { class: "tooltip tooltip-below" }, RHe = {
+}, MHe = { class: "flex shrink-0 items-center gap-2" }, NHe = ["aria-label"], PHe = { class: "tooltip tooltip-below" }, FHe = ["aria-label"], IHe = { class: "tooltip tooltip-below" }, LHe = ["aria-label"], RHe = { class: "tooltip tooltip-below" }, zHe = {
 	class: "pointer-events-none sticky top-0 z-10",
 	style: {
 		height: "0",
 		overflow: "visible"
 	}
-}, zHe = {
+}, BHe = {
 	key: 0,
 	"data-testid": "chat-prepend-spinner",
 	class: "flex h-12 w-full items-center justify-center"
-}, BHe = { class: "relative border-t border-border" }, VHe = ["aria-label"], HHe = { class: "overflow-hidden text-base text-ellipsis whitespace-nowrap text-content" }, UHe = { class: "relative flex items-end justify-center gap-3 px-4 py-3.5" }, WHe = {
+}, VHe = { class: "relative border-t border-border" }, HHe = ["aria-label"], UHe = { class: "overflow-hidden text-base text-ellipsis whitespace-nowrap text-content" }, WHe = { class: "relative flex items-end justify-center gap-3 px-4 py-3.5" }, GHe = {
 	key: 1,
 	"data-id": "actions",
 	class: "absolute bottom-16 left-2 z-10 grid max-w-[240px] grid-cols-3 rounded-lg border border-border bg-surface p-1.5 text-content shadow-raised"
-}, GHe = ["onClick"], KHe = { class: "mt-1 flex flex-1 items-center" }, qHe = { class: "text-center text-xs leading-none" }, JHe = {
+}, KHe = ["onClick"], qHe = { class: "mt-1 flex flex-1 items-center" }, JHe = { class: "text-center text-xs leading-none" }, YHe = {
 	key: 3,
 	"data-testid": "composer-field",
 	class: "relative flex min-w-0 grow flex-col items-stretch rounded-xl bg-field px-4 py-2.5 focus-within:ring-1 focus-within:ring-accent-vivid"
-}, YHe = { class: "flex items-end gap-3" }, XHe = { class: "flex w-0 min-w-0 grow flex-col items-stretch justify-center gap-3" }, ZHe = [
+}, XHe = { class: "flex items-end gap-3" }, ZHe = { class: "flex w-0 min-w-0 grow flex-col items-stretch justify-center gap-3" }, QHe = [
 	"contenteditable",
 	"aria-disabled",
 	"data-placeholder",
 	"aria-label"
-], QHe = {
+], $He = {
 	key: 0,
 	class: "flex gap-3 overflow-x-auto pt-2 pr-2"
-}, $He = {
+}, eUe = {
 	key: 0,
 	class: "relative flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-border bg-surface-muted"
-}, eUe = ["src", "onClick"], tUe = ["onClick"], nUe = {
+}, tUe = ["src", "onClick"], nUe = ["onClick"], rUe = {
 	key: 2,
 	class: "relative flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-border bg-surface-muted"
-}, rUe = ["src", "onClick"], iUe = { class: "pointer-events-none absolute inset-0 flex items-center justify-center" }, aUe = { class: "flex h-5 w-5 items-center justify-center rounded-full bg-black/60" }, oUe = ["onClick"], sUe = /*#__PURE__*/ LA(/* @__PURE__ */ L({
+}, iUe = ["src", "onClick"], aUe = { class: "pointer-events-none absolute inset-0 flex items-center justify-center" }, oUe = { class: "flex h-5 w-5 items-center justify-center rounded-full bg-black/60" }, sUe = ["onClick"], cUe = /*#__PURE__*/ LA(/* @__PURE__ */ L({
 	inheritAttrs: !1,
 	__name: "ChatRoom",
 	setup(e) {
@@ -82168,14 +82183,14 @@ var EHe = { class: "relative h-(--imkit-header-height) shrink-0" }, DHe = {
 			}
 		}), n = FM(), r = IA(), i = G(() => r.settings);
 		K7({ lockScroll: () => i.value.fullPageEnabled === !0 });
-		let { open: a } = cj({ component: YVe }), o = () => {
+		let { open: a } = cj({ component: XVe }), o = () => {
 			let { open: e } = cj({
-				component: BVe,
+				component: VVe,
 				attrs: { fileSizeLimit: S.value }
 			});
 			e();
 		}, s = () => {
-			let { open: e } = cj({ component: zVe });
+			let { open: e } = cj({ component: BVe });
 			e();
 		}, c = G(() => n.rooms[n.selectedRoomId]), l = G(() => c.value ? {
 			name: c.value.displayName ?? "",
@@ -82316,7 +82331,7 @@ var EHe = { class: "relative h-(--imkit-header-height) shrink-0" }, DHe = {
 			document.removeEventListener("visibilitychange", Be), window.removeEventListener("pagehide", Ve), n.flushMessageDrafts().catch(() => {}), at();
 		});
 		let ut = () => {
-			let { open: e } = cj({ component: THe });
+			let { open: e } = cj({ component: EHe });
 			e();
 		}, dt = G(() => c.value.memberIds.map((e) => n.users[e]?.nickname)), ft = G(() => {
 			let e = c.value;
@@ -82333,11 +82348,11 @@ var EHe = { class: "relative h-(--imkit-header-height) shrink-0" }, DHe = {
 				onDragover: st
 			}), [
 				c.value ? (R(), z(U, { key: 0 }, [
-					V("div", EHe, [W(xs, {
+					V("div", DHe, [W(xs, {
 						name: "header-swap",
 						mode: "out-in"
 					}, {
-						default: F(() => [ge.value ? (R(), B(dHe, { key: 0 })) : ur((R(), z("div", {
+						default: F(() => [ge.value ? (R(), B(fHe, { key: 0 })) : ur((R(), z("div", {
 							key: 1,
 							"data-testid": "chat-header",
 							class: "@container relative flex h-(--imkit-header-height) shrink-0 items-center gap-3 px-4 select-none",
@@ -82350,7 +82365,7 @@ var EHe = { class: "relative h-(--imkit-header-height) shrink-0" }, DHe = {
 								class: "flex shrink-0 cursor-pointer text-content-muted sm:hidden!",
 								onClick: ct
 							})),
-							V("span", DHe, [W(AP, {
+							V("span", OHe, [W(AP, {
 								url: c.value.isGroup ? c.value.coverUrl : c.value.avatars[0].url,
 								name: c.value.isGroup ? c.value.displayName ?? "" : c.value.avatars[0].name,
 								"is-group": c.value.isGroup,
@@ -82360,9 +82375,9 @@ var EHe = { class: "relative h-(--imkit-header-height) shrink-0" }, DHe = {
 								"name",
 								"is-group"
 							])]),
-							V("div", OHe, [V("div", kHe, M(l.value.name), 1), l.value.countSuffix ? (R(), z("div", AHe, M(l.value.countSuffix), 1)) : H("", !0)]),
+							V("div", kHe, [V("div", AHe, M(l.value.name), 1), l.value.countSuffix ? (R(), z("div", jHe, M(l.value.countSuffix), 1)) : H("", !0)]),
 							r[19] || (r[19] = V("div", { class: "grow" }, null, -1)),
-							V("div", jHe, [
+							V("div", MHe, [
 								i.value.searchInRoomEnabled ? (R(), z("button", {
 									key: 0,
 									type: "button",
@@ -82373,7 +82388,7 @@ var EHe = { class: "relative h-(--imkit-header-height) shrink-0" }, DHe = {
 									size: 20,
 									"aria-hidden": "true",
 									class: "h-5 w-5"
-								}), V("span", NHe, M(e.$t("search")), 1)], 8, MHe)) : H("", !0),
+								}), V("span", PHe, M(e.$t("search")), 1)], 8, NHe)) : H("", !0),
 								i.value.showEndChatButton ? (R(), z("button", {
 									key: 1,
 									type: "button",
@@ -82383,7 +82398,7 @@ var EHe = { class: "relative h-(--imkit-header-height) shrink-0" }, DHe = {
 								}, [W(P(cN), {
 									"aria-hidden": "true",
 									class: "h-5 w-5"
-								}), V("span", FHe, M(e.$t("endChat")), 1)], 8, PHe)) : H("", !0),
+								}), V("span", IHe, M(e.$t("endChat")), 1)], 8, FHe)) : H("", !0),
 								c.value.isGroup && i.value.showGroupChatRoomInfoButton || c.value.type === P(AA).Direct && i.value.showDirectChatRoomInfoButton ? (R(), z("button", {
 									key: 2,
 									"data-testid": "chat-info-button",
@@ -82400,9 +82415,9 @@ var EHe = { class: "relative h-(--imkit-header-height) shrink-0" }, DHe = {
 										"aria-hidden": "true",
 										class: "h-5 w-5"
 									}),
-									V("span", LHe, M(e.$t("roomInfo")), 1),
+									V("span", RHe, M(e.$t("roomInfo")), 1),
 									Gr(e.$slots, "setting", {}, void 0, !0)
-								], 10, IHe)) : H("", !0)
+								], 10, LHe)) : H("", !0)
 							])
 						], 4)), [[
 							a,
@@ -82418,7 +82433,7 @@ var EHe = { class: "relative h-(--imkit-header-height) shrink-0" }, DHe = {
 						class: "grow overflow-auto bg-canvas p-2",
 						style: { "overflow-anchor": "none" }
 					}, [
-						V("div", RHe, [P(Ze) ? (R(), z("div", zHe, [...r[20] || (r[20] = [V("svg", {
+						V("div", zHe, [P(Ze) ? (R(), z("div", BHe, [...r[20] || (r[20] = [V("svg", {
 							class: "h-6 w-6 animate-spin fill-accent-vivid text-surface-muted",
 							viewBox: "0 0 100 101",
 							fill: "none",
@@ -82468,7 +82483,7 @@ var EHe = { class: "relative h-(--imkit-header-height) shrink-0" }, DHe = {
 							"onScroll"
 						])
 					], 512),
-					V("div", BHe, [
+					V("div", VHe, [
 						P(Qe) ? (R(), z("button", {
 							key: 0,
 							"data-testid": "scroll-to-bottom-button",
@@ -82476,16 +82491,16 @@ var EHe = { class: "relative h-(--imkit-header-height) shrink-0" }, DHe = {
 							"aria-label": e.$t("scrollToBottom"),
 							class: "absolute -top-12 right-3 z-10 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-panel text-content-muted shadow-raised transition hover:scale-110",
 							onClick: r[1] || (r[1] = (e) => P(tt)({ smooth: !0 }))
-						}, [W(P(vhe), { class: "h-5 w-5" })], 8, VHe)) : H("", !0),
-						W(RVe),
-						W(iHe),
+						}, [W(P(vhe), { class: "h-5 w-5" })], 8, HHe)) : H("", !0),
+						W(zVe),
+						W(aHe),
 						P(Je) ? (R(), z("div", {
 							key: 1,
 							"data-testid": "latest-message-banner",
 							class: "absolute -top-10 right-0 left-0 z-10 flex h-10 cursor-pointer items-center border-t border-border bg-surface-muted px-3",
 							onClick: r[2] || (r[2] = (e) => P(tt)())
-						}, [V("span", HHe, M(c.value.lastMessage?.bannerLabel(c.value.isGroup)), 1)])) : H("", !0),
-						V("div", UHe, [
+						}, [V("span", UHe, M(c.value.lastMessage?.bannerLabel(c.value.isGroup)), 1)])) : H("", !0),
+						V("div", WHe, [
 							!x.value && (i.value.locationInputEnabled || i.value.audioInputEnabled || i.value.fileInputEnabled) ? (R(), z("button", {
 								key: 0,
 								ref_key: "plusButtonEl",
@@ -82497,15 +82512,15 @@ var EHe = { class: "relative h-(--imkit-header-height) shrink-0" }, DHe = {
 									P(we) ? we.value = !1 : _.value = !_.value;
 								})
 							}, [W(P(pN), { class: A(["h-11 w-5 transform object-contain", { "rotate-45": P(we) }]) }, null, 8, ["class"])], 512)) : H("", !0),
-							_.value ? ur((R(), z("div", WHe, [(R(!0), z(U, null, Wr(ot.value, (t) => (R(), z("div", {
+							_.value ? ur((R(), z("div", GHe, [(R(!0), z(U, null, Wr(ot.value, (t) => (R(), z("div", {
 								key: t.key,
 								class: "flex min-w-16 cursor-pointer flex-col items-center gap-1 rounded-md p-2 hover:bg-surface-hover",
 								onClick: t.onClick
-							}, [(R(), B(Br(t.icon), { class: A(t.iconClass) }, null, 8, ["class"])), V("div", KHe, [V("span", qHe, M(e.$t(t.label)), 1)])], 8, GHe))), 128))])), [[P(N2), [() => {
+							}, [(R(), B(Br(t.icon), { class: A(t.iconClass) }, null, 8, ["class"])), V("div", qHe, [V("span", JHe, M(e.$t(t.label)), 1)])], 8, KHe))), 128))])), [[P(N2), [() => {
 								_.value = !1;
 							}, { ignore: [v.value] }]]]) : H("", !0),
-							i.value.audioInputEnabled && P(we) ? (R(), B(jVe, { key: 2 })) : (R(), z("div", JHe, [V("div", YHe, [
-								V("div", XHe, [W(yVe, {
+							i.value.audioInputEnabled && P(we) ? (R(), B(MVe, { key: 2 })) : (R(), z("div", YHe, [V("div", XHe, [
+								V("div", ZHe, [W(bVe, {
 									class: "relative flex",
 									members: dt.value
 								}, {
@@ -82531,15 +82546,15 @@ var EHe = { class: "relative h-(--imkit-header-height) shrink-0" }, DHe = {
 										onMouseup: r[10] || (r[10] = (e) => y.value?.checkSelection()),
 										onKeyup: r[11] || (r[11] = (e) => y.value?.checkSelection()),
 										onBlur: r[12] || (r[12] = (e) => y.value?.hideMenu())
-									}, null, 42, ZHe), W(wHe, {
+									}, null, 42, QHe), W(THe, {
 										ref_key: "formatMenu",
 										ref: y,
 										"input-element": h.value,
 										onFormatApplied: P(Le)
 									}, null, 8, ["input-element", "onFormatApplied"])]),
 									_: 1
-								}, 8, ["members"]), P(D) || P(C).length > 0 || P(O) || P(T).length > 0 ? (R(), z("div", QHe, [
-									P(D) ? (R(), z("div", $He, [W(P(sN), { class: "h-5 w-5 animate-spin text-content-subtle" })])) : H("", !0),
+								}, 8, ["members"]), P(D) || P(C).length > 0 || P(O) || P(T).length > 0 ? (R(), z("div", $He, [
+									P(D) ? (R(), z("div", eUe, [W(P(sN), { class: "h-5 w-5 animate-spin text-content-subtle" })])) : H("", !0),
 									P(C).length > 0 ? (R(), B(qs, {
 										key: 1,
 										tag: "div",
@@ -82557,16 +82572,16 @@ var EHe = { class: "relative h-(--imkit-header-height) shrink-0" }, DHe = {
 											src: e.thumbnailUrl,
 											class: "absolute bottom-0 left-0 h-full w-full cursor-pointer rounded-lg border border-border bg-surface-muted object-cover",
 											onClick: (e) => P(ue)(t)
-										}, null, 8, eUe), V("button", {
+										}, null, 8, tUe), V("button", {
 											class: A(["absolute -top-1.5 -right-1.5 flex h-5 w-5 cursor-pointer items-center justify-center rounded-full bg-black/70 text-white shadow-raised transition-[opacity,transform,background-color] duration-200 ease-out hover:scale-110 hover:bg-black/90", ve.value ? "opacity-100" : "pointer-events-none opacity-0 group-hover:pointer-events-auto group-hover:opacity-100"]),
 											onClick: (e) => P(ce)(t)
 										}, [W(P(EN), {
 											size: 12,
 											"stroke-width": 2.5
-										})], 10, tUe)]))), 128))]),
+										})], 10, nUe)]))), 128))]),
 										_: 1
 									})) : H("", !0),
-									P(O) ? (R(), z("div", nUe, [W(P(sN), { class: "h-5 w-5 animate-spin text-content-subtle" })])) : H("", !0),
+									P(O) ? (R(), z("div", rUe, [W(P(sN), { class: "h-5 w-5 animate-spin text-content-subtle" })])) : H("", !0),
 									P(T).length > 0 ? (R(), B(qs, {
 										key: 3,
 										tag: "div",
@@ -82585,15 +82600,15 @@ var EHe = { class: "relative h-(--imkit-header-height) shrink-0" }, DHe = {
 												src: e.thumbnailUrl,
 												class: "absolute bottom-0 left-0 h-full w-full cursor-pointer rounded-lg border border-border bg-surface-muted object-cover",
 												onClick: (e) => P(de)(t)
-											}, null, 8, rUe),
-											V("div", iUe, [V("div", aUe, [W(P(fN), { class: "h-3 w-3 fill-white text-white" })])]),
+											}, null, 8, iUe),
+											V("div", aUe, [V("div", oUe, [W(P(fN), { class: "h-3 w-3 fill-white text-white" })])]),
 											V("button", {
 												class: A(["absolute -top-1.5 -right-1.5 flex h-5 w-5 cursor-pointer items-center justify-center rounded-full bg-black/70 text-white shadow-raised transition-[opacity,transform,background-color] duration-200 ease-out hover:scale-110 hover:bg-black/90", ve.value ? "opacity-100" : "pointer-events-none opacity-0 group-hover:pointer-events-auto group-hover:opacity-100"]),
 												onClick: (e) => P(le)(t)
 											}, [W(P(EN), {
 												size: 12,
 												"stroke-width": 2.5
-											})], 10, oUe)
+											})], 10, sUe)
 										]))), 128))]),
 										_: 1
 									})) : H("", !0)
@@ -82605,7 +82620,7 @@ var EHe = { class: "relative h-(--imkit-header-height) shrink-0" }, DHe = {
 									class: "flex h-6 shrink-0 cursor-pointer items-center",
 									"data-testid": "sticker-button",
 									onClick: r[13] || (r[13] = ec((...e) => P(ke) && P(ke)(...e), ["stop"]))
-								}, [W(pHe, {
+								}, [W(mHe, {
 									width: 20,
 									height: 20,
 									class: "fill-content-muted"
@@ -82713,7 +82728,7 @@ var EHe = { class: "relative h-(--imkit-header-height) shrink-0" }, DHe = {
 		cCap: .11
 	}
 };
-function cUe(e) {
+function lUe(e) {
 	let t = e.replace("#", ""), n = t.length === 3 ? t.split("").map((e) => e + e).join("") : t, r = parseInt(n, 16);
 	return {
 		r: (r >> 16 & 255) / 255,
@@ -82721,7 +82736,7 @@ function cUe(e) {
 		b: (r & 255) / 255
 	};
 }
-function lUe({ r: e, g: t, b: n }) {
+function uUe({ r: e, g: t, b: n }) {
 	let r = (e) => Math.round(Math.min(1, Math.max(0, e)) * 255).toString(16).padStart(2, "0");
 	return `#${r(e)}${r(t)}${r(n)}`;
 }
@@ -82731,21 +82746,21 @@ function u9(e) {
 function d9(e) {
 	return e <= .0031308 ? 12.92 * e : 1.055 * e ** (1 / 2.4) - .055;
 }
-function uUe({ r: e, g: t, b: n }) {
+function dUe({ r: e, g: t, b: n }) {
 	return {
 		r: u9(e),
 		g: u9(t),
 		b: u9(n)
 	};
 }
-function dUe({ r: e, g: t, b: n }) {
+function fUe({ r: e, g: t, b: n }) {
 	return {
 		r: d9(e),
 		g: d9(t),
 		b: d9(n)
 	};
 }
-function fUe({ r: e, g: t, b: n }) {
+function pUe({ r: e, g: t, b: n }) {
 	let r = .4122214708 * e + .5363325363 * t + .0514459929 * n, i = .2119034982 * e + .6806995451 * t + .1073969566 * n, a = .0883024619 * e + .2817188376 * t + .6299787005 * n, o = Math.cbrt(r), s = Math.cbrt(i), c = Math.cbrt(a);
 	return {
 		L: .2104542553 * o + .793617785 * s - .0040720468 * c,
@@ -82761,7 +82776,7 @@ function f9({ L: e, a: t, b: n }) {
 		b: -.0041960863 * o - .7034186147 * s + 1.707614701 * c
 	};
 }
-function pUe({ L: e, a: t, b: n }) {
+function mUe({ L: e, a: t, b: n }) {
 	let r = Math.sqrt(t * t + n * n), i = Math.atan2(n, t) * 180 / Math.PI;
 	return {
 		L: e,
@@ -82777,14 +82792,14 @@ function p9({ L: e, C: t, H: n }) {
 		b: t * Math.sin(r)
 	};
 }
-function mUe(e) {
-	return pUe(fUe(uUe(cUe(e))));
+function hUe(e) {
+	return mUe(pUe(dUe(lUe(e))));
 }
 function m9(e) {
 	let { r: t, g: n, b: r } = f9(e);
 	return t >= -1e-4 && t <= 1.0001 && n >= -1e-4 && n <= 1.0001 && r >= -1e-4 && r <= 1.0001;
 }
-function hUe(e) {
+function gUe(e) {
 	let { C: t } = e, { L: n, H: r } = e, i = p9({
 		L: n,
 		C: t,
@@ -82806,14 +82821,14 @@ function hUe(e) {
 			H: r
 		});
 	}
-	return lUe(dUe(f9(i)));
+	return uUe(fUe(f9(i)));
 }
-var gUe = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i;
+var _Ue = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i;
 function h9(e) {
-	let { C: t, H: n } = e && gUe.test(e.trim()) ? mUe(e.trim()) : {
+	let { C: t, H: n } = e && _Ue.test(e.trim()) ? hUe(e.trim()) : {
 		C: 0,
 		H: 0
-	}, r = (e) => hUe({
+	}, r = (e) => gUe({
 		L: e.L,
 		C: Math.min(t * e.cFactor, e.cCap),
 		H: n
@@ -82825,14 +82840,14 @@ function h9(e) {
 		darkFg: r(l9.darkFg)
 	};
 }
-var _Ue = {
+var vUe = {
 	red: "#e0393d",
 	orange: "#dd7a11",
 	green: "#1f9e57",
 	teal: "#0fa39a",
 	blue: "#3b7de0",
 	purple: "#9c4de0"
-}, vUe = /* @__PURE__ */ s(((e, t) => {
+}, yUe = /* @__PURE__ */ s(((e, t) => {
 	(function(n, r) {
 		typeof e == "object" && t !== void 0 ? t.exports = r() : typeof define == "function" && define.amd ? define(r) : (n = typeof globalThis < "u" ? globalThis : n || self).dayjs_plugin_localizedFormat = r();
 	})(e, (function() {
@@ -82864,7 +82879,7 @@ var _Ue = {
 //#endregion
 //#region src/components/folders/RoomCell.vue?vue&type=script&setup=true&lang.ts
 K();
-var g9 = /* @__PURE__ */ u(vUe(), 1), yUe = { class: "flex w-0 min-w-0 grow flex-col text-left" }, bUe = { class: "overflow-hidden text-base text-ellipsis whitespace-nowrap text-content" }, _9 = /* @__PURE__ */ L({
+var g9 = /* @__PURE__ */ u(yUe(), 1), bUe = { class: "flex w-0 min-w-0 grow flex-col text-left" }, xUe = { class: "overflow-hidden text-base text-ellipsis whitespace-nowrap text-content" }, _9 = /* @__PURE__ */ L({
 	__name: "RoomCell",
 	props: { source: {} },
 	setup(e) {
@@ -82897,14 +82912,14 @@ var g9 = /* @__PURE__ */ u(vUe(), 1), yUe = { class: "flex w-0 min-w-0 grow flex
 				"name",
 				"is-group"
 			]),
-			V("div", yUe, [V("div", bUe, M(e.source.displayName), 1)])
+			V("div", bUe, [V("div", xUe, M(e.source.displayName), 1)])
 		], 2));
 	}
 });
 //#endregion
 //#region src/components/folders/UpdateFolderModal.vue?vue&type=script&setup=true&lang.ts
 K();
-var xUe = { class: "text-xl font-semibold text-content" }, SUe = { class: "text-xs text-content-muted" }, CUe = { class: "flex flex-col gap-1.5" }, wUe = { class: "text-xs font-semibold text-content-muted" }, TUe = { class: "flex items-center gap-2 rounded-md border border-border bg-surface px-3.5 py-2.5 focus-within:border-accent focus-within:ring-2 focus-within:ring-accent-subtle" }, EUe = ["placeholder"], DUe = { class: "shrink-0 text-xs text-content-muted" }, OUe = { class: "flex flex-col gap-1.5" }, kUe = { class: "text-xs font-semibold text-content-muted" }, AUe = { class: "relative" }, jUe = ["aria-label", "placeholder"], MUe = { class: "flex h-56 flex-col overflow-hidden rounded-md border border-border" }, NUe = { class: "flex items-center justify-between gap-2" }, PUe = { class: "text-xs text-content-muted" }, FUe = { class: "flex items-center gap-2" }, IUe = ["disabled"], v9 = /* @__PURE__ */ L({
+var SUe = { class: "text-xl font-semibold text-content" }, CUe = { class: "text-xs text-content-muted" }, wUe = { class: "flex flex-col gap-1.5" }, TUe = { class: "text-xs font-semibold text-content-muted" }, EUe = { class: "flex items-center gap-2 rounded-md border border-border bg-surface px-3.5 py-2.5 focus-within:border-accent focus-within:ring-2 focus-within:ring-accent-subtle" }, DUe = ["placeholder"], OUe = { class: "shrink-0 text-xs text-content-muted" }, kUe = { class: "flex flex-col gap-1.5" }, AUe = { class: "text-xs font-semibold text-content-muted" }, jUe = { class: "relative" }, MUe = ["aria-label", "placeholder"], NUe = { class: "flex h-56 flex-col overflow-hidden rounded-md border border-border" }, PUe = { class: "flex items-center justify-between gap-2" }, FUe = { class: "text-xs text-content-muted" }, IUe = { class: "flex items-center gap-2" }, LUe = ["disabled"], v9 = /* @__PURE__ */ L({
 	__name: "UpdateFolderModal",
 	props: { folderId: {} },
 	setup(e) {
@@ -82937,23 +82952,23 @@ var xUe = { class: "text-xl font-semibold text-content" }, SUe = { class: "text-
 			"overlay-transition": "vfm-fade"
 		}, {
 			default: F(() => [
-				V("div", xUe, M(i.value ? e.$t("editFolder") : e.$t("createFolder")), 1),
-				V("p", SUe, M(e.$t("createFolderExplain")), 1),
-				V("label", CUe, [V("span", wUe, M(e.$t("folderName")), 1), V("div", TUe, [ur(V("input", {
+				V("div", SUe, M(i.value ? e.$t("editFolder") : e.$t("createFolder")), 1),
+				V("p", CUe, M(e.$t("createFolderExplain")), 1),
+				V("label", wUe, [V("span", TUe, M(e.$t("folderName")), 1), V("div", EUe, [ur(V("input", {
 					"onUpdate:modelValue": n[0] || (n[0] = (e) => a.value = e),
 					type: "text",
 					maxlength: "30",
 					class: "grow bg-transparent text-base text-content placeholder-content-subtle outline-none",
 					placeholder: e.$t("folderName")
-				}, null, 8, EUe), [[Zs, a.value]]), V("span", DUe, M(a.value.length) + "/30", 1)])]),
-				V("div", OUe, [V("span", kUe, M(e.$t("addRoomsToFolder")), 1), V("div", AUe, [W(P(_N), { class: "pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-content-subtle" }), ur(V("input", {
+				}, null, 8, DUe), [[Zs, a.value]]), V("span", OUe, M(a.value.length) + "/30", 1)])]),
+				V("div", kUe, [V("span", AUe, M(e.$t("addRoomsToFolder")), 1), V("div", jUe, [W(P(_N), { class: "pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-content-subtle" }), ur(V("input", {
 					"onUpdate:modelValue": n[1] || (n[1] = (e) => o.value = e),
 					type: "text",
 					"aria-label": e.$t("searchInConversation"),
 					placeholder: e.$t("searchInConversation"),
 					class: "h-10 w-full rounded-md border border-border bg-surface py-2.5 pr-3.5 pl-9 text-base text-content placeholder-content-subtle outline-none focus:border-accent focus:ring-2 focus:ring-accent-subtle"
-				}, null, 8, jUe), [[Zs, o.value]])])]),
-				V("div", MUe, [W(P(ld), {
+				}, null, 8, MUe), [[Zs, o.value]])])]),
+				V("div", NUe, [W(P(ld), {
 					data: c.value,
 					"item-size": 44,
 					class: "grow overflow-auto"
@@ -82961,7 +82976,7 @@ var xUe = { class: "text-xl font-semibold text-content" }, SUe = { class: "text-
 					default: F(({ item: e }) => [W(_9, { source: e }, null, 8, ["source"])]),
 					_: 1
 				}, 8, ["data"])]),
-				V("div", NUe, [V("span", PUe, M(e.$t("selectedCount", { n: l.value })), 1), V("div", FUe, [V("button", {
+				V("div", PUe, [V("span", FUe, M(e.$t("selectedCount", { n: l.value })), 1), V("div", IUe, [V("button", {
 					class: "inline-flex h-10 cursor-pointer items-center justify-center rounded-md bg-surface-muted px-4 text-base font-medium text-content transition-colors",
 					onClick: n[2] || (n[2] = () => {
 						P(t).closeAll();
@@ -82972,7 +82987,7 @@ var xUe = { class: "text-xl font-semibold text-content" }, SUe = { class: "text-
 					onClick: n[3] || (n[3] = () => {
 						d(), P(t).closeAll();
 					})
-				}, M(i.value ? e.$t("confirm") : e.$t("create")), 9, IUe)])])
+				}, M(i.value ? e.$t("confirm") : e.$t("create")), 9, LUe)])])
 			]),
 			_: 1
 		}));
@@ -82981,19 +82996,19 @@ var xUe = { class: "text-xl font-semibold text-content" }, SUe = { class: "text-
 //#endregion
 //#region src/components/AddToFolderModal.vue?vue&type=script&setup=true&lang.ts
 K();
-var LUe = { class: "text-xl font-semibold text-content" }, RUe = { class: "text-xs text-content-muted" }, zUe = { class: "relative" }, BUe = ["aria-label", "placeholder"], VUe = { class: "flex flex-col overflow-hidden rounded-md border border-border" }, HUe = ["onClick"], UUe = {
+var RUe = { class: "text-xl font-semibold text-content" }, zUe = { class: "text-xs text-content-muted" }, BUe = { class: "relative" }, VUe = ["aria-label", "placeholder"], HUe = { class: "flex flex-col overflow-hidden rounded-md border border-border" }, UUe = ["onClick"], WUe = {
 	key: 0,
 	class: "h-2.5 w-2.5 rounded-full bg-accent"
-}, WUe = { class: "flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent-subtle text-content-muted" }, GUe = { class: "flex min-w-0 grow flex-col" }, KUe = { class: "truncate text-base text-content" }, qUe = { class: "text-xs text-content-muted" }, JUe = {
+}, GUe = { class: "flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent-subtle text-content-muted" }, KUe = { class: "flex min-w-0 grow flex-col" }, qUe = { class: "truncate text-base text-content" }, JUe = { class: "text-xs text-content-muted" }, YUe = {
 	key: 0,
 	class: "shrink-0 rounded-sm bg-accent-subtle px-2 py-0.5 text-xs font-medium text-accent-vivid"
-}, YUe = {
+}, XUe = {
 	key: 0,
 	class: "h-2.5 w-2.5 rounded-full bg-accent"
-}, XUe = { class: "flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface-muted text-content-muted" }, ZUe = { class: "flex min-w-0 grow flex-col" }, QUe = { class: "truncate text-base text-content" }, $Ue = { class: "text-xs text-content-muted" }, eWe = {
+}, ZUe = { class: "flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-surface-muted text-content-muted" }, QUe = { class: "flex min-w-0 grow flex-col" }, $Ue = { class: "truncate text-base text-content" }, eWe = { class: "text-xs text-content-muted" }, tWe = {
 	key: 0,
 	class: "shrink-0 rounded-sm bg-accent-subtle px-2 py-0.5 text-xs font-medium text-accent-vivid"
-}, tWe = { class: "text-base font-medium" }, nWe = { class: "mt-1 flex items-center justify-end gap-2" }, rWe = ["disabled"], y9 = "__unclassified__", b9 = /* @__PURE__ */ L({
+}, nWe = { class: "text-base font-medium" }, rWe = { class: "mt-1 flex items-center justify-end gap-2" }, iWe = ["disabled"], y9 = "__unclassified__", b9 = /* @__PURE__ */ L({
 	__name: "AddToFolderModal",
 	props: { roomId: {} },
 	setup(e) {
@@ -83036,47 +83051,47 @@ var LUe = { class: "text-xl font-semibold text-content" }, RUe = { class: "text-
 			"overlay-transition": "vfm-fade"
 		}, {
 			default: F(() => [
-				V("div", LUe, M(e.$t("addToFolder")), 1),
-				V("p", RUe, M(e.$t("addToFolderExplain", {
+				V("div", RUe, M(e.$t("addToFolder")), 1),
+				V("p", zUe, M(e.$t("addToFolderExplain", {
 					room: i.value?.displayName ?? "",
 					folder: P(r).folders[a.value]?.name ?? e.$t("unclassified")
 				})), 1),
-				V("div", zUe, [W(P(_N), { class: "pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-content-subtle" }), ur(V("input", {
+				V("div", BUe, [W(P(_N), { class: "pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-content-subtle" }), ur(V("input", {
 					"onUpdate:modelValue": n[0] || (n[0] = (e) => o.value = e),
 					type: "text",
 					"aria-label": e.$t("searchFolder"),
 					placeholder: e.$t("searchFolder"),
 					class: "h-10 w-full rounded-md border border-border bg-surface py-2.5 pr-3.5 pl-9 text-base text-content placeholder-content-subtle outline-none focus:border-accent focus:ring-2 focus:ring-accent-subtle"
-				}, null, 8, BUe), [[Zs, o.value]])]),
-				V("div", VUe, [
+				}, null, 8, VUe), [[Zs, o.value]])]),
+				V("div", HUe, [
 					(R(!0), z(U, null, Wr(l.value, (t) => (R(), z("button", {
 						key: t.id,
 						type: "button",
 						class: "flex cursor-pointer items-center gap-3 border-b border-border p-2.5 text-left transition-colors last:border-b-0 hover:bg-surface-hover",
 						onClick: (e) => f(t.id)
 					}, [
-						V("span", { class: A(["flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2", s.value === t.id ? "border-accent" : "border-border"]) }, [s.value === t.id ? (R(), z("span", UUe)) : H("", !0)], 2),
-						V("span", WUe, [W(P(aN), { size: 16 })]),
-						V("span", GUe, [V("span", KUe, M(t.name), 1), V("span", qUe, M(e.$t("folderConversationCount", { n: t.roomIds.length })), 1)]),
-						a.value === t.id ? (R(), z("span", JUe, M(e.$t("currentLocation")), 1)) : H("", !0)
-					], 8, HUe))), 128)),
+						V("span", { class: A(["flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2", s.value === t.id ? "border-accent" : "border-border"]) }, [s.value === t.id ? (R(), z("span", WUe)) : H("", !0)], 2),
+						V("span", GUe, [W(P(aN), { size: 16 })]),
+						V("span", KUe, [V("span", qUe, M(t.name), 1), V("span", JUe, M(e.$t("folderConversationCount", { n: t.roomIds.length })), 1)]),
+						a.value === t.id ? (R(), z("span", YUe, M(e.$t("currentLocation")), 1)) : H("", !0)
+					], 8, UUe))), 128)),
 					V("button", {
 						type: "button",
 						class: "flex cursor-pointer items-center gap-3 border-b border-border p-2.5 text-left transition-colors hover:bg-surface-hover",
 						onClick: n[1] || (n[1] = (e) => f(y9))
 					}, [
-						V("span", { class: A(["flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2", s.value === y9 ? "border-accent" : "border-border"]) }, [s.value === y9 ? (R(), z("span", YUe)) : H("", !0)], 2),
-						V("span", XUe, [W(P(Nhe), { size: 16 })]),
-						V("span", ZUe, [V("span", QUe, M(e.$t("unclassified")), 1), V("span", $Ue, M(e.$t("unclassifiedDescription")), 1)]),
-						a.value ? H("", !0) : (R(), z("span", eWe, M(e.$t("currentLocation")), 1))
+						V("span", { class: A(["flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2", s.value === y9 ? "border-accent" : "border-border"]) }, [s.value === y9 ? (R(), z("span", XUe)) : H("", !0)], 2),
+						V("span", ZUe, [W(P(Nhe), { size: 16 })]),
+						V("span", QUe, [V("span", $Ue, M(e.$t("unclassified")), 1), V("span", eWe, M(e.$t("unclassifiedDescription")), 1)]),
+						a.value ? H("", !0) : (R(), z("span", tWe, M(e.$t("currentLocation")), 1))
 					]),
 					V("button", {
 						type: "button",
 						class: "flex cursor-pointer items-center gap-2 p-2.5 text-left text-accent-vivid transition-colors hover:bg-surface-hover",
 						onClick: m
-					}, [W(P(pN), { size: 16 }), V("span", tWe, M(e.$t("createNewFolderPrompt")), 1)])
+					}, [W(P(pN), { size: 16 }), V("span", nWe, M(e.$t("createNewFolderPrompt")), 1)])
 				]),
-				V("div", nWe, [V("button", {
+				V("div", rWe, [V("button", {
 					class: "inline-flex h-10 cursor-pointer items-center justify-center rounded-md bg-surface-muted px-4 text-base font-medium text-content transition-colors",
 					onClick: n[2] || (n[2] = (e) => P(t).closeAll())
 				}, M(e.$t("cancel")), 1), V("button", {
@@ -83085,7 +83100,7 @@ var LUe = { class: "text-xl font-semibold text-content" }, RUe = { class: "text-
 					onClick: n[3] || (n[3] = () => {
 						p(), P(t).closeAll();
 					})
-				}, M(s.value === y9 ? e.$t("removeFromFolder") : e.$t("moveToFolder", { name: d.value })), 9, rWe)])
+				}, M(s.value === y9 ? e.$t("removeFromFolder") : e.$t("moveToFolder", { name: d.value })), 9, iWe)])
 			]),
 			_: 1
 		}));
@@ -83148,7 +83163,7 @@ var x9 = /* @__PURE__ */ L({
 K();
 //#endregion
 //#region src/components/LeaveGroupConfirmModal.vue
-var iWe = /* @__PURE__ */ L({
+var aWe = /* @__PURE__ */ L({
 	__name: "LeaveGroupConfirmModal",
 	props: {
 		roomId: {},
@@ -83195,7 +83210,7 @@ var iWe = /* @__PURE__ */ L({
 K();
 //#endregion
 //#region src/components/MoveOutConfirmModal.vue
-var aWe = /* @__PURE__ */ L({
+var oWe = /* @__PURE__ */ L({
 	__name: "MoveOutConfirmModal",
 	props: {
 		memberIdToMoveOut: {},
@@ -83242,26 +83257,26 @@ var aWe = /* @__PURE__ */ L({
 //#endregion
 //#region src/components/TagsModal.vue?vue&type=script&setup=true&lang.ts
 K();
-var oWe = { class: "mb-1 flex w-full items-center justify-between text-xl font-semibold text-content" }, sWe = {
+var sWe = { class: "mb-1 flex w-full items-center justify-between text-xl font-semibold text-content" }, cWe = {
 	key: 0,
 	class: "text-content-muted"
-}, cWe = {
+}, lWe = {
 	key: 0,
 	class: "-mt-2 text-xs text-content-muted"
-}, lWe = { key: 1 }, uWe = { class: "mb-2 block text-xs font-semibold text-content-muted" }, dWe = { class: "flex flex-wrap gap-1.5" }, fWe = ["onClick"], pWe = ["onClick"], mWe = ["onClick"], hWe = { class: "mb-2 flex items-center gap-1 text-xs font-semibold text-content-muted" }, gWe = ["placeholder", "disabled"], _We = { class: "shrink-0 text-xs text-content-muted" }, vWe = {
+}, uWe = { key: 1 }, dWe = { class: "mb-2 block text-xs font-semibold text-content-muted" }, fWe = { class: "flex flex-wrap gap-1.5" }, pWe = ["onClick"], mWe = ["onClick"], hWe = ["onClick"], gWe = { class: "mb-2 flex items-center gap-1 text-xs font-semibold text-content-muted" }, _We = ["placeholder", "disabled"], vWe = { class: "shrink-0 text-xs text-content-muted" }, yWe = {
 	key: 2,
 	class: "mt-3"
-}, yWe = { class: "mb-2 block text-xs font-semibold text-content-muted" }, bWe = { class: "flex flex-wrap gap-2" }, xWe = ["onClick"], SWe = { key: 3 }, CWe = { class: "mt-3 flex items-center gap-2" }, wWe = ["value"], TWe = {
+}, bWe = { class: "mb-2 block text-xs font-semibold text-content-muted" }, xWe = { class: "flex flex-wrap gap-2" }, SWe = ["onClick"], CWe = { key: 3 }, wWe = { class: "mt-3 flex items-center gap-2" }, TWe = ["value"], EWe = {
 	key: 0,
 	class: "text-xs text-danger-vivid"
-}, EWe = {
+}, DWe = {
 	key: 4,
 	class: "flex items-center gap-1 text-xs text-content-muted"
-}, DWe = { class: "flex items-center justify-end gap-2" }, OWe = ["disabled"], S9 = /* @__PURE__ */ L({
+}, OWe = { class: "flex items-center justify-end gap-2" }, kWe = ["disabled"], S9 = /* @__PURE__ */ L({
 	__name: "TagsModal",
 	props: { roomId: {} },
 	setup(e) {
-		let t = _Ue, n = (e) => {
+		let t = vUe, n = (e) => {
 			let t = h9(e);
 			return {
 				"--tag-bg": t.lightBg,
@@ -83323,12 +83338,12 @@ var oWe = { class: "mb-1 flex w-full items-center justify-between text-xl font-s
 			"overlay-transition": "vfm-fade"
 		}, {
 			default: F(() => [
-				V("div", oWe, [V("p", null, [Pi(M(h.value ? e.$t("manageTag") : e.$t("editTag")) + " ", 1), h.value ? (R(), z("span", sWe, "· " + M(P(v).displayName), 1)) : H("", !0)]), V("button", {
+				V("div", sWe, [V("p", null, [Pi(M(h.value ? e.$t("manageTag") : e.$t("editTag")) + " ", 1), h.value ? (R(), z("span", cWe, "· " + M(P(v).displayName), 1)) : H("", !0)]), V("button", {
 					class: "flex cursor-pointer items-center justify-center",
 					onClick: r[0] || (r[0] = (e) => P(i).closeAll())
 				}, [W(P(EN), { class: "h-6 w-6" })])]),
-				h.value ? (R(), z("p", cWe, M(e.$t("tagsDialogExplain")), 1)) : H("", !0),
-				s.value.length > 0 && h.value ? (R(), z("div", lWe, [V("label", uWe, M(e.$t("appliedTagsCount", { n: s.value.length })), 1), V("div", dWe, [(R(!0), z(U, null, Wr(s.value, (e) => (R(), z("div", {
+				h.value ? (R(), z("p", lWe, M(e.$t("tagsDialogExplain")), 1)) : H("", !0),
+				s.value.length > 0 && h.value ? (R(), z("div", uWe, [V("label", dWe, M(e.$t("appliedTagsCount", { n: s.value.length })), 1), V("div", fWe, [(R(!0), z(U, null, Wr(s.value, (e) => (R(), z("div", {
 					key: e,
 					class: "tag-chip flex items-center gap-1 rounded-full py-1 pr-2 pl-3 text-xs font-semibold transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none",
 					style: k(n(c.value[e])),
@@ -83338,27 +83353,27 @@ var oWe = { class: "mb-1 flex w-full items-center justify-between text-xl font-s
 					V("button", {
 						class: "ml-1 cursor-pointer hover:opacity-70",
 						onClick: ec((t) => b(e), ["stop"])
-					}, [W(P(lN), { class: "h-3 w-3" })], 8, pWe),
+					}, [W(P(lN), { class: "h-3 w-3" })], 8, mWe),
 					V("button", {
 						class: "cursor-pointer hover:opacity-70",
 						onClick: ec((t) => S(e), ["stop"])
-					}, [W(P(EN), { class: "h-3 w-3" })], 8, mWe)
-				], 12, fWe))), 128))])])) : H("", !0),
-				V("div", null, [V("label", hWe, M(h.value ? e.$t("createNewTagPrompt") : e.$t("editTag")), 1), V("div", { class: A(["flex items-center gap-2 rounded-md border bg-surface px-3.5 py-2.5 focus-within:ring-2", m.value ? "border-danger focus-within:ring-danger" : "border-border focus-within:border-accent focus-within:ring-accent-subtle"]) }, [ur(V("input", {
+					}, [W(P(EN), { class: "h-3 w-3" })], 8, hWe)
+				], 12, pWe))), 128))])])) : H("", !0),
+				V("div", null, [V("label", gWe, M(h.value ? e.$t("createNewTagPrompt") : e.$t("editTag")), 1), V("div", { class: A(["flex items-center gap-2 rounded-md border bg-surface px-3.5 py-2.5 focus-within:ring-2", m.value ? "border-danger focus-within:ring-danger" : "border-border focus-within:border-accent focus-within:ring-accent-subtle"]) }, [ur(V("input", {
 					"onUpdate:modelValue": r[1] || (r[1] = (e) => l.value = e),
 					type: "text",
 					maxlength: "12",
 					class: "grow bg-transparent text-base text-content placeholder-content-subtle outline-none",
 					placeholder: h.value ? e.$t("createTag") : e.$t("editTag"),
 					disabled: s.value.length >= 5 && h.value
-				}, null, 8, gWe), [[Zs, l.value]]), V("span", _We, M(l.value.length) + "/12", 1)], 2)]),
-				s.value.length < 5 || !h.value ? (R(), z("div", vWe, [V("label", yWe, M(e.$t("chooseColor")), 1), V("div", bWe, [(R(!0), z(U, null, Wr(Object.keys(P(t)), (e) => (R(), z("button", {
+				}, null, 8, _We), [[Zs, l.value]]), V("span", vWe, M(l.value.length) + "/12", 1)], 2)]),
+				s.value.length < 5 || !h.value ? (R(), z("div", yWe, [V("label", bWe, M(e.$t("chooseColor")), 1), V("div", xWe, [(R(!0), z(U, null, Wr(Object.keys(P(t)), (e) => (R(), z("button", {
 					key: e,
 					class: A(["size-8 cursor-pointer rounded-md border border-border transition-all", u.value === P(t)[e] ? "ring-2 ring-accent ring-offset-2 ring-offset-surface" : ""]),
 					style: k({ backgroundColor: P(t)[e] }),
 					onClick: (n) => C(P(t)[e])
-				}, null, 14, xWe))), 128))])])) : H("", !0),
-				s.value.length < 5 || !h.value ? (R(), z("div", SWe, [V("div", CWe, [
+				}, null, 14, SWe))), 128))])])) : H("", !0),
+				s.value.length < 5 || !h.value ? (R(), z("div", CWe, [V("div", wWe, [
 					V("label", {
 						class: A(["relative size-8 flex-shrink-0 cursor-pointer overflow-hidden rounded-md border transition-all", u.value === p.value && g(p.value) ? "ring-2 ring-accent ring-offset-2 ring-offset-surface" : "border-border-strong"]),
 						style: k(g(p.value) ? { backgroundColor: p.value } : { background: "linear-gradient(135deg, #ef4444, #22c55e, #3b82f6)" })
@@ -83368,7 +83383,7 @@ var oWe = { class: "mb-1 flex w-full items-center justify-between text-xl font-s
 						class: "absolute inset-0 h-full w-full cursor-pointer opacity-0",
 						value: g(p.value) ? p.value : "#000000",
 						onInput: w
-					}, null, 40, wWe)], 6),
+					}, null, 40, TWe)], 6),
 					ur(V("input", {
 						"onUpdate:modelValue": r[2] || (r[2] = (e) => p.value = e),
 						type: "text",
@@ -83376,17 +83391,17 @@ var oWe = { class: "mb-1 flex w-full items-center justify-between text-xl font-s
 						class: "h-9 w-24 rounded-md border border-border bg-surface px-2.5 font-mono text-base text-content placeholder-content-subtle outline-none focus:border-accent focus:ring-2 focus:ring-accent-subtle",
 						maxlength: "7"
 					}, null, 512), [[Zs, p.value]]),
-					p.value && !g(p.value) ? (R(), z("span", TWe, M(e.$t("fomatInvalid")), 1)) : H("", !0)
+					p.value && !g(p.value) ? (R(), z("span", EWe, M(e.$t("fomatInvalid")), 1)) : H("", !0)
 				])])) : H("", !0),
-				s.value.length >= 5 && h.value ? (R(), z("p", EWe, [W(P(Dhe), { class: "h-4 w-4 shrink-0" }), Pi(" " + M(e.$t("tagLimitReached")), 1)])) : H("", !0),
-				V("div", DWe, [V("button", {
+				s.value.length >= 5 && h.value ? (R(), z("p", DWe, [W(P(Dhe), { class: "h-4 w-4 shrink-0" }), Pi(" " + M(e.$t("tagLimitReached")), 1)])) : H("", !0),
+				V("div", OWe, [V("button", {
 					class: "inline-flex h-10 cursor-pointer items-center justify-center gap-2 rounded-md bg-surface-muted px-4 py-2 text-base leading-none font-medium whitespace-nowrap text-content transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0",
 					onClick: r[3] || (r[3] = (e) => h.value ? P(i).closeAll() : x())
 				}, M(e.$t("cancel")), 1), V("button", {
 					class: A(["inline-flex h-10 cursor-pointer items-center justify-center gap-2 rounded-md bg-accent px-4 py-2 text-base leading-none font-medium whitespace-nowrap text-white transition-colors hover:bg-accent-hover focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0", { "cursor-not-allowed": !l.value || m.value }]),
 					disabled: !l.value || m.value,
 					onClick: y
-				}, M(e.$t("save")), 11, OWe)])
+				}, M(e.$t("save")), 11, kWe)])
 			]),
 			_: 1
 		}));
@@ -83395,7 +83410,7 @@ var oWe = { class: "mb-1 flex w-full items-center justify-between text-xl font-s
 //#endregion
 //#region src/components/tribo/ui/lazy-media.tsx
 K();
-var kWe = /* @__PURE__ */ L({
+var AWe = /* @__PURE__ */ L({
 	name: "LazyMedia",
 	inheritAttrs: !1,
 	props: {
@@ -83488,23 +83503,23 @@ var kWe = /* @__PURE__ */ L({
 //#endregion
 //#region src/components/ChatRoomInfo.vue?vue&type=script&setup=true&lang.ts
 K();
-var AWe = { class: "absolute inset-0 flex w-full flex-col bg-surface sm:relative sm:w-[350px] sm:max-w-[350px] sm:min-w-[350px]" }, jWe = {
+var jWe = { class: "absolute inset-0 flex w-full flex-col bg-surface sm:relative sm:w-[350px] sm:max-w-[350px] sm:min-w-[350px]" }, MWe = {
 	"data-testid": "room-info-header",
 	class: "relative flex h-(--imkit-header-height) items-center gap-3 px-4"
-}, MWe = { class: "flex-1 text-base font-semibold text-content" }, NWe = ["aria-label"], PWe = { class: "flex min-h-0 flex-1 flex-col overflow-auto pb-3" }, FWe = { class: "flex flex-col items-center gap-2 px-4 pt-6 pb-3.5 text-center" }, IWe = { class: "text-xl font-bold text-content" }, LWe = { class: "flex justify-center gap-2.5 px-4 pb-4" }, RWe = { class: "flex h-11 w-11 items-center justify-center rounded-full bg-surface-muted text-accent hover:bg-accent-subtle" }, zWe = {
+}, NWe = { class: "flex-1 text-base font-semibold text-content" }, PWe = ["aria-label"], FWe = { class: "flex min-h-0 flex-1 flex-col overflow-auto pb-3" }, IWe = { class: "flex flex-col items-center gap-2 px-4 pt-6 pb-3.5 text-center" }, LWe = { class: "text-xl font-bold text-content" }, RWe = { class: "flex justify-center gap-2.5 px-4 pb-4" }, zWe = { class: "flex h-11 w-11 items-center justify-center rounded-full bg-surface-muted text-accent hover:bg-accent-subtle" }, BWe = {
 	key: 0,
 	"data-testid": "room-content-section",
 	class: "border-t border-border py-4"
-}, BWe = { class: "mx-4 mb-2 flex items-center justify-between gap-2" }, VWe = { class: "text-xs font-bold tracking-wider text-content-subtle uppercase" }, HWe = { class: "grid grid-cols-3 gap-2 px-4" }, UWe = { class: "max-w-full truncate px-1 text-xs font-semibold text-content-subtle uppercase" }, WWe = { class: "border-t border-border py-4" }, GWe = { class: "mx-4 mb-2 flex items-center justify-between gap-2" }, KWe = { class: "text-xs font-bold tracking-wider text-content-subtle uppercase" }, qWe = { class: "flex flex-wrap gap-2 px-4" }, JWe = { class: "border-t border-border py-4" }, YWe = { class: "mx-4 mb-2 flex items-center text-xs font-bold tracking-wider text-content-subtle uppercase" }, XWe = { class: "flex h-7.5 w-7.5 flex-none items-center justify-center rounded-md bg-surface-muted text-accent" }, ZWe = { class: "flex-1 truncate text-base text-content" }, QWe = { class: "text-xs font-semibold text-accent-vivid" }, $We = {
+}, VWe = { class: "mx-4 mb-2 flex items-center justify-between gap-2" }, HWe = { class: "text-xs font-bold tracking-wider text-content-subtle uppercase" }, UWe = { class: "grid grid-cols-3 gap-2 px-4" }, WWe = { class: "max-w-full truncate px-1 text-xs font-semibold text-content-subtle uppercase" }, GWe = { class: "border-t border-border py-4" }, KWe = { class: "mx-4 mb-2 flex items-center justify-between gap-2" }, qWe = { class: "text-xs font-bold tracking-wider text-content-subtle uppercase" }, JWe = { class: "flex flex-wrap gap-2 px-4" }, YWe = { class: "border-t border-border py-4" }, XWe = { class: "mx-4 mb-2 flex items-center text-xs font-bold tracking-wider text-content-subtle uppercase" }, ZWe = { class: "flex h-7.5 w-7.5 flex-none items-center justify-center rounded-md bg-surface-muted text-accent" }, QWe = { class: "flex-1 truncate text-base text-content" }, $We = { class: "text-xs font-semibold text-accent-vivid" }, eGe = {
 	key: 1,
 	class: "border-t border-border py-4"
-}, eGe = { class: "mx-4 mb-2 flex items-center text-xs font-bold tracking-wider text-content-subtle uppercase" }, tGe = { class: "flex min-w-0 flex-1 flex-col overflow-hidden" }, nGe = { class: "truncate text-base font-semibold text-content" }, rGe = {
+}, tGe = { class: "mx-4 mb-2 flex items-center text-xs font-bold tracking-wider text-content-subtle uppercase" }, nGe = { class: "flex min-w-0 flex-1 flex-col overflow-hidden" }, rGe = { class: "truncate text-base font-semibold text-content" }, iGe = {
 	key: 0,
 	class: "truncate text-xs text-content-subtle"
-}, iGe = ["data-testid", "aria-label"], aGe = {
+}, aGe = ["data-testid", "aria-label"], oGe = {
 	key: 2,
 	class: "border-t border-border py-4"
-}, oGe = { class: "mx-4 mb-2 flex items-center text-xs font-bold tracking-wider text-danger-vivid uppercase" }, sGe = { class: "flex h-7.5 w-7.5 flex-none items-center justify-center rounded-md bg-surface-muted text-danger-vivid" }, cGe = { class: "text-base text-danger-vivid" }, lGe = ["src"], C9 = 6, uGe = /* @__PURE__ */ L({
+}, sGe = { class: "mx-4 mb-2 flex items-center text-xs font-bold tracking-wider text-danger-vivid uppercase" }, cGe = { class: "flex h-7.5 w-7.5 flex-none items-center justify-center rounded-md bg-surface-muted text-danger-vivid" }, lGe = { class: "text-base text-danger-vivid" }, uGe = ["src"], C9 = 6, dGe = /* @__PURE__ */ L({
 	__name: "ChatRoomInfo",
 	setup(e) {
 		let t = FM(), n = IA(), r = G(() => t.rooms[t.selectedRoomId]), i = G(() => t.users), a = G(() => pA()), o = G(() => n.settings), s = G(() => o.value.roomContentEnabled !== !1), c = G(() => n.settings.customRoomInfoIframeURL), l = G(() => {
@@ -83549,7 +83564,7 @@ var AWe = { class: "absolute inset-0 flex w-full flex-col bg-surface sm:relative
 			e && (v.value ? h(e) : m(e));
 		}, b = G(() => !!t.isRequesting[`/blockStatus/room/${r.value.id}`]), x = (e) => {
 			let { open: t } = cj({
-				component: aWe,
+				component: oWe,
 				attrs: {
 					memberIdToMoveOut: e,
 					roomId: r.value.id
@@ -83558,7 +83573,7 @@ var AWe = { class: "absolute inset-0 flex w-full flex-col bg-surface sm:relative
 			t();
 		}, S = () => {
 			let { open: e } = cj({
-				component: iWe,
+				component: aWe,
 				attrs: {
 					roomId: r.value.id,
 					memberId: a.value
@@ -83622,25 +83637,25 @@ var AWe = { class: "absolute inset-0 flex w-full flex-col bg-surface sm:relative
 			});
 			e();
 		};
-		return (e, t) => (R(), z("div", AWe, [
-			V("div", jWe, [
+		return (e, t) => (R(), z("div", jWe, [
+			V("div", MWe, [
 				W(n9),
 				W(P(GM), {
 					size: 24,
 					class: "cursor-pointer text-content-muted sm:hidden",
 					onClick: f
 				}),
-				V("div", MWe, M(e.$t("roomInfo")), 1),
+				V("div", NWe, M(e.$t("roomInfo")), 1),
 				V("button", {
 					type: "button",
 					"data-testid": "room-info-close",
 					class: "hidden cursor-pointer items-center justify-center rounded-full p-1 text-content-muted hover:bg-surface-hover sm:flex",
 					"aria-label": e.$t("close"),
 					onClick: f
-				}, [W(P(EN), { size: 20 })], 8, NWe)
+				}, [W(P(EN), { size: 20 })], 8, PWe)
 			]),
-			V("div", PWe, [
-				V("div", FWe, [W(AP, {
+			V("div", FWe, [
+				V("div", IWe, [W(AP, {
 					url: r.value.isGroup ? r.value.coverUrl : r.value.avatars[0].url,
 					name: r.value.isGroup ? r.value.displayName ?? "" : r.value.avatars[0].name,
 					"is-group": r.value.isGroup,
@@ -83649,8 +83664,8 @@ var AWe = { class: "absolute inset-0 flex w-full flex-col bg-surface sm:relative
 					"url",
 					"name",
 					"is-group"
-				]), V("h4", IWe, M(r.value.displayName), 1)]),
-				V("div", LWe, [
+				]), V("h4", LWe, M(r.value.displayName), 1)]),
+				V("div", RWe, [
 					V("button", {
 						type: "button",
 						"data-testid": "room-info-pin",
@@ -83675,14 +83690,14 @@ var AWe = { class: "absolute inset-0 flex w-full flex-col bg-surface sm:relative
 						"data-testid": "room-info-search",
 						class: "flex w-15 cursor-pointer flex-col items-center gap-1.5 text-xs text-content",
 						onClick: D
-					}, [V("span", RWe, [W(P(_N), { size: 20 })]), Pi(" " + M(e.$t("search")), 1)])
+					}, [V("span", zWe, [W(P(_N), { size: 20 })]), Pi(" " + M(e.$t("search")), 1)])
 				]),
-				s.value && ee.value > 0 ? (R(), z("div", zWe, [V("h5", BWe, [V("span", VWe, M(e.$t("chatRoomContent")) + "(" + M(ee.value) + ") ", 1), V("button", {
+				s.value && ee.value > 0 ? (R(), z("div", BWe, [V("h5", VWe, [V("span", HWe, M(e.$t("chatRoomContent")) + "(" + M(ee.value) + ") ", 1), V("button", {
 					type: "button",
 					"data-testid": "room-info-content-all",
 					class: "cursor-pointer text-xs font-semibold text-accent-vivid hover:underline",
 					onClick: ie
-				}, M(e.$t("all")), 1)]), V("div", HWe, [(R(!0), z(U, null, Wr(te.value, (e) => (R(), z(U, { key: e._id }, [e.fileType === "image" || e.fileType === "video" ? (R(), B(P(kWe), {
+				}, M(e.$t("all")), 1)]), V("div", UWe, [(R(!0), z(U, null, Wr(te.value, (e) => (R(), z(U, { key: e._id }, [e.fileType === "image" || e.fileType === "video" ? (R(), B(P(AWe), {
 					key: 0,
 					"bucket-name": e.room,
 					"file-id": e._id,
@@ -83710,19 +83725,19 @@ var AWe = { class: "absolute inset-0 flex w-full flex-col bg-surface sm:relative
 				}, [(R(), B(Br(P(dJ)(P(wJ)(e))), {
 					size: 20,
 					class: "text-accent-vivid"
-				})), V("span", UWe, M(P(wJ)(e)), 1)]))], 64))), 128)), ne.value > 0 ? (R(), z("button", {
+				})), V("span", WWe, M(P(wJ)(e)), 1)]))], 64))), 128)), ne.value > 0 ? (R(), z("button", {
 					key: 0,
 					type: "button",
 					"data-testid": "room-info-content-overflow",
 					class: "flex aspect-square w-full cursor-pointer items-center justify-center rounded-md bg-surface-muted text-base font-semibold text-accent-vivid transition-colors hover:bg-surface-hover",
 					onClick: ie
 				}, " +" + M(ne.value), 1)) : H("", !0)])])) : H("", !0),
-				V("div", WWe, [V("h5", GWe, [V("span", KWe, M(e.$t("tag")) + "(" + M(le.value.length) + ") ", 1), V("button", {
+				V("div", GWe, [V("h5", KWe, [V("span", qWe, M(e.$t("tag")) + "(" + M(le.value.length) + ") ", 1), V("button", {
 					type: "button",
 					"data-testid": "room-info-tags-manage",
 					class: "cursor-pointer text-xs font-semibold text-accent-vivid hover:underline",
 					onClick: fe
-				}, M(e.$t("manageTag")), 1)]), V("div", qWe, [(R(!0), z(U, null, Wr(le.value, (e) => (R(), z("span", {
+				}, M(e.$t("manageTag")), 1)]), V("div", JWe, [(R(!0), z(U, null, Wr(le.value, (e) => (R(), z("span", {
 					key: e,
 					class: "tag-chip inline-flex items-center rounded-full px-3 py-1 text-xs leading-none font-semibold",
 					style: k(de(ue.value[e]))
@@ -83732,17 +83747,17 @@ var AWe = { class: "absolute inset-0 flex w-full flex-col bg-surface sm:relative
 					class: "flex cursor-pointer items-center gap-1 rounded-full border border-dashed border-border px-3 py-1 text-xs font-semibold text-content-subtle hover:border-border-strong hover:text-content",
 					onClick: fe
 				}, [W(P(pN), { size: 12 }), Pi(" " + M(e.$t("add")), 1)])])]),
-				V("div", JWe, [V("h5", YWe, M(e.$t("roomPrefFolder")), 1), V("button", {
+				V("div", YWe, [V("h5", XWe, M(e.$t("roomPrefFolder")), 1), V("button", {
 					type: "button",
 					"data-testid": "room-info-folder",
 					class: "flex min-h-11 w-full cursor-pointer items-center gap-3 px-4 py-2.5 text-left hover:bg-surface-hover",
 					onClick: me
 				}, [
-					V("span", XWe, [W(P(aN), { size: 16 })]),
-					V("span", ZWe, M(pe.value ? pe.value.name : e.$t("unclassified")), 1),
-					V("span", QWe, M(e.$t("changeFolder")), 1)
+					V("span", ZWe, [W(P(aN), { size: 16 })]),
+					V("span", QWe, M(pe.value ? pe.value.name : e.$t("unclassified")), 1),
+					V("span", $We, M(e.$t("changeFolder")), 1)
 				])]),
-				_.value ? H("", !0) : (R(), z("div", $We, [V("h5", eGe, M(e.$t("members")) + "(" + M(r.value.memberIds.length) + ") ", 1), (R(!0), z(U, null, Wr(r.value.memberIds, (t) => (R(), z("div", {
+				_.value ? H("", !0) : (R(), z("div", eGe, [V("h5", tGe, M(e.$t("members")) + "(" + M(r.value.memberIds.length) + ") ", 1), (R(!0), z(U, null, Wr(r.value.memberIds, (t) => (R(), z("div", {
 					key: t,
 					class: "flex min-h-13 items-center gap-2.5 px-4 py-2.5"
 				}, [
@@ -83751,7 +83766,7 @@ var AWe = { class: "absolute inset-0 flex w-full flex-col bg-surface sm:relative
 						name: i.value[t]?.nickname,
 						class: "h-[38px] w-[38px] text-xs"
 					}, null, 8, ["url", "name"]),
-					V("div", tGe, [V("span", nGe, M(i.value[t]?.nickname), 1), i.value[t]?.city && i.value[t]?.country ? (R(), z("span", rGe, M(i.value[t]?.city) + ", " + M(i.value[t]?.country), 1)) : H("", !0)]),
+					V("div", nGe, [V("span", rGe, M(i.value[t]?.nickname), 1), i.value[t]?.city && i.value[t]?.country ? (R(), z("span", iGe, M(i.value[t]?.city) + ", " + M(i.value[t]?.country), 1)) : H("", !0)]),
 					o.value.showMemberActionMenu && (C(t) || d.value && t !== a.value) ? (R(), B(P(iQ), {
 						key: 0,
 						modal: !1
@@ -83762,7 +83777,7 @@ var AWe = { class: "absolute inset-0 flex w-full flex-col bg-surface sm:relative
 								"data-testid": `member-actions-${t}`,
 								"aria-label": e.$t("more"),
 								class: "ml-auto flex h-9 w-9 cursor-pointer items-center justify-center rounded-md text-content-muted hover:bg-surface"
-							}, [W(P(YM), { size: 18 })], 8, iGe)]),
+							}, [W(P(YM), { size: 18 })], 8, aGe)]),
 							_: 2
 						}, 1024), W(P(QQ), {
 							align: "end",
@@ -83803,18 +83818,18 @@ var AWe = { class: "absolute inset-0 flex w-full flex-col bg-surface sm:relative
 						_: 2
 					}, 1024)) : H("", !0)
 				]))), 128))])),
-				r.value.isGroup && o.value.showLeaveRoomButton ? (R(), z("div", aGe, [V("h5", oGe, M(e.$t("dangerZone")), 1), V("button", {
+				r.value.isGroup && o.value.showLeaveRoomButton ? (R(), z("div", oGe, [V("h5", sGe, M(e.$t("dangerZone")), 1), V("button", {
 					type: "button",
 					"data-testid": "leave-group-button",
 					class: "flex min-h-11 w-full cursor-pointer items-center gap-3 px-4 py-2.5 text-left hover:bg-surface-hover",
 					onClick: S
-				}, [V("span", sGe, [W(P(cN), { size: 16 })]), V("span", cGe, M(e.$t("leaveGroup")), 1)])])) : H("", !0),
+				}, [V("span", cGe, [W(P(cN), { size: 16 })]), V("span", lGe, M(e.$t("leaveGroup")), 1)])])) : H("", !0),
 				c.value ? (R(), z("iframe", {
 					key: 3,
 					src: l.value,
 					sandbox: "allow-scripts allow-same-origin",
 					frameborder: "0"
-				}, null, 8, lGe)) : H("", !0)
+				}, null, 8, uGe)) : H("", !0)
 			]),
 			s.value ? (R(), B(gQ, {
 				key: 0,
@@ -83847,7 +83862,7 @@ var AWe = { class: "absolute inset-0 flex w-full flex-col bg-surface sm:relative
 //#endregion
 //#region src/components/HighlightedText.vue?vue&type=script&setup=true&lang.ts
 K();
-var dGe = ["textContent"], fGe = ["textContent"], pGe = ["textContent"], w9 = /* @__PURE__ */ L({
+var fGe = ["textContent"], pGe = ["textContent"], mGe = ["textContent"], w9 = /* @__PURE__ */ L({
 	__name: "HighlightedText",
 	props: {
 		text: {},
@@ -83869,25 +83884,25 @@ var dGe = ["textContent"], fGe = ["textContent"], pGe = ["textContent"], w9 = /*
 			key: 0,
 			class: "text-accent-vivid",
 			textContent: M(e.text)
-		}, null, 8, fGe)) : (R(), z("span", {
+		}, null, 8, pGe)) : (R(), z("span", {
 			key: 1,
 			textContent: M(e.text)
-		}, null, 8, pGe))], 64))), 128)) : (R(), z("span", {
+		}, null, 8, mGe))], 64))), 128)) : (R(), z("span", {
 			key: 0,
 			textContent: M(e.text)
-		}, null, 8, dGe));
+		}, null, 8, fGe));
 	}
 });
 //#endregion
 //#region src/components/FolderCell.vue?vue&type=script&setup=true&lang.ts
 K();
-var mGe = ["data-testid"], hGe = {
+var hGe = ["data-testid"], gGe = {
 	"data-testid": "folder-icon-shell",
 	class: "relative flex h-[50px]! w-[50px]! shrink-0 items-center justify-center rounded-lg bg-accent-subtle text-accent-vivid transition-colors sm:group-hover:bg-surface"
-}, gGe = { class: "flex w-0 min-w-0 grow flex-col text-left" }, _Ge = { class: "overflow-hidden text-base text-ellipsis whitespace-nowrap text-content" }, vGe = { class: "overflow-hidden text-base text-ellipsis whitespace-nowrap text-content-subtle" }, yGe = { class: "ml-auto flex shrink-0 items-center gap-1.5" }, bGe = {
+}, _Ge = { class: "flex w-0 min-w-0 grow flex-col text-left" }, vGe = { class: "overflow-hidden text-base text-ellipsis whitespace-nowrap text-content" }, yGe = { class: "overflow-hidden text-base text-ellipsis whitespace-nowrap text-content-subtle" }, bGe = { class: "ml-auto flex shrink-0 items-center gap-1.5" }, xGe = {
 	key: 0,
 	class: "flex h-5 min-w-5 items-center justify-center rounded-full bg-danger px-1.5 text-center text-xs leading-none font-semibold text-white"
-}, xGe = /* @__PURE__ */ L({
+}, SGe = /* @__PURE__ */ L({
 	__name: "FolderCell",
 	props: { source: {} },
 	setup(e) {
@@ -83904,40 +83919,40 @@ var mGe = ["data-testid"], hGe = {
 			class: "group relative flex min-h-[68px] cursor-pointer items-center gap-3 px-4 py-2.5 select-none sm:hover:bg-surface-hover",
 			onClick: l
 		}, [
-			V("div", hGe, [i.value === e.source.id ? (R(), B(P(The), {
+			V("div", gGe, [i.value === e.source.id ? (R(), B(P(The), {
 				key: 0,
 				size: 24
 			})) : (R(), B(P(aN), {
 				key: 1,
 				size: 24
 			}))]),
-			V("div", gGe, [V("div", _Ge, [W(w9, {
+			V("div", _Ge, [V("div", vGe, [W(w9, {
 				text: e.source.name,
 				highlight: r.value
-			}, null, 8, ["text", "highlight"])]), V("div", vGe, M(s.value ? t.$t("numberOfChatroom", s.value) : t.$t("no-chatroom")), 1)]),
-			V("div", yGe, [a.value > 0 ? (R(), z("div", bGe, M(a.value), 1)) : H("", !0), i.value === e.source.id ? (R(), B(P(WM), {
+			}, null, 8, ["text", "highlight"])]), V("div", yGe, M(s.value ? t.$t("numberOfChatroom", s.value) : t.$t("no-chatroom")), 1)]),
+			V("div", bGe, [a.value > 0 ? (R(), z("div", xGe, M(a.value), 1)) : H("", !0), i.value === e.source.id ? (R(), B(P(WM), {
 				key: 1,
 				class: "h-4 w-4 text-content-muted"
 			})) : (R(), B(P(KM), {
 				key: 2,
 				class: "h-4 w-4 text-content-muted"
 			}))])
-		], 8, mGe));
+		], 8, hGe));
 	}
 });
 //#endregion
 //#region src/components/RoomListHeadingRow.vue?vue&type=script&setup=true&lang.ts
 K();
-var SGe = {
+var CGe = {
 	"data-testid": "room-list-heading",
 	class: "flex items-center justify-between px-4 pt-3 pb-1"
-}, CGe = { class: "text-xs font-semibold text-content-subtle" }, wGe = /* @__PURE__ */ L({
+}, wGe = { class: "text-xs font-semibold text-content-subtle" }, TGe = /* @__PURE__ */ L({
 	__name: "RoomListHeadingRow",
 	props: { kind: {} },
 	emits: ["manage-folders"],
 	setup(e, { emit: t }) {
 		let n = t;
-		return (t, r) => (R(), z("div", SGe, [V("span", CGe, M(t.$t(e.kind === "folders" ? "folders" : "conversations")), 1), e.kind === "folders" ? (R(), z("button", {
+		return (t, r) => (R(), z("div", CGe, [V("span", wGe, M(t.$t(e.kind === "folders" ? "folders" : "conversations")), 1), e.kind === "folders" ? (R(), z("button", {
 			key: 0,
 			type: "button",
 			"data-testid": "manage-folders-button",
@@ -83945,7 +83960,7 @@ var SGe = {
 			onClick: r[0] || (r[0] = (e) => n("manage-folders"))
 		}, M(t.$t("manageFolders")), 1)) : H("", !0)]));
 	}
-}), TGe = /* @__PURE__ */ u((/* @__PURE__ */ s(((e, t) => {
+}), EGe = /* @__PURE__ */ u((/* @__PURE__ */ s(((e, t) => {
 	(function(n, r) {
 		typeof e == "object" && t !== void 0 ? t.exports = r() : typeof define == "function" && define.amd ? define(r) : (n = typeof globalThis < "u" ? globalThis : n || self).dayjs_plugin_isYesterday = r();
 	})(e, (function() {
@@ -83960,7 +83975,7 @@ var SGe = {
 K();
 //#endregion
 //#region src/components/DeleteRoomModal.vue
-var EGe = /* @__PURE__ */ L({
+var DGe = /* @__PURE__ */ L({
 	__name: "DeleteRoomModal",
 	props: { roomId: {} },
 	setup(e) {
@@ -84001,7 +84016,7 @@ var EGe = /* @__PURE__ */ L({
 K();
 //#endregion
 //#region src/components/HideRoomConfirmModal.vue
-var DGe = /* @__PURE__ */ L({
+var OGe = /* @__PURE__ */ L({
 	__name: "HideRoomConfirmModal",
 	props: { roomId: {} },
 	setup(e) {
@@ -84038,29 +84053,29 @@ var DGe = /* @__PURE__ */ L({
 	}
 });
 K(), cA();
-var OGe = {
+var kGe = {
 	key: 0,
 	class: "relative flex items-center justify-center gap-1.5"
-}, kGe = ["data-room-id", "data-selected"], AGe = ["data-selected"], jGe = {
+}, AGe = ["data-room-id", "data-selected"], jGe = ["data-selected"], MGe = {
 	key: 0,
 	class: "absolute -right-1 -bottom-1 flex h-5 w-5 items-center justify-center rounded-lg bg-accent p-[3px] ring-2 ring-panel"
-}, MGe = { class: "flex w-0 min-w-0 grow flex-col text-left" }, NGe = { class: "flex justify-between gap-2" }, PGe = { class: "flex min-w-0 flex-1 items-center gap-1 overflow-hidden" }, FGe = { class: "relative flex-none" }, IGe = { class: "ml-auto text-xs text-content-muted" }, LGe = {
+}, NGe = { class: "flex w-0 min-w-0 grow flex-col text-left" }, PGe = { class: "flex justify-between gap-2" }, FGe = { class: "flex min-w-0 flex-1 items-center gap-1 overflow-hidden" }, IGe = { class: "relative flex-none" }, LGe = { class: "ml-auto text-xs text-content-muted" }, RGe = {
 	key: 0,
 	class: "flex items-center justify-between gap-2"
-}, RGe = {
+}, zGe = {
 	key: 1,
 	class: "text-xs text-accent-vivid"
-}, zGe = {
+}, BGe = {
 	key: 2,
 	class: "mt-1 flex flex-wrap gap-1"
-}, BGe = {
+}, VGe = {
 	key: 3,
 	class: "text-content-subtle"
-}, VGe = 5, HGe = /* @__PURE__ */ L({
+}, HGe = 5, UGe = /* @__PURE__ */ L({
 	__name: "RoomCell",
 	props: { source: {} },
 	setup(e) {
-		rT.default.extend(g9.default), rT.default.extend(TGe.default);
+		rT.default.extend(g9.default), rT.default.extend(EGe.default);
 		let t = e, n = IA(), r = G(() => n.settings), i = G(() => n.styles), a = G(() => {
 			let e = (0, rT.default)(c.value?.updatedAt);
 			return e.isSame((0, rT.default)(), "day") ? e.format("H:mm") : e.isYesterday() ? "Yesterday" : e.isSame((0, rT.default)(), "week") ? e.format("dddd") : e.isSame((0, rT.default)(), "year") ? e.format("MMM D") : e.format("ll");
@@ -84104,13 +84119,13 @@ var OGe = {
 				return;
 			}
 			let { open: e } = cj({
-				component: DGe,
+				component: OGe,
 				attrs: { roomId: t.source.id }
 			});
 			e();
 		}, E = async () => {
 			let { open: e } = cj({
-				component: EGe,
+				component: DGe,
 				attrs: { roomId: t.source.id }
 			});
 			e();
@@ -84137,7 +84152,7 @@ var OGe = {
 				"--tag-fg-dark": t.darkFg
 			};
 		};
-		return (n, o) => c.value ? (R(), z("div", OGe, [h.value && !_.value ? (R(), z("div", {
+		return (n, o) => c.value ? (R(), z("div", kGe, [h.value && !_.value ? (R(), z("div", {
 			key: 0,
 			"data-testid": "folder-rail",
 			class: A(["pointer-events-none absolute inset-y-0 left-4 z-10 w-0.5 shrink-0 bg-accent-vivid opacity-40", {
@@ -84168,8 +84183,8 @@ var OGe = {
 			"url",
 			"name",
 			"is-group"
-		]), v.value ? (R(), z("div", jGe, [W(P(dN), { class: "h-3 w-3 text-white" })])) : H("", !0)], 8, AGe), V("div", MGe, [
-			V("div", NGe, [V("div", PGe, [
+		]), v.value ? (R(), z("div", MGe, [W(P(dN), { class: "h-3 w-3 text-white" })])) : H("", !0)], 8, jGe), V("div", NGe, [
+			V("div", PGe, [V("div", FGe, [
 				V("div", {
 					"data-testid": "room-name",
 					class: A(["min-w-0 overflow-hidden text-base text-ellipsis whitespace-nowrap text-content", m.value ? "font-extrabold" : "font-semibold"])
@@ -84193,7 +84208,7 @@ var OGe = {
 					class: "h-3.5 w-3.5 shrink-0 text-content-muted",
 					"aria-label": n.$t("messageDraft")
 				}, null, 8, ["aria-label"])) : H("", !0)
-			]), V("div", FGe, [V("div", { class: A(["text-xs whitespace-nowrap", [m.value ? "text-accent-vivid" : "text-content-subtle", {
+			]), V("div", IGe, [V("div", { class: A(["text-xs whitespace-nowrap", [m.value ? "text-accent-vivid" : "text-content-subtle", {
 				"sm:group-hover:invisible": !0,
 				invisible: S.value
 			}]]) }, M(a.value), 3), W(P(iQ), {
@@ -84233,7 +84248,7 @@ var OGe = {
 								default: F(() => [W(ZQ, {
 									icon: P(Bhe),
 									label: n.$t("tag")
-								}, null, 8, ["icon", "label"]), V("span", IGe, M(ne.value) + "/" + M(VGe), 1)]),
+								}, null, 8, ["icon", "label"]), V("span", LGe, M(ne.value) + "/" + M(HGe), 1)]),
 								_: 1
 							}),
 							h.value ? (R(), B(P($Q), {
@@ -84281,7 +84296,7 @@ var OGe = {
 				}, 8, ["to"])]),
 				_: 1
 			}, 8, ["open"])])]),
-			r.value.enableReadReceipt ? (R(), z("div", LGe, [V("div", { class: A(["truncate text-base", m.value ? "font-semibold text-content" : "text-content-subtle"]) }, [W(w9, {
+			r.value.enableReadReceipt ? (R(), z("div", RGe, [V("div", { class: A(["truncate text-base", m.value ? "font-semibold text-content" : "text-content-subtle"]) }, [W(w9, {
 				text: f.value ?? "",
 				highlight: d.value
 			}, null, 8, ["text", "highlight"])], 2), c.value.numberOfUnread > 0 && !p.value ? (R(), z("div", {
@@ -84290,14 +84305,14 @@ var OGe = {
 				class: "flex h-5 min-w-5 shrink-0 items-center justify-center rounded-full bg-accent px-1.5 text-center text-xs leading-none font-semibold text-white",
 				style: k(i.value.roomListUnreadBadge)
 			}, M(c.value.numberOfUnread > 99 ? "99+" : c.value.numberOfUnread), 5)) : H("", !0)])) : H("", !0),
-			c.value.isMentioned && c.value.numberOfUnread > 0 && !p.value ? (R(), z("div", RGe, M(n.$t("youWereMentioned")), 1)) : H("", !0),
-			c.value.pref?.tags ? (R(), z("div", zGe, [(R(!0), z(U, null, Wr(c.value.pref?.tags ?? [], (e) => (R(), z("div", {
+			c.value.isMentioned && c.value.numberOfUnread > 0 && !p.value ? (R(), z("div", zGe, M(n.$t("youWereMentioned")), 1)) : H("", !0),
+			c.value.pref?.tags ? (R(), z("div", BGe, [(R(!0), z(U, null, Wr(c.value.pref?.tags ?? [], (e) => (R(), z("div", {
 				key: e,
 				class: "tag-chip overflow-hidden rounded-full px-3 py-1 text-xs font-semibold text-ellipsis whitespace-nowrap",
 				style: k(ie((c.value.pref?.tagColors || {})[e]))
 			}, M(e), 5))), 128))])) : H("", !0),
-			_.value && P(s).searchType === P(PA).Messages ? (R(), z("div", BGe, M(n.$t("foundMessages", [P(s).searchedMessageIds.get(e.source.id)?.length ?? 0])), 1)) : H("", !0)
-		])], 42, kGe)])) : H("", !0);
+			_.value && P(s).searchType === P(PA).Messages ? (R(), z("div", VGe, M(n.$t("foundMessages", [P(s).searchedMessageIds.get(e.source.id)?.length ?? 0])), 1)) : H("", !0)
+		])], 42, AGe)])) : H("", !0);
 	}
 });
 //#endregion
@@ -84305,19 +84320,19 @@ var OGe = {
 K();
 //#endregion
 //#region src/components/RoomListWrapperCell.vue
-var UGe = /* @__PURE__ */ L({
+var WGe = /* @__PURE__ */ L({
 	__name: "RoomListWrapperCell",
 	props: { source: {} },
 	emits: ["manage-folders"],
 	setup(e, { emit: t }) {
 		let n = t;
-		return (t, r) => e.source instanceof P(MA) ? (R(), B(HGe, {
+		return (t, r) => e.source instanceof P(MA) ? (R(), B(UGe, {
 			key: 0,
 			source: e.source
-		}, null, 8, ["source"])) : e.source instanceof P(Fg) ? (R(), B(xGe, {
+		}, null, 8, ["source"])) : e.source instanceof P(Fg) ? (R(), B(SGe, {
 			key: 1,
 			source: e.source
-		}, null, 8, ["source"])) : (R(), B(wGe, {
+		}, null, 8, ["source"])) : (R(), B(TGe, {
 			key: 2,
 			kind: e.source.kind,
 			onManageFolders: r[0] || (r[0] = (e) => n("manage-folders"))
@@ -84331,7 +84346,7 @@ var UGe = /* @__PURE__ */ L({
 //#endregion
 //#region src/composables/useRoomSearch.ts
 K();
-function WGe({ fetchTask: e }) {
+function GGe({ fetchTask: e }) {
 	let t = FM(), n = /* @__PURE__ */ N(""), r = /* @__PURE__ */ N(), i = /* @__PURE__ */ N(!1), a = /* @__PURE__ */ N(!1), o = async () => {
 		if (n.value !== t.searchKeyword) {
 			if (n.value) {
@@ -84359,7 +84374,7 @@ function WGe({ fetchTask: e }) {
 //#endregion
 //#region src/composables/useRoomSort.ts
 K();
-function GGe() {
+function KGe() {
 	let e = FM(), t = /* @__PURE__ */ N("time"), n = /* @__PURE__ */ N(!0), r = () => "-lastMessage", i = () => +(t.value === "unread"), a = () => {
 		let t = /* @__PURE__ */ new Set();
 		e.selectedRoomId && t.add(e.selectedRoomId);
@@ -84401,7 +84416,7 @@ function GGe() {
 K();
 //#endregion
 //#region src/components/DeleteFolderConfirmModal.vue
-var KGe = /* @__PURE__ */ L({
+var qGe = /* @__PURE__ */ L({
 	__name: "DeleteFolderConfirmModal",
 	props: { folder: {} },
 	setup(e) {
@@ -84428,16 +84443,16 @@ var KGe = /* @__PURE__ */ L({
 //#endregion
 //#region src/components/folders/ManageFoldersModal.vue?vue&type=script&setup=true&lang.ts
 K();
-var qGe = {
+var JGe = {
 	id: "manage-folders-title",
 	class: "text-xl font-semibold text-content"
-}, JGe = {
+}, YGe = {
 	id: "manage-folders-explanation",
 	class: "text-xs text-content-muted"
-}, YGe = { class: "flex min-h-0 flex-col rounded-md border border-border" }, XGe = {
+}, XGe = { class: "flex min-h-0 flex-col rounded-md border border-border" }, ZGe = {
 	"data-testid": "manage-folders-list",
 	class: "min-h-0 overflow-y-auto"
-}, ZGe = { class: "flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-accent-subtle text-content-muted" }, QGe = { class: "flex min-w-0 grow flex-col" }, $Ge = { class: "truncate text-base text-content" }, eKe = { class: "text-xs text-content-muted" }, tKe = { class: "flex shrink-0 items-center gap-1" }, nKe = ["aria-label", "onClick"], rKe = ["aria-label", "onClick"], iKe = { class: "text-base font-medium" }, aKe = { class: "mt-1 flex items-center justify-end" }, oKe = /* @__PURE__ */ L({
+}, QGe = { class: "flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-accent-subtle text-content-muted" }, $Ge = { class: "flex min-w-0 grow flex-col" }, eKe = { class: "truncate text-base text-content" }, tKe = { class: "text-xs text-content-muted" }, nKe = { class: "flex shrink-0 items-center gap-1" }, rKe = ["aria-label", "onClick"], iKe = ["aria-label", "onClick"], aKe = { class: "text-base font-medium" }, oKe = { class: "mt-1 flex items-center justify-end" }, sKe = /* @__PURE__ */ L({
 	__name: "ManageFoldersModal",
 	setup(e) {
 		let t = Pu(), n = FM(), r = G(() => n.sortedFolderIds.map((e) => n.folders[e]).filter((e) => !!e)), i = (e) => {
@@ -84448,7 +84463,7 @@ var qGe = {
 			t();
 		}, a = (e) => {
 			let { open: t } = cj({
-				component: KGe,
+				component: qGe,
 				attrs: { folder: e }
 			});
 			t();
@@ -84468,35 +84483,35 @@ var qGe = {
 			"aria-describedby": "manage-folders-explanation"
 		}, {
 			default: F(() => [
-				V("h2", qGe, M(e.$t("manageFoldersTitle")), 1),
-				V("p", JGe, M(e.$t("manageFoldersExplain")), 1),
-				V("div", YGe, [V("div", XGe, [(R(!0), z(U, null, Wr(r.value, (t) => (R(), z("div", {
+				V("h2", JGe, M(e.$t("manageFoldersTitle")), 1),
+				V("p", YGe, M(e.$t("manageFoldersExplain")), 1),
+				V("div", XGe, [V("div", ZGe, [(R(!0), z(U, null, Wr(r.value, (t) => (R(), z("div", {
 					key: t.id,
 					"data-testid": "manage-folder-row",
 					class: "flex items-center gap-3 border-b border-border p-2.5 last:border-b-0"
 				}, [
-					V("span", ZGe, [W(P(aN), { size: 18 })]),
-					V("span", QGe, [V("span", $Ge, M(t.name), 1), V("span", eKe, M(t.roomIds.length ? e.$t("numberOfChatroom", t.roomIds.length) : e.$t("no-chatroom")), 1)]),
-					V("div", tKe, [V("button", {
+					V("span", QGe, [W(P(aN), { size: 18 })]),
+					V("span", $Ge, [V("span", eKe, M(t.name), 1), V("span", tKe, M(t.roomIds.length ? e.$t("numberOfChatroom", t.roomIds.length) : e.$t("no-chatroom")), 1)]),
+					V("div", nKe, [V("button", {
 						type: "button",
 						"data-testid": "manage-folder-edit",
 						class: "flex h-8 w-8 cursor-pointer items-center justify-center rounded-md text-content-muted transition-colors hover:bg-surface-hover",
 						"aria-label": e.$t("editFolder"),
 						onClick: (e) => i(t)
-					}, [W(P(lN), { size: 16 })], 8, nKe), V("button", {
+					}, [W(P(lN), { size: 16 })], 8, rKe), V("button", {
 						type: "button",
 						"data-testid": "manage-folder-delete",
 						class: "flex h-8 w-8 cursor-pointer items-center justify-center rounded-md text-content-muted transition-colors hover:bg-surface-hover",
 						"aria-label": e.$t("delete"),
 						onClick: (e) => a(t)
-					}, [W(P(bN), { size: 16 })], 8, rKe)])
+					}, [W(P(bN), { size: 16 })], 8, iKe)])
 				]))), 128))]), V("button", {
 					type: "button",
 					"data-testid": "manage-folder-create",
 					class: "flex shrink-0 cursor-pointer items-center gap-2 border-t border-border p-2.5 text-left text-accent-vivid transition-colors hover:bg-surface-hover",
 					onClick: o
-				}, [W(P(pN), { size: 16 }), V("span", iKe, M(e.$t("createNewFolderPrompt")), 1)])]),
-				V("div", aKe, [V("button", {
+				}, [W(P(pN), { size: 16 }), V("span", aKe, M(e.$t("createNewFolderPrompt")), 1)])]),
+				V("div", oKe, [V("button", {
 					type: "button",
 					"data-testid": "manage-folders-done",
 					class: "inline-flex h-10 cursor-pointer items-center justify-center rounded-md bg-accent px-4 text-base font-medium text-white transition-colors hover:bg-accent-hover",
@@ -84510,26 +84525,26 @@ var qGe = {
 //#endregion
 //#region src/components/MassTextingModal.vue?vue&type=script&setup=true&lang.ts
 K();
-var sKe = { class: "flex shrink-0 items-start gap-3 border-b border-border px-5 py-4" }, cKe = { class: "min-w-0" }, lKe = { class: "text-xl font-semibold text-content" }, uKe = { class: "mt-1 text-xs text-content-muted" }, dKe = { class: "flex min-h-0 flex-1 flex-col gap-4 overflow-hidden px-5 py-4" }, fKe = {
+var cKe = { class: "flex shrink-0 items-start gap-3 border-b border-border px-5 py-4" }, lKe = { class: "min-w-0" }, uKe = { class: "text-xl font-semibold text-content" }, dKe = { class: "mt-1 text-xs text-content-muted" }, fKe = { class: "flex min-h-0 flex-1 flex-col gap-4 overflow-hidden px-5 py-4" }, pKe = {
 	for: "mass-texting-message",
 	class: "flex shrink-0 flex-col gap-1.5"
-}, pKe = { class: "text-xs font-semibold text-content-muted" }, mKe = ["placeholder"], hKe = { class: "flex min-h-0 flex-1 flex-col gap-2" }, gKe = { class: "flex shrink-0 items-center justify-between gap-3" }, _Ke = {
+}, mKe = { class: "text-xs font-semibold text-content-muted" }, hKe = ["placeholder"], gKe = { class: "flex min-h-0 flex-1 flex-col gap-2" }, _Ke = { class: "flex shrink-0 items-center justify-between gap-3" }, vKe = {
 	id: "mass-texting-recipients-label",
 	class: "text-xs font-semibold text-content-muted"
-}, vKe = { for: "mass-texting-search" }, yKe = { class: "flex items-center gap-3" }, bKe = ["disabled"], xKe = { class: "text-xs text-content-muted" }, SKe = { class: "flex h-10 shrink-0 items-center gap-2 rounded-md border border-border bg-surface px-3 focus-within:border-accent focus-within:ring-2 focus-within:ring-accent-subtle" }, CKe = ["placeholder"], wKe = ["aria-label"], TKe = {
+}, yKe = { for: "mass-texting-search" }, bKe = { class: "flex items-center gap-3" }, xKe = ["disabled"], SKe = { class: "text-xs text-content-muted" }, CKe = { class: "flex h-10 shrink-0 items-center gap-2 rounded-md border border-border bg-surface px-3 focus-within:border-accent focus-within:ring-2 focus-within:ring-accent-subtle" }, wKe = ["placeholder"], TKe = ["aria-label"], EKe = {
 	"data-testid": "mass-texting-recipient-list",
 	class: "relative flex min-h-0 flex-1 overflow-hidden rounded-md border border-border"
-}, EKe = {
+}, DKe = {
 	key: 0,
 	class: "absolute inset-0 z-10 flex flex-col gap-1 overflow-hidden bg-surface"
-}, DKe = {
+}, OKe = {
 	"data-testid": "mass-texting-footer",
 	class: "flex shrink-0 flex-wrap items-center justify-between gap-2 border-t border-border px-5 py-4"
-}, OKe = {
+}, kKe = {
 	role: "status",
 	"data-testid": "mass-texting-footer-count",
 	class: "mr-auto text-xs text-content-muted"
-}, kKe = { class: "ml-auto flex items-center gap-2" }, AKe = ["disabled"], jKe = /*#__PURE__*/ LA(/* @__PURE__ */ L({
+}, AKe = { class: "ml-auto flex items-center gap-2" }, jKe = ["disabled"], MKe = /*#__PURE__*/ LA(/* @__PURE__ */ L({
 	__name: "MassTextingModal",
 	setup(e) {
 		let t = Pu(), n = FM(), r = /* @__PURE__ */ N(""), i = G(() => Object.entries(n.selectedRoomIdsForCreateFolder).filter(([, e]) => !!e).map(([e]) => e)), a = (e) => n.selectedRoomIdsForCreateFolder[e], o = (e) => {
@@ -84580,22 +84595,22 @@ var sKe = { class: "flex shrink-0 items-start gap-3 border-b border-border px-5 
 			onClosed: y
 		}, {
 			default: F(() => [
-				V("header", sKe, [V("div", cKe, [V("h1", lKe, M(e.$t("massTexting")), 1), V("p", uKe, M(e.$t("massTextingDescription")), 1)])]),
-				V("div", dKe, [V("label", fKe, [V("span", pKe, M(e.$t("messageContent")), 1), ur(V("textarea", {
+				V("header", cKe, [V("div", lKe, [V("h1", uKe, M(e.$t("massTexting")), 1), V("p", dKe, M(e.$t("massTextingDescription")), 1)])]),
+				V("div", fKe, [V("label", pKe, [V("span", mKe, M(e.$t("messageContent")), 1), ur(V("textarea", {
 					id: "mass-texting-message",
 					"onUpdate:modelValue": t[0] || (t[0] = (e) => r.value = e),
 					rows: "3",
 					class: "w-full resize-none rounded-md border border-border bg-surface px-3 py-2.5 text-base text-content placeholder-content-subtle transition-colors outline-none focus-visible:border-accent focus-visible:ring-2 focus-visible:ring-accent-subtle",
 					placeholder: e.$t("inputMessage")
-				}, null, 8, mKe), [[Zs, r.value]])]), V("section", hKe, [
-					V("div", gKe, [V("h2", _Ke, [V("label", vKe, M(e.$t("recipientRooms")), 1)]), V("div", yKe, [V("button", {
+				}, null, 8, hKe), [[Zs, r.value]])]), V("section", gKe, [
+					V("div", _Ke, [V("h2", vKe, [V("label", yKe, M(e.$t("recipientRooms")), 1)]), V("div", bKe, [V("button", {
 						type: "button",
 						"data-testid": "mass-texting-select-all",
 						class: "cursor-pointer text-xs font-semibold text-accent-vivid hover:underline disabled:cursor-not-allowed disabled:text-content-faint disabled:no-underline",
 						disabled: s.value.length === 0,
 						onClick: u
-					}, M(l.value ? P(n).searchKeyword ? e.$t("deselectAllFiltered") : e.$t("deselectAll") : P(n).searchKeyword ? e.$t("selectAllFiltered") : e.$t("selectAll")), 9, bKe), V("span", xKe, M(e.$t("selectedCount", { n: i.value.length })), 1)])]),
-					V("div", SKe, [
+					}, M(l.value ? P(n).searchKeyword ? e.$t("deselectAllFiltered") : e.$t("deselectAll") : P(n).searchKeyword ? e.$t("selectAllFiltered") : e.$t("selectAll")), 9, xKe), V("span", SKe, M(e.$t("selectedCount", { n: i.value.length })), 1)])]),
+					V("div", CKe, [
 						W(P(_N), {
 							size: 18,
 							class: "shrink-0 text-content-subtle"
@@ -84609,7 +84624,7 @@ var sKe = { class: "flex shrink-0 items-start gap-3 border-b border-border px-5 
 							onCompositionstart: t[2] || (t[2] = (e) => p.value = !0),
 							onCompositionend: t[3] || (t[3] = (e) => p.value = !1),
 							onBlur: t[4] || (t[4] = (e) => p.value = !1)
-						}, null, 40, CKe), [[Zs, f.value]]),
+						}, null, 40, wKe), [[Zs, f.value]]),
 						f.value ? (R(), z("button", {
 							key: 0,
 							type: "button",
@@ -84618,9 +84633,9 @@ var sKe = { class: "flex shrink-0 items-start gap-3 border-b border-border px-5 
 							onClick: t[5] || (t[5] = () => {
 								P(h).cancel({ upcomingOnly: !0 }), f.value = "", P(m)();
 							})
-						}, [W(P(EN), { size: 18 })], 8, wKe)) : H("", !0)
+						}, [W(P(EN), { size: 18 })], 8, TKe)) : H("", !0)
 					]),
-					V("div", TKe, [v.value ? (R(), z("div", EKe, [(R(), z(U, null, Wr(10, (e) => V("div", {
+					V("div", EKe, [v.value ? (R(), z("div", DKe, [(R(), z(U, null, Wr(10, (e) => V("div", {
 						key: e,
 						class: "flex gap-3 p-2"
 					}, [...t[6] || (t[6] = [V("div", { class: "loading h-[34px] w-[34px] rounded-lg bg-surface-muted" }, null, -1), V("div", { class: "flex grow flex-col justify-center gap-2" }, [V("div", { class: "loading h-3 w-full rounded-md bg-surface-muted" }), V("div", { class: "loading h-3 w-4/5 rounded-md bg-surface-muted" })], -1)])])), 64))])) : H("", !0), W(P(ld), {
@@ -84633,7 +84648,7 @@ var sKe = { class: "flex shrink-0 items-start gap-3 border-b border-border px-5 
 						_: 1
 					}, 8, ["data"])])
 				])]),
-				V("footer", DKe, [V("span", OKe, M(e.$t("selectedCount", { n: i.value.length })), 1), V("div", kKe, [V("button", {
+				V("footer", OKe, [V("span", kKe, M(e.$t("selectedCount", { n: i.value.length })), 1), V("div", AKe, [V("button", {
 					type: "button",
 					class: "inline-flex h-10 w-auto cursor-pointer items-center justify-center rounded-md bg-surface-muted px-4 text-base font-medium text-content transition-colors hover:bg-border focus-visible:ring-2 focus-visible:ring-accent-vivid focus-visible:outline-none",
 					onClick: b
@@ -84642,7 +84657,7 @@ var sKe = { class: "flex shrink-0 items-start gap-3 border-b border-border px-5 
 					class: "inline-flex h-10 w-auto cursor-pointer items-center justify-center rounded-md bg-accent px-4 text-base font-medium text-white transition-colors hover:bg-accent-hover focus-visible:ring-2 focus-visible:ring-accent-vivid focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-surface-muted disabled:text-content-faint",
 					disabled: !d.value,
 					onClick: x
-				}, M(e.$t("sendMessage")), 9, AKe)])])
+				}, M(e.$t("sendMessage")), 9, jKe)])])
 			]),
 			_: 1
 		}));
@@ -84651,11 +84666,11 @@ var sKe = { class: "flex shrink-0 items-start gap-3 border-b border-border px-5 
 //#endregion
 //#region src/components/RoomListToolbar.vue?vue&type=script&setup=true&lang.ts
 K();
-var MKe = { class: "relative flex h-18 items-center justify-between px-4" }, NKe = {
+var NKe = { class: "relative flex h-18 items-center justify-between px-4" }, PKe = {
 	type: "button",
 	"data-testid": "conversation-menu-trigger",
 	class: "inline-flex h-10 cursor-pointer items-center gap-2 rounded-md px-2 text-xl font-bold text-content transition-colors hover:bg-surface-hover focus-visible:ring-1 focus-visible:ring-accent focus-visible:outline-none"
-}, PKe = ["aria-label"], FKe = /* @__PURE__ */ L({
+}, FKe = ["aria-label"], IKe = /* @__PURE__ */ L({
 	__name: "RoomListToolbar",
 	props: {
 		sortType: {},
@@ -84671,11 +84686,11 @@ var MKe = { class: "relative flex h-18 items-center justify-between px-4" }, NKe
 		let n = t, r = (e) => {
 			e.preventDefault(), M6.value = !M6.value;
 		};
-		return (t, i) => (R(), z("header", MKe, [
+		return (t, i) => (R(), z("header", NKe, [
 			W(n9),
 			W(P(iQ), { modal: !1 }, {
 				default: F(() => [W(P(aQ), { "as-child": "" }, {
-					default: F(() => [V("button", NKe, [Pi(M(t.$t("conversations")) + " ", 1), W(P(WM), {
+					default: F(() => [V("button", PKe, [Pi(M(t.$t("conversations")) + " ", 1), W(P(WM), {
 						class: "h-4 w-4",
 						"aria-hidden": "true"
 					})])]),
@@ -84753,7 +84768,7 @@ var MKe = { class: "relative flex h-18 items-center justify-between px-4" }, NKe
 					}, [W(P(pN), {
 						class: "h-5 w-5",
 						"aria-hidden": "true"
-					})], 8, PKe)]),
+					})], 8, FKe)]),
 					_: 1
 				}), W(P(QQ), { align: "end" }, {
 					default: F(() => [W(P($Q), {
@@ -84784,22 +84799,22 @@ var MKe = { class: "relative flex h-18 items-center justify-between px-4" }, NKe
 	}
 });
 K(), cA();
-var IKe = { class: "relative h-full" }, LKe = { class: "relative flex h-18 items-center px-4" }, RKe = { class: "flex w-full items-center space-x-2" }, zKe = { class: "relative flex-1" }, BKe = { class: "absolute top-1/2 left-3 flex h-4.5 w-4.5 -translate-y-1/2 transform items-center justify-center" }, VKe = ["aria-label", "placeholder"], HKe = ["aria-label"], UKe = {
+var LKe = { class: "relative h-full" }, RKe = { class: "relative flex h-18 items-center px-4" }, zKe = { class: "flex w-full items-center space-x-2" }, BKe = { class: "relative flex-1" }, VKe = { class: "absolute top-1/2 left-3 flex h-4.5 w-4.5 -translate-y-1/2 transform items-center justify-center" }, HKe = ["aria-label", "placeholder"], UKe = ["aria-label"], WKe = {
 	key: 0,
 	class: "mx-2 mt-2 mb-2 flex items-center gap-2 overflow-auto text-base text-content"
-}, WKe = ["onClick"], GKe = {
+}, GKe = ["onClick"], KKe = {
 	key: 1,
 	class: "flex flex-col"
-}, KKe = {
+}, qKe = {
 	key: 2,
 	class: "flex h-[80dvh] flex-col items-center justify-center gap-4 px-6 py-12"
-}, qKe = ["src"], JKe = {
+}, JKe = ["src"], YKe = {
 	key: 2,
 	class: "text-center text-base text-content-subtle"
-}, YKe = 100, XKe = /*#__PURE__*/ LA(/* @__PURE__ */ L({
+}, XKe = 100, ZKe = /*#__PURE__*/ LA(/* @__PURE__ */ L({
 	__name: "RoomList",
 	setup(e) {
-		let t = FM(), n = Pu(), r = IA(), { sortType: i, isFirstLoading: a, setSortType: o } = GGe(), s = G(() => t.sortedRooms), c = G(() => t.sortedFolderIds.map((e) => t.folders[e]).filter((e) => e)), l = G(() => t.folders[t.selectedFolderId]), u = G(() => t.searchType), d = G(() => t.searchKeyword ? Object.values(PA).filter((e) => e in t.searchRooms) : []), f = G(() => t.roomTag), p = G(() => r.settings);
+		let t = FM(), n = Pu(), r = IA(), { sortType: i, isFirstLoading: a, setSortType: o } = KGe(), s = G(() => t.sortedRooms), c = G(() => t.sortedFolderIds.map((e) => t.folders[e]).filter((e) => e)), l = G(() => t.folders[t.selectedFolderId]), u = G(() => t.searchType), d = G(() => t.searchKeyword ? Object.values(PA).filter((e) => e in t.searchRooms) : []), f = G(() => t.roomTag), p = G(() => r.settings);
 		K7({ lockScroll: () => p.value.fullPageEnabled === !0 });
 		let m = G(() => pA()), h = 0, g = null, _ = "", v = async () => {
 			a.value = !0;
@@ -84809,7 +84824,7 @@ var IKe = { class: "relative h-full" }, LKe = { class: "relative flex h-18 items
 				a.value = !1;
 			}
 			await t.fetchRoomsInFolders();
-		}, { searchKeyword: y, searchInput: b, isCompositting: x, isAPIRequesting: S, clearSearch: C } = WGe({ fetchTask: v }), w = G(() => {
+		}, { searchKeyword: y, searchInput: b, isCompositting: x, isAPIRequesting: S, clearSearch: C } = GGe({ fetchTask: v }), w = G(() => {
 			if (t.searchKeyword && n.modals.length === 0) {
 				if (u.value === PA.RoomPrefFolder && l.value) {
 					let e = [...t.searchRooms[u.value] || []], n = l.value.roomIds.map((e) => t.rooms[e]).filter((e) => f.value ? e && e.roomTags.includes(f.value) : !!e), r = e.findIndex((e) => e.id === l.value.id);
@@ -84831,16 +84846,16 @@ var IKe = { class: "relative h-full" }, LKe = { class: "relative flex h-18 items
 		}, ue = (e) => {
 			let t = ae.value;
 			if (!t) return;
-			let n = e + t.clientHeight >= t.scrollHeight - YKe;
+			let n = e + t.clientHeight >= t.scrollHeight - XKe;
 			n && !ce && le(), ce = n;
 		}, de = () => {
 			let { open: e } = cj({ component: v9 });
 			e();
 		}, fe = () => {
-			let { open: e } = cj({ component: oKe });
+			let { open: e } = cj({ component: sKe });
 			e();
 		}, pe = () => {
-			let { open: e } = cj({ component: jKe });
+			let { open: e } = cj({ component: MKe });
 			e();
 		};
 		I(s, (e) => {
@@ -84863,7 +84878,7 @@ var IKe = { class: "relative h-full" }, LKe = { class: "relative flex h-18 items
 			}, { immediate: !0 }), document.addEventListener("visibilitychange", me);
 		}), za(() => {
 			g && (g(), g = null), document.removeEventListener("visibilitychange", me);
-		}), (e, n) => (R(), z("div", IKe, [V("div", {
+		}), (e, n) => (R(), z("div", LKe, [V("div", {
 			ref_key: "scrollEl",
 			ref: ae,
 			class: "h-full overflow-auto transition ease-in-out",
@@ -84872,7 +84887,7 @@ var IKe = { class: "relative h-full" }, LKe = { class: "relative flex h-18 items
 			ref_key: "headerEl",
 			ref: oe
 		}, [
-			W(FKe, {
+			W(IKe, {
 				"sort-type": P(i),
 				"show-dark-mode-switch": p.value.showDarkModeSwitch,
 				"mass-texting-enabled": p.value.massTextingEnabled,
@@ -84885,8 +84900,8 @@ var IKe = { class: "relative h-full" }, LKe = { class: "relative flex h-18 items
 				"mass-texting-enabled",
 				"onSort"
 			]),
-			V("div", LKe, [W(n9), V("div", RKe, [V("div", zKe, [
-				V("div", BKe, [T.value ? (R(), B(RA, { key: 0 })) : (R(), B(P(_N), {
+			V("div", RKe, [W(n9), V("div", zKe, [V("div", BKe, [
+				V("div", VKe, [T.value ? (R(), B(RA, { key: 0 })) : (R(), B(P(_N), {
 					key: 1,
 					class: "h-4.5 w-4.5 text-content-subtle"
 				}))]),
@@ -84901,33 +84916,33 @@ var IKe = { class: "relative h-full" }, LKe = { class: "relative flex h-18 items
 					onCompositionstart: n[1] || (n[1] = (e) => x.value = !0),
 					onCompositionend: n[2] || (n[2] = (e) => x.value = !1),
 					onBlur: n[3] || (n[3] = (e) => x.value = !1)
-				}, null, 40, VKe), [[Zs, P(y)]]),
+				}, null, 40, HKe), [[Zs, P(y)]]),
 				E.value ? (R(), z("button", {
 					key: 0,
 					class: "absolute inset-y-0 right-3 flex items-center text-content-muted transition-colors hover:text-content focus-visible:ring-1 focus-visible:ring-accent-vivid focus-visible:outline-none",
 					type: "button",
 					"aria-label": e.$t("clearSearch"),
 					onClick: n[4] || (n[4] = (...e) => P(C) && P(C)(...e))
-				}, [W(P(EN), { class: "h-5 w-5" })], 8, HKe)) : H("", !0)
+				}, [W(P(EN), { class: "h-5 w-5" })], 8, UKe)) : H("", !0)
 			])])]),
-			O.value ? (R(), z("div", UKe, [(R(!0), z(U, null, Wr(d.value, (n) => (R(), z("div", {
+			O.value ? (R(), z("div", WKe, [(R(!0), z(U, null, Wr(d.value, (n) => (R(), z("div", {
 				key: n,
 				class: A(["cursor-pointer rounded-lg px-3 py-2 whitespace-nowrap hover:bg-surface-hover", { "bg-surface-muted font-medium text-content": n === u.value }]),
 				onClick: (e) => P(t).$patch({ searchType: n })
-			}, M(e.$t(n)), 11, WKe))), 128))])) : H("", !0),
-			D.value ? (R(), z("div", GKe, [(R(), z(U, null, Wr(20, (e) => V("div", {
+			}, M(e.$t(n)), 11, GKe))), 128))])) : H("", !0),
+			D.value ? (R(), z("div", KKe, [(R(), z(U, null, Wr(20, (e) => V("div", {
 				key: e,
 				class: "flex gap-3 px-4 py-2.5"
-			}, [...n[5] || (n[5] = [V("div", { class: "loading h-[50px] w-[50px] rounded-lg bg-surface" }, null, -1), V("div", { class: "flex grow flex-col justify-center gap-2" }, [V("div", { class: "loading h-5 w-full rounded-md bg-surface" }), V("div", { class: "loading h-4 w-4/5 rounded-md bg-surface" })], -1)])])), 64))])) : ee.value ? (R(), z("div", KKe, [te.value ? (R(), z("img", {
+			}, [...n[5] || (n[5] = [V("div", { class: "loading h-[50px] w-[50px] rounded-lg bg-surface" }, null, -1), V("div", { class: "flex grow flex-col justify-center gap-2" }, [V("div", { class: "loading h-5 w-full rounded-md bg-surface" }), V("div", { class: "loading h-4 w-4/5 rounded-md bg-surface" })], -1)])])), 64))])) : ee.value ? (R(), z("div", qKe, [te.value ? (R(), z("img", {
 				key: 0,
 				src: p.value.noRoomsImageURL,
 				class: "h-24 w-24 object-contain"
-			}, null, 8, qKe)) : k.value ? (R(), B(P(Mhe), {
+			}, null, 8, JKe)) : k.value ? (R(), B(P(Mhe), {
 				key: 1,
 				class: "h-14 w-14 text-content-subtle",
 				"stroke-width": 1.25,
 				"aria-hidden": "true"
-			})) : H("", !0), ne.value ? (R(), z("p", JKe, M(j.value), 1)) : H("", !0)])) : H("", !0)
+			})) : H("", !0), ne.value ? (R(), z("p", YKe, M(j.value), 1)) : H("", !0)])) : H("", !0)
 		], 512), W(P(cd), {
 			data: w.value,
 			"scroll-ref": ae.value,
@@ -84935,7 +84950,7 @@ var IKe = { class: "relative h-full" }, LKe = { class: "relative flex h-18 items
 			"item-size": 70,
 			onScroll: ue
 		}, {
-			default: F(({ item: e }) => [W(UGe, {
+			default: F(({ item: e }) => [W(WGe, {
 				source: e,
 				onManageFolders: fe
 			}, null, 8, ["source"])]),
@@ -84950,7 +84965,7 @@ var IKe = { class: "relative h-full" }, LKe = { class: "relative flex h-18 items
 //#endregion
 //#region src/composables/useDesignPalette.ts
 K();
-function ZKe(e, t) {
+function QKe(e, t) {
 	let n = null, r = null, i = () => {
 		let i = e.value;
 		if (!i) {
@@ -84971,7 +84986,7 @@ function E9(e) {
 function D9(e) {
 	return e.type.indexOf("mouse") === -1 ? e.touches?.[0]?.clientY ?? 0 : e.clientY;
 }
-var QKe = { install(e, t) {
+var $Ke = { install(e, t) {
 	var n = Object.assign({}, {
 		touchClass: "",
 		namespace: "touch",
@@ -85165,7 +85180,7 @@ var QKe = { install(e, t) {
 	} }), e.directive(`${n.namespace}-options`, { beforeMount: function(e, t) {
 		g(e, t.value);
 	} });
-} }, $Ke = (e, t) => {
+} }, eqe = (e, t) => {
 	Qpe(e), fA(t), Fme(), qBe();
 };
 //#endregion
@@ -85183,17 +85198,17 @@ function O9(e) {
 		console.warn(`[imkit] ${e} bridge post failed`, t);
 	}
 }
-var eqe = /* @__PURE__ */ new Set([
+var tqe = /* @__PURE__ */ new Set([
 	"TRIBO_IMKIT",
 	"FLUTTER_IMKIT",
 	"IOS_IMKIT"
 ]), k9 = (e) => typeof e == "object" && !!e, A9 = (e) => {
 	if (!k9(e.data)) return;
 	let t = e.data;
-	if (t.type !== void 0 && (typeof t.type != "string" || !eqe.has(t.type))) return;
+	if (t.type !== void 0 && (typeof t.type != "string" || !tqe.has(t.type))) return;
 	let n = k9(t.payload) ? t.payload : {};
 	t.eventType === "HOST_CAPABILITIES" ? Nke(n) : t.eventType === "KEYBOARD_TRANSITION_END" && Pke(n);
-}, tqe = () => {
+}, nqe = () => {
 	let e = window.webkit?.messageHandlers?.IMKitBridge;
 	if (e) try {
 		e.postMessage(JSON.stringify({
@@ -85206,7 +85221,7 @@ var eqe = /* @__PURE__ */ new Set([
 		console.warn("[imkit] iOS keyboard bridge post failed", e);
 	}
 }, j9 = null;
-function nqe() {
+function rqe() {
 	j9?.();
 	let e = LM(), t = I(() => e.selectedRoomId, (e, t) => {
 		t && O9({
@@ -85217,7 +85232,7 @@ function nqe() {
 			roomId: e
 		});
 	}, { immediate: !0 });
-	window.addEventListener("message", A9), tqe();
+	window.addEventListener("message", A9), nqe();
 	let n = () => {
 		t(), window.removeEventListener("message", A9), j9 === n && (j9 = null);
 	};
@@ -85226,8 +85241,8 @@ function nqe() {
 //#endregion
 //#region src/lib.ts
 var M9 = (e) => {
-	e.use(ju()), e.use(uA), e.use(QKe, { disableClick: !1 });
-}, rqe = { install: async (e, t) => {
+	e.use(ju()), e.use(uA), e.use($Ke, { disableClick: !1 });
+}, iqe = { install: async (e, t) => {
 	console.log("IMKIT version:", c9), "store" in t && console.warn("[imkit] options.store is no longer accepted; SDK owns its Pinia store internally.");
 	let { config: n } = t, r = e.config.globalProperties.$pinia, i = r ?? _c();
 	r || e.use(i);
@@ -85238,7 +85253,7 @@ var M9 = (e) => {
 	} catch (e) {
 		console.log(e);
 	}
-	$Ke(n, a), fhe(i), nqe(), M9(e);
+	eqe(n, a), fhe(i), rqe(), M9(e);
 } };
 //#endregion
 //#region src/custom-element.ts
@@ -85249,7 +85264,7 @@ var N9 = "imkit-chat-room", P9 = "imkit-room-list", F9 = "imkit-chat-room-info",
 	z9,
 	V9,
 	H9
-], W9 = [...U9, B9], iqe = () => ({
+], W9 = [...U9, B9], aqe = () => ({
 	locationInputEnabled: !0,
 	audioInputEnabled: !0,
 	fileInputEnabled: !0,
@@ -85268,17 +85283,17 @@ var N9 = "imkit-chat-room", P9 = "imkit-room-list", F9 = "imkit-chat-room-info",
 	enableReadReceipt: !0,
 	linkPreviewEnabled: !0,
 	fullPageEnabled: !1
-}), aqe = () => ({
+}), oqe = () => ({
 	incomingMessageCell: "",
 	outgoingMessageCell: "",
 	roomListUnreadBadge: "",
 	chatRoomHeader: "",
 	sendButtonEnabled: "",
 	sendButtonDisabled: ""
-}), oqe = () => ({
+}), sqe = () => ({
 	onMessageReceived: () => {},
 	onMessageSent: () => {}
-}), sqe = (e, t) => ({
+}), cqe = (e, t) => ({
 	domain: e[R9] ?? "",
 	clientKey: e[z9] ?? "",
 	token: e[L9] ?? "",
@@ -85286,38 +85301,38 @@ var N9 = "imkit-chat-room", P9 = "imkit-room-list", F9 = "imkit-chat-room-info",
 	mapApiKey: "",
 	firebaseConfig: null,
 	firebaseVapidKey: void 0,
-	settings: iqe(),
-	styles: aqe(),
-	callbacks: oqe(),
+	settings: aqe(),
+	styles: oqe(),
+	callbacks: sqe(),
 	...t
-}), G9, K9, q9 = !1, J9 = 0, cqe = () => (G9 || (G9 = _c()), G9), lqe = (e) => (K9 || (K9 = FM(e)), K9), uqe = () => {
+}), G9, K9, q9 = !1, J9 = 0, lqe = () => (G9 || (G9 = _c()), G9), uqe = (e) => (K9 || (K9 = FM(e)), K9), dqe = () => {
 	if (J9 = Math.max(0, J9 - 1), !(J9 > 0 || !K9)) {
 		try {
 			C7().disconnect();
 		} catch {}
 		G9 = void 0, K9 = void 0, q9 = !1;
 	}
-}, dqe = (e) => {
+}, fqe = (e) => {
 	try {
 		let { id: t, _id: n } = ee(e), r = t ?? n;
 		return typeof r == "string" ? r : "";
 	} catch (e) {
 		return console.log(e), "";
 	}
-}, fqe = (e) => {
+}, pqe = (e) => {
 	try {
 		Object.assign(IA(), e);
 	} catch {
 		return;
 	}
-	typeof e.token == "string" && fA(dqe(e.token));
-}, pqe = () => {
+	typeof e.token == "string" && fA(fqe(e.token));
+}, mqe = () => {
 	try {
 		return IA().token;
 	} catch {
 		return;
 	}
-}, mqe = () => {
+}, hqe = () => {
 	try {
 		let e = C7();
 		e.disconnect(), e.connect();
@@ -85373,20 +85388,20 @@ var N9 = "imkit-chat-room", P9 = "imkit-room-list", F9 = "imkit-chat-room-info",
 		return e;
 	}
 	applyMountedRuntimeConfigPatch(e) {
-		let t = typeof e.token == "string" && e.token !== pqe();
+		let t = typeof e.token == "string" && e.token !== mqe();
 		if (t) {
 			this.store?.resetSession();
 			let e = this.getAttribute(B9);
 			e !== null && this.store?.$patch({ selectedRoomId: e });
 		}
-		fqe(e), (t || e.clientKey || e.domain) && mqe();
+		pqe(e), (t || e.clientKey || e.domain) && hqe();
 	}
 	mount() {
-		let e = sqe(this.currentAttrs(), this.overrides), t = cqe(), n = lqe(t), r = this.getAttribute(B9) ?? "", i = this.getAttribute(V9) ?? "", a = this.modeState, o = this.getRootComponent(), s = this.includesInlineModals(), c = this.hideRootWhenNoSelectedRoom(), l = /* @__PURE__ */ L({
+		let e = cqe(this.currentAttrs(), this.overrides), t = lqe(), n = uqe(t), r = this.getAttribute(B9) ?? "", i = this.getAttribute(V9) ?? "", a = this.modeState, o = this.getRootComponent(), s = this.includesInlineModals(), c = this.hideRootWhenNoSelectedRoom(), l = /* @__PURE__ */ L({
 			name: "IMKitElementCE",
 			setup() {
 				let e = o ? Ut(o) : null, t = Ut(zu), n = FM(), r = G(() => e ? !c || !!n.selectedRoomId : !1), i = /* @__PURE__ */ N(null), l = G(() => a.mode === "dark");
-				return ZKe(i, l), () => {
+				return QKe(i, l), () => {
 					let n = [];
 					return r.value && e && n.push(Zi(e)), s && n.push(Zi(t)), Zi("div", {
 						ref: i,
@@ -85399,7 +85414,7 @@ var N9 = "imkit-chat-room", P9 = "imkit-room-list", F9 = "imkit-chat-room-info",
 		let d = ac(l);
 		d.use(t);
 		let f;
-		q9 ? (M9(d), f = Promise.resolve()) : (q9 = !0, f = Promise.resolve(rqe.install(d, { config: e }))), f.then(() => {
+		q9 ? (M9(d), f = Promise.resolve()) : (q9 = !0, f = Promise.resolve(iqe.install(d, { config: e }))), f.then(() => {
 			i && n.setRoomTag(i), r && n.$patch({ selectedRoomId: r }), this.bridgeStoreEvents(n), d.mount(u), this.onAfterMount?.(n), this._imkitReady = !0, this.dispatchEvent(new CustomEvent("imkit-ready"));
 		}).catch((e) => {
 			this.dispatchEvent(new CustomEvent("imkit-error", { detail: e })), console.error(`[${this.getElementLabel()}] failed to mount:`, e);
@@ -85412,7 +85427,7 @@ var N9 = "imkit-chat-room", P9 = "imkit-room-list", F9 = "imkit-chat-room-info",
 		} catch (e) {
 			console.warn(`[${this.getElementLabel()}] unmount error:`, e);
 		}
-		this.mountPoint?.remove(), this.mountPoint = void 0, this.app = void 0, this.store = void 0, uqe();
+		this.mountPoint?.remove(), this.mountPoint = void 0, this.app = void 0, this.store = void 0, dqe();
 	}
 	bridgeStoreEvents(e) {
 		let t = e.selectedRoomId;
@@ -85454,7 +85469,7 @@ var N9 = "imkit-chat-room", P9 = "imkit-room-list", F9 = "imkit-chat-room-info",
 		return W9;
 	}
 	getRootComponent() {
-		return sUe;
+		return cUe;
 	}
 	getElementLabel() {
 		return N9;
@@ -85475,7 +85490,7 @@ var N9 = "imkit-chat-room", P9 = "imkit-room-list", F9 = "imkit-chat-room-info",
 		return U9;
 	}
 	getRootComponent() {
-		return XKe;
+		return ZKe;
 	}
 	getElementLabel() {
 		return P9;
@@ -85490,7 +85505,7 @@ var N9 = "imkit-chat-room", P9 = "imkit-room-list", F9 = "imkit-chat-room-info",
 		return W9;
 	}
 	getRootComponent() {
-		return uGe;
+		return dGe;
 	}
 	getElementLabel() {
 		return F9;
