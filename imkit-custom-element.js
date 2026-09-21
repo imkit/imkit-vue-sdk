@@ -85282,7 +85282,7 @@ var AWe = ["aria-label"], jWe = { class: "tooltip" }, MWe = ["aria-label"], NWe 
 			_: 1
 		}));
 	}
-}), [["__scopeId", "data-v-aecf5c75"]]), e9 = "1.125.3-15-g65d4d65b";
+}), [["__scopeId", "data-v-aecf5c75"]]), e9 = "1.125.3-16-g6f5b5e0e";
 //#endregion
 //#region src/components/VersionModal.vue?vue&type=script&setup=true&lang.ts
 G();
@@ -87554,7 +87554,7 @@ var cJe = {
 			return e && e !== c.value.displayName ? e : "";
 		}), T = W(() => s.sortedFolderIds), E = W(() => c.value?.roomTags?.[0] ?? ""), D = W(() => {
 			let e = c.value.roomTags ?? [], t = c.value.pref?.tags ?? [];
-			return [...e.filter((e) => e !== E.value), ...t];
+			return [...e.filter((e) => e !== E.value && !(c.value.isPinchatAi && e === "PINCHAT_AI")), ...t];
 		}), O = () => {
 			let { open: e } = fj({
 				component: v9,
