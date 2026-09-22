@@ -81881,7 +81881,7 @@ var g7 = 24, zHe = ({ room: e, scrollEl: t, isMessageMenuOpen: n }) => {
 	return t ? Math.min(e, t.height * t.scale) : e;
 }, b7 = (e) => {
 	document.documentElement.style.setProperty(_7, `${e}px`);
-}, BHe = 400, x7 = 100, S7 = null, C7 = null, w7 = null, T7 = null, E7 = () => {
+}, BHe = 600, x7 = 100, S7 = null, C7 = null, w7 = null, T7 = null, E7 = () => {
 	w7 !== null && window.cancelAnimationFrame(w7), T7 !== null && window.clearTimeout(T7), w7 = null, T7 = null, C7 = null;
 }, D7 = (e) => e instanceof HTMLElement && (e.isContentEditable || e.matches("textarea, input:not([type]), input[type=\"text\"], input[type=\"search\"], input[type=\"email\"], input[type=\"password\"], input[type=\"tel\"], input[type=\"url\"], input[type=\"number\"], [contenteditable=\"true\"], [contenteditable=\"\"]")), O7 = () => {
 	let e = document.activeElement;
@@ -81890,6 +81890,10 @@ var g7 = 24, zHe = ({ room: e, scrollEl: t, isMessageMenuOpen: n }) => {
 }, k7 = () => v7 > 0 && !f2.supported.value && window.visualViewport?.scale === 1 && (/iPad|iPhone|iPod/.test(navigator.userAgent) || navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1), A7 = () => {
 	let e = y7();
 	if (C7) {
+		if (C7.width !== window.innerWidth || !k7()) {
+			E7(), S7 = null, b7(e);
+			return;
+		}
 		if (e >= C7.from && e - C7.from < x7) return;
 		E7(), D7(O7()) || (S7 = null);
 	}
@@ -81903,25 +81907,19 @@ var g7 = 24, zHe = ({ room: e, scrollEl: t, isMessageMenuOpen: n }) => {
 	let t = e.composedPath()[0];
 	if (!(t instanceof Element) || !D7(t) || !k7() || !S7 || S7.width !== window.innerWidth) return;
 	let n = y7(), r = S7.height;
-	if (r - n < x7) return;
-	E7();
-	let i = performance.now();
-	C7 = {
+	r - n < x7 || (E7(), C7 = {
 		from: n,
 		to: r,
-		startedAt: i
-	};
-	let a = (e) => {
-		if (w7 = null, D7(O7())) {
+		width: window.innerWidth
+	}, w7 = window.requestAnimationFrame(() => {
+		if (w7 = null, D7(O7()) || !k7() || S7?.width !== window.innerWidth) {
 			E7(), A7();
 			return;
 		}
-		let t = Math.min((e - i) / BHe, 1);
-		b7(Math.max(y7(), n + (r - n) * t)), t < 1 && (w7 = window.requestAnimationFrame(a));
-	};
-	w7 = window.requestAnimationFrame(a), T7 = window.setTimeout(() => {
+		b7(r);
+	}), T7 = window.setTimeout(() => {
 		E7(), S7 = null, A7();
-	}, 600);
+	}, BHe));
 }, N7 = () => {
 	E7(), S7 = null;
 }, P7 = () => {
@@ -85282,7 +85280,7 @@ var jWe = ["aria-label"], MWe = { class: "tooltip" }, NWe = ["aria-label"], PWe 
 			_: 1
 		}));
 	}
-}), [["__scopeId", "data-v-aecf5c75"]]), e9 = "1.125.3-17-g0e43fbd7";
+}), [["__scopeId", "data-v-aecf5c75"]]), e9 = "1.125.3-18-gab4a88a9";
 //#endregion
 //#region src/components/VersionModal.vue?vue&type=script&setup=true&lang.ts
 G();
