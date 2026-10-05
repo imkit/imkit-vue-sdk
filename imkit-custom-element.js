@@ -85728,7 +85728,7 @@ var oGe = ["aria-label"], sGe = { class: "tooltip" }, cGe = ["aria-label"], lGe 
 			_: 1
 		}));
 	}
-}), [["__scopeId", "data-v-aecf5c75"]]), e9 = "1.129.0-22-g6e606d64";
+}), [["__scopeId", "data-v-aecf5c75"]]), e9 = "1.129.0-23-g3e9891cc";
 //#endregion
 //#region src/components/VersionModal.vue?vue&type=script&setup=true&lang.ts
 G();
